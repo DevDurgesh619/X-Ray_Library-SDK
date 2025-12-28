@@ -8,4 +8,5 @@ export interface Step {
   durationMs?: number
   timestamp: string
   metadata?: Record<string, any>
+  reasoning?: string  // 🔥 NEW: Auto-generated
 }

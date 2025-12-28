@@ -20,3 +20,6 @@ export function loadExecutions(): Execution[] {
 export function getExecutionById(id: string): Execution | undefined {
   return loadExecutions().find(e => e.executionId === id)
 }
+export function getExecutions(): Execution[] {
+  return loadExecutions()
+}

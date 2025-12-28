@@ -1,25 +1,20 @@
 import Link from "next/link"
 import { getExecutions } from "@/lib/storage"
 
-export default function HomePage() {
+export default function MovieDashboard() {
   const executions = getExecutions().filter(
-    e => e.metadata?.domain !== "movie-recommendation"
+    e => e.metadata?.domain === "movie-recommendation"
   )
 
   return (
-    <main className="p-6">
-      <nav className="mb-4">
-        <a href="/" className="mr-4">Competitors</a>
-        <a href="/movies">Movies</a>
-      </nav>
-
-      <h1 className="text-2xl font-bold mb-4">X-Ray Executions</h1>
+    <main style={{ padding: 24 }}>
+      <h1>🎬 Movie Recommendation Executions</h1>
 
       {executions.length === 0 && (
-        <p>No competitor executions found</p>
+        <p>No movie executions found</p>
       )}
 
-      <ul className="space-y-2">
+      <ul>
         {executions.map(exec => (
           <li key={exec.executionId}>
             <Link href={`/execution/${exec.executionId}`}>

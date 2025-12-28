@@ -164,351 +164,1184 @@
     }
   },
   {
-    "executionId": "95f45503-92ec-46a1-b5f8-1c6b02eef40a",
-    "startedAt": "2025-12-27T15:21:25.446Z",
+    "executionId": "movie-exec-8584941c-6384-4e2d-9df2-bd9a8ece399f",
+    "startedAt": "2025-12-28T08:31:32.777Z",
     "steps": [
       {
-        "name": "keyword_generation",
+        "name": "preference_understanding",
         "input": {
-          "title": "Steel Water Bottle"
-        },
-        "output": {
-          "keywords": [
-            "metal water bottle insulated"
+          "seed_movie": "Inception",
+          "user_likes": [
+            "Sci-Fi",
+            "Thriller"
           ]
         },
-        "reasoning": "Extracted material and product type"
+        "timestamp": "2025-12-28T08:31:32.777Z",
+        "startedAt": "2025-12-28T08:31:32.777Z",
+        "output": {
+          "extracted_themes": [
+            "time manipulation",
+            "mind-bending"
+          ]
+        },
+        "endedAt": "2025-12-28T08:31:32.777Z",
+        "durationMs": 0,
+        "reasoning": "Extracted themes: \"time manipulation, mind-bending\" from \"Inception\""
       },
       {
         "name": "candidate_search",
-        "candidates": [
-          {
-            "id": "A",
-            "title": "HydroFlask",
-            "price": 45,
-            "rating": 4.5,
-            "reviews": 8000
+        "input": {
+          "themes": [
+            "time manipulation",
+            "mind-bending"
+          ],
+          "limit": 50
+        },
+        "timestamp": "2025-12-28T08:31:32.777Z",
+        "startedAt": "2025-12-28T08:31:32.777Z",
+        "output": {
+          "total_found": 5,
+          "candidates_fetched": 5,
+          "candidates": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.8,
+              "year": 2020
+            },
+            {
+              "id": "M3",
+              "title": "The Butterfly Effect",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.3,
+              "year": 2004
+            },
+            {
+              "id": "M4",
+              "title": "Inception",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 8.8,
+              "year": 2010
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "genres": [
+                "Merchandise"
+              ],
+              "rating": 7.5,
+              "year": 2021
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:31:32.777Z",
+        "durationMs": 0,
+        "reasoning": "Found 5 candidates matching \"time manipulation, mind-bending\""
+      },
+      {
+        "name": "exclude_reference_item",
+        "input": {
+          "reference_movie": "Inception",
+          "initial_candidates": 5
+        },
+        "timestamp": "2025-12-28T08:31:32.777Z",
+        "startedAt": "2025-12-28T08:31:32.777Z",
+        "output": {
+          "removed": [
+            "Inception"
+          ],
+          "remaining_candidates": 4,
+          "remaining": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.8,
+              "year": 2020
+            },
+            {
+              "id": "M3",
+              "title": "The Butterfly Effect",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.3,
+              "year": 2004
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "genres": [
+                "Merchandise"
+              ],
+              "rating": 7.5,
+              "year": 2021
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:31:32.777Z",
+        "durationMs": 0,
+        "reasoning": "Removed 1 items (4 remain)"
+      },
+      {
+        "name": "apply_filters",
+        "input": {
+          "min_rating": 7.5,
+          "max_age_years": 15
+        },
+        "timestamp": "2025-12-28T08:31:32.777Z",
+        "startedAt": "2025-12-28T08:31:32.777Z",
+        "output": {
+          "passed": 3,
+          "failed": 1,
+          "remaining": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.8,
+              "year": 2020
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "genres": [
+                "Merchandise"
+              ],
+              "rating": 7.5,
+              "year": 2021
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:31:32.778Z",
+        "durationMs": 1,
+        "reasoning": "Filtered 3 items (dropped 1) based on {\"min_rating\":7.5,\"max_age_years\":15}"
+      },
+      {
+        "name": "llm_relevance_evaluation",
+        "input": {
+          "candidates_count": 3,
+          "reference_movie": {
+            "title": "Inception",
+            "themes": [
+              "time manipulation",
+              "mind-bending"
+            ]
           },
-          {
-            "id": "B",
-            "title": "Generic Bottle",
-            "price": 9,
-            "rating": 3.1,
-            "reviews": 20
-          },
-          {
-            "id": "C",
-            "title": "Yeti",
-            "price": 35,
-            "rating": 4.4,
-            "reviews": 5000
+          "model": "fake-gpt-4"
+        },
+        "timestamp": "2025-12-28T08:31:32.778Z",
+        "startedAt": "2025-12-28T08:31:32.778Z",
+        "output": {
+          "total_evaluated": 3,
+          "confirmed_relevant": 2,
+          "rejected_as_irrelevant": 1,
+          "evaluations": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "is_relevant": true,
+              "confidence": 0.85
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "is_relevant": true,
+              "confidence": 0.85
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "is_relevant": false,
+              "confidence": 0.98,
+              "rejection_reason": {
+                "code": "NON_MOVIE_MERCH",
+                "explanation": "Item is merchandise (e.g., poster, toy) rather than a movie"
+              }
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:31:32.778Z",
+        "durationMs": 0,
+        "reasoning": "Evaluated 3 items, accepted 2 as relevant"
+      },
+      {
+        "name": "rank_and_select",
+        "input": {
+          "ranking": [
+            "rating",
+            "recency"
+          ]
+        },
+        "timestamp": "2025-12-28T08:31:32.778Z",
+        "startedAt": "2025-12-28T08:31:32.778Z",
+        "output": {
+          "ranked_candidates": [
+            {
+              "rank": 1,
+              "movie": {
+                "id": "M1",
+                "title": "Interstellar",
+                "genres": [
+                  "Sci-Fi",
+                  "Drama"
+                ],
+                "rating": 8.6,
+                "year": 2014
+              },
+              "confidence": 0.85
+            },
+            {
+              "rank": 2,
+              "movie": {
+                "id": "M2",
+                "title": "Tenet",
+                "genres": [
+                  "Sci-Fi",
+                  "Thriller"
+                ],
+                "rating": 7.8,
+                "year": 2020
+              },
+              "confidence": 0.85
+            }
+          ],
+          "selection": {
+            "rank": 1,
+            "movie": {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            "confidence": 0.85
           }
+        },
+        "endedAt": "2025-12-28T08:31:32.778Z",
+        "durationMs": 0,
+        "reasoning": "Selected \"Interstellar\" from 2 ranked options"
+      }
+    ],
+    "metadata": {
+      "domain": "movie-recommendation"
+    },
+    "endedAt": "2025-12-28T08:31:32.778Z",
+    "finalOutcome": {
+      "decision": "MOVIE_RECOMMENDED",
+      "movie": {
+        "id": "M1",
+        "title": "Interstellar",
+        "genres": [
+          "Sci-Fi",
+          "Drama"
         ],
-        "reasoning": "Fetched mock search results"
+        "rating": 8.6,
+        "year": 2014
+      }
+    }
+  },
+  {
+    "executionId": "movie-exec-e14d4848-d7a9-4e79-a1e6-0021c5201174",
+    "startedAt": "2025-12-28T08:34:33.190Z",
+    "steps": [
+      {
+        "name": "preference_understanding",
+        "input": {
+          "seed_movie": "Inception",
+          "user_likes": [
+            "Sci-Fi",
+            "Thriller"
+          ]
+        },
+        "timestamp": "2025-12-28T08:34:33.190Z",
+        "startedAt": "2025-12-28T08:34:33.190Z",
+        "output": {
+          "extracted_themes": [
+            "time manipulation",
+            "mind-bending"
+          ]
+        },
+        "endedAt": "2025-12-28T08:34:33.190Z",
+        "durationMs": 0,
+        "reasoning": "Extracted themes: \"time manipulation, mind-bending\" from \"Inception\""
+      },
+      {
+        "name": "candidate_search",
+        "input": {
+          "themes": [
+            "time manipulation",
+            "mind-bending"
+          ],
+          "limit": 50
+        },
+        "timestamp": "2025-12-28T08:34:33.190Z",
+        "startedAt": "2025-12-28T08:34:33.190Z",
+        "output": {
+          "total_found": 5,
+          "candidates_fetched": 5,
+          "candidates": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.8,
+              "year": 2020
+            },
+            {
+              "id": "M3",
+              "title": "The Butterfly Effect",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.3,
+              "year": 2004
+            },
+            {
+              "id": "M4",
+              "title": "Inception",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 8.8,
+              "year": 2010
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "genres": [
+                "Merchandise"
+              ],
+              "rating": 7.5,
+              "year": 2021
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:34:33.190Z",
+        "durationMs": 0,
+        "reasoning": "Found 5 candidates matching \"time manipulation, mind-bending\""
+      },
+      {
+        "name": "exclude_reference_item",
+        "input": {
+          "reference_movie": "Inception",
+          "initial_candidates": 5
+        },
+        "timestamp": "2025-12-28T08:34:33.190Z",
+        "startedAt": "2025-12-28T08:34:33.190Z",
+        "output": {
+          "removed": [
+            "Inception"
+          ],
+          "remaining_candidates": 4,
+          "remaining": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.8,
+              "year": 2020
+            },
+            {
+              "id": "M3",
+              "title": "The Butterfly Effect",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.3,
+              "year": 2004
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "genres": [
+                "Merchandise"
+              ],
+              "rating": 7.5,
+              "year": 2021
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:34:33.190Z",
+        "durationMs": 0,
+        "reasoning": "Removed 1 items (4 remain)"
       },
       {
         "name": "apply_filters",
-        "evaluations": [
-          {
-            "id": "A",
-            "passed": true,
-            "reason": "Price within range"
+        "input": {
+          "min_rating": 7.5,
+          "max_age_years": 15
+        },
+        "timestamp": "2025-12-28T08:34:33.190Z",
+        "startedAt": "2025-12-28T08:34:33.190Z",
+        "output": {
+          "passed": 3,
+          "failed": 1,
+          "remaining": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "genres": [
+                "Sci-Fi",
+                "Thriller"
+              ],
+              "rating": 7.8,
+              "year": 2020
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "genres": [
+                "Merchandise"
+              ],
+              "rating": 7.5,
+              "year": 2021
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:34:33.190Z",
+        "durationMs": 0,
+        "reasoning": "Filtered 3 items (dropped 1) using rating ≥ 7.5, age ≤ 15y"
+      },
+      {
+        "name": "llm_relevance_evaluation",
+        "input": {
+          "candidates_count": 3,
+          "reference_movie": {
+            "title": "Inception",
+            "themes": [
+              "time manipulation",
+              "mind-bending"
+            ]
           },
-          {
-            "id": "B",
-            "passed": false,
-            "reason": "Too cheap"
-          },
-          {
-            "id": "C",
-            "passed": true,
-            "reason": "Price within range"
+          "model": "fake-gpt-4"
+        },
+        "timestamp": "2025-12-28T08:34:33.190Z",
+        "startedAt": "2025-12-28T08:34:33.190Z",
+        "output": {
+          "total_evaluated": 3,
+          "confirmed_relevant": 2,
+          "rejected_as_irrelevant": 1,
+          "evaluations": [
+            {
+              "id": "M1",
+              "title": "Interstellar",
+              "is_relevant": true,
+              "confidence": 0.85
+            },
+            {
+              "id": "M2",
+              "title": "Tenet",
+              "is_relevant": true,
+              "confidence": 0.85
+            },
+            {
+              "id": "M5",
+              "title": "Sci-Fi Movie Poster",
+              "is_relevant": false,
+              "confidence": 0.98,
+              "rejection_reason": {
+                "code": "NON_MOVIE_MERCH",
+                "explanation": "Item is merchandise (e.g., poster, toy) rather than a movie"
+              }
+            }
+          ]
+        },
+        "endedAt": "2025-12-28T08:34:33.190Z",
+        "durationMs": 0,
+        "reasoning": "Evaluated 3 items, accepted 2 as relevant"
+      },
+      {
+        "name": "rank_and_select",
+        "input": {
+          "ranking": [
+            "rating",
+            "recency"
+          ]
+        },
+        "timestamp": "2025-12-28T08:34:33.190Z",
+        "startedAt": "2025-12-28T08:34:33.190Z",
+        "output": {
+          "ranked_candidates": [
+            {
+              "rank": 1,
+              "movie": {
+                "id": "M1",
+                "title": "Interstellar",
+                "genres": [
+                  "Sci-Fi",
+                  "Drama"
+                ],
+                "rating": 8.6,
+                "year": 2014
+              },
+              "confidence": 0.85
+            },
+            {
+              "rank": 2,
+              "movie": {
+                "id": "M2",
+                "title": "Tenet",
+                "genres": [
+                  "Sci-Fi",
+                  "Thriller"
+                ],
+                "rating": 7.8,
+                "year": 2020
+              },
+              "confidence": 0.85
+            }
+          ],
+          "selection": {
+            "rank": 1,
+            "movie": {
+              "id": "M1",
+              "title": "Interstellar",
+              "genres": [
+                "Sci-Fi",
+                "Drama"
+              ],
+              "rating": 8.6,
+              "year": 2014
+            },
+            "confidence": 0.85
           }
+        },
+        "endedAt": "2025-12-28T08:34:33.190Z",
+        "durationMs": 0,
+        "reasoning": "Selected \"Interstellar\" from 2 ranked options"
+      }
+    ],
+    "metadata": {
+      "domain": "movie-recommendation"
+    },
+    "endedAt": "2025-12-28T08:34:33.190Z",
+    "finalOutcome": {
+      "decision": "MOVIE_RECOMMENDED",
+      "movie": {
+        "id": "M1",
+        "title": "Interstellar",
+        "genres": [
+          "Sci-Fi",
+          "Drama"
         ],
+        "rating": 8.6,
+        "year": 2014
+      }
+    }
+  },
+  {
+    "executionId": "a44d95c3-a337-48b8-aad8-27d87553dc80",
+    "startedAt": "2025-12-28T08:51:54.741Z",
+    "steps": [
+      {
+        "name": "keyword_generation",
+        "input": {
+          "product_title": "Stainless Steel Water Bottle 32oz Insulated",
+          "category": "Sports & Outdoors > Water Bottles"
+        },
         "output": {
-          "qualifiedIds": [
-            "A",
-            "C"
+          "keywords": [
+            "stainless steel water bottle insulated",
+            "vacuum insulated bottle 32oz"
+          ],
+          "model": "fake-gpt-4"
+        },
+        "timestamp": "2025-12-28T08:51:54.741Z",
+        "metadata": {
+          "reasoning": "Extracted material, size, and insulation attributes from title"
+        }
+      },
+      {
+        "name": "candidate_search",
+        "input": {
+          "keyword": "stainless steel water bottle insulated",
+          "limit": 50
+        },
+        "output": {
+          "total_results": 2847,
+          "candidates_fetched": 8,
+          "candidates": [
+            {
+              "asin": "B0COMP01",
+              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
+              "price": 44.99,
+              "rating": 4.5,
+              "reviews": 8932
+            },
+            {
+              "asin": "B0COMP02",
+              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
+              "price": 34.99,
+              "rating": 4.4,
+              "reviews": 5621
+            },
+            {
+              "asin": "B0COMP07",
+              "title": "Stanley Adventure Quencher 30oz Insulated",
+              "price": 35,
+              "rating": 4.3,
+              "reviews": 4102
+            },
+            {
+              "asin": "B0COMP03",
+              "title": "Generic Stainless Steel Bottle",
+              "price": 8.99,
+              "rating": 3.2,
+              "reviews": 45
+            },
+            {
+              "asin": "B0COMP04",
+              "title": "Premium Titanium Water Bottle",
+              "price": 89,
+              "rating": 4.8,
+              "reviews": 234
+            },
+            {
+              "asin": "B0COMP05",
+              "title": "Replacement Lid for HydroFlask",
+              "price": 12.99,
+              "rating": 4.7,
+              "reviews": 3421
+            },
+            {
+              "asin": "B0COMP06",
+              "title": "Water Bottle Carrier Bag with Strap",
+              "price": 18.99,
+              "rating": 4.6,
+              "reviews": 2109
+            },
+            {
+              "asin": "B0XYZ123",
+              "title": "Stainless Steel Water Bottle 32oz Insulated",
+              "price": 25,
+              "rating": 4.2,
+              "reviews": 1247,
+              "category": "Sports & Outdoors > Water Bottles"
+            }
           ]
         },
-        "reasoning": "Removed low-priced products"
+        "timestamp": "2025-12-28T08:51:54.741Z",
+        "metadata": {
+          "reasoning": "Fetched top candidates by keyword relevance"
+        }
+      },
+      {
+        "name": "apply_filters",
+        "input": {
+          "candidates_count": 8,
+          "reference_product": {
+            "asin": "B0XYZ123",
+            "title": "Stainless Steel Water Bottle 32oz Insulated",
+            "price": 25,
+            "rating": 4.2,
+            "reviews": 1247,
+            "category": "Sports & Outdoors > Water Bottles"
+          }
+        },
+        "output": {
+          "total_evaluated": 8,
+          "passed": 6,
+          "failed": 2,
+          "evaluations": [
+            {
+              "asin": "B0COMP01",
+              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
+              "price": 44.99,
+              "rating": 4.5,
+              "reviews": 8932,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$44.99 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.5 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "8932 vs 100"
+                }
+              },
+              "qualified": true
+            },
+            {
+              "asin": "B0COMP02",
+              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
+              "price": 34.99,
+              "rating": 4.4,
+              "reviews": 5621,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$34.99 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.4 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "5621 vs 100"
+                }
+              },
+              "qualified": true
+            },
+            {
+              "asin": "B0COMP07",
+              "title": "Stanley Adventure Quencher 30oz Insulated",
+              "price": 35,
+              "rating": 4.3,
+              "reviews": 4102,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$35 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.3 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "4102 vs 100"
+                }
+              },
+              "qualified": true
+            },
+            {
+              "asin": "B0COMP03",
+              "title": "Generic Stainless Steel Bottle",
+              "price": 8.99,
+              "rating": 3.2,
+              "reviews": 45,
+              "filter_results": {
+                "price_range": {
+                  "passed": false,
+                  "detail": "$8.99 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": false,
+                  "detail": "3.2 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": false,
+                  "detail": "45 vs 100"
+                }
+              },
+              "qualified": false
+            },
+            {
+              "asin": "B0COMP04",
+              "title": "Premium Titanium Water Bottle",
+              "price": 89,
+              "rating": 4.8,
+              "reviews": 234,
+              "filter_results": {
+                "price_range": {
+                  "passed": false,
+                  "detail": "$89 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.8 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "234 vs 100"
+                }
+              },
+              "qualified": false
+            },
+            {
+              "asin": "B0COMP05",
+              "title": "Replacement Lid for HydroFlask",
+              "price": 12.99,
+              "rating": 4.7,
+              "reviews": 3421,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$12.99 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.7 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "3421 vs 100"
+                }
+              },
+              "qualified": true
+            },
+            {
+              "asin": "B0COMP06",
+              "title": "Water Bottle Carrier Bag with Strap",
+              "price": 18.99,
+              "rating": 4.6,
+              "reviews": 2109,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$18.99 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.6 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "2109 vs 100"
+                }
+              },
+              "qualified": true
+            },
+            {
+              "asin": "B0XYZ123",
+              "title": "Stainless Steel Water Bottle 32oz Insulated",
+              "price": 25,
+              "rating": 4.2,
+              "reviews": 1247,
+              "category": "Sports & Outdoors > Water Bottles",
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$25 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.2 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "1247 vs 100"
+                }
+              },
+              "qualified": true
+            }
+          ]
+        },
+        "timestamp": "2025-12-28T08:51:54.741Z",
+        "metadata": {
+          "filters_applied": {
+            "priceRange": {
+              "min": 12.5,
+              "max": 50
+            },
+            "minRating": 3.8,
+            "minReviews": 100
+          },
+          "reasoning": "Applied price, rating, and review count thresholds"
+        }
+      },
+      {
+        "name": "llm_relevance_evaluation",
+        "input": {
+          "candidates_count": 6,
+          "reference_product": {
+            "title": "Stainless Steel Water Bottle 32oz Insulated",
+            "category": "Sports & Outdoors > Water Bottles"
+          },
+          "model": "fake-gpt-4"
+        },
+        "output": {
+          "total_evaluated": 6,
+          "confirmed_competitors": 4,
+          "false_positives_removed": 2,
+          "evaluations": [
+            {
+              "asin": "B0COMP01",
+              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
+              "is_competitor": true,
+              "confidence": 0.93
+            },
+            {
+              "asin": "B0COMP02",
+              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
+              "is_competitor": true,
+              "confidence": 0.93
+            },
+            {
+              "asin": "B0COMP07",
+              "title": "Stanley Adventure Quencher 30oz Insulated",
+              "is_competitor": true,
+              "confidence": 0.93
+            },
+            {
+              "asin": "B0COMP05",
+              "title": "Replacement Lid for HydroFlask",
+              "is_competitor": false,
+              "rejection_reason": {
+                "code": "ACCESSORY",
+                "explanation": "Product is a replacement lid, not a bottle"
+              },
+              "confidence": 0.98
+            },
+            {
+              "asin": "B0COMP06",
+              "title": "Water Bottle Carrier Bag with Strap",
+              "is_competitor": false,
+              "rejection_reason": {
+                "code": "ACCESSORY",
+                "explanation": "Product is a carrying accessory"
+              },
+              "confidence": 0.96
+            },
+            {
+              "asin": "B0XYZ123",
+              "title": "Stainless Steel Water Bottle 32oz Insulated",
+              "is_competitor": true,
+              "confidence": 0.93
+            }
+          ]
+        },
+        "timestamp": "2025-12-28T08:51:54.741Z",
+        "metadata": {
+          "reasoning": "Removed accessories and non-competitor products using LLM judgment"
+        }
+      },
+      {
+        "name": "rank_and_select",
+        "input": {
+          "candidates_count": 4,
+          "ranking_criteria": [
+            "review_count",
+            "rating"
+          ]
+        },
+        "output": {
+          "ranked_candidates": [
+            {
+              "rank": 1,
+              "asin": "B0COMP01",
+              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
+              "price": 44.99,
+              "rating": 4.5,
+              "reviews": 8932,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$44.99 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.5 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "8932 vs 100"
+                }
+              },
+              "qualified": true,
+              "llm_confidence": 0.93
+            },
+            {
+              "rank": 2,
+              "asin": "B0COMP02",
+              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
+              "price": 34.99,
+              "rating": 4.4,
+              "reviews": 5621,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$34.99 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.4 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "5621 vs 100"
+                }
+              },
+              "qualified": true,
+              "llm_confidence": 0.93
+            },
+            {
+              "rank": 3,
+              "asin": "B0COMP07",
+              "title": "Stanley Adventure Quencher 30oz Insulated",
+              "price": 35,
+              "rating": 4.3,
+              "reviews": 4102,
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$35 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.3 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "4102 vs 100"
+                }
+              },
+              "qualified": true,
+              "llm_confidence": 0.93
+            },
+            {
+              "rank": 4,
+              "asin": "B0XYZ123",
+              "title": "Stainless Steel Water Bottle 32oz Insulated",
+              "price": 25,
+              "rating": 4.2,
+              "reviews": 1247,
+              "category": "Sports & Outdoors > Water Bottles",
+              "filter_results": {
+                "price_range": {
+                  "passed": true,
+                  "detail": "$25 vs $12.5-50"
+                },
+                "min_rating": {
+                  "passed": true,
+                  "detail": "4.2 vs 3.8"
+                },
+                "min_reviews": {
+                  "passed": true,
+                  "detail": "1247 vs 100"
+                }
+              },
+              "qualified": true,
+              "llm_confidence": 0.93
+            }
+          ],
+          "selection": {
+            "asin": "B0COMP01",
+            "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
+            "reason": "Highest review count among confirmed competitors"
+          }
+        },
+        "timestamp": "2025-12-28T08:51:54.741Z",
+        "metadata": {
+          "reasoning": "Prioritized social proof after LLM relevance filtering"
+        }
       }
     ],
-    "endedAt": "2025-12-27T15:21:25.446Z",
+    "metadata": {
+      "pipeline": "competitor-selection-v2"
+    },
+    "endedAt": "2025-12-28T08:51:54.741Z",
     "finalOutcome": {
-      "selected": {
-        "id": "A",
-        "title": "HydroFlask",
-        "price": 45,
+      "decision": "COMPETITOR_SELECTED",
+      "selected_competitor": {
+        "rank": 1,
+        "asin": "B0COMP01",
+        "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
+        "price": 44.99,
         "rating": 4.5,
-        "reviews": 8000
-      }
-    }
-  },
-  {
-    "executionId": "3045c448-39bd-4844-a68f-e2ae6e4b9e37",
-    "startedAt": "2025-12-27T16:36:54.462Z",
-    "steps": [
-      {
-        "name": "keyword_generation",
-        "input": {
-          "title": "Steel Water Bottle"
-        },
-        "output": {
-          "keywords": [
-            "vacuum flask 32oz"
-          ]
-        },
-        "timestamp": "2025-12-27T16:36:54.462Z"
-      },
-      {
-        "name": "candidate_search",
-        "timestamp": "2025-12-27T16:36:54.462Z"
-      },
-      {
-        "name": "apply_filters",
-        "output": {
-          "qualifiedIds": [
-            "A",
-            "C"
-          ]
-        },
-        "timestamp": "2025-12-27T16:36:54.462Z"
-      }
-    ],
-    "endedAt": "2025-12-27T16:36:54.462Z",
-    "finalOutcome": {
-      "selected": {
-        "id": "A",
-        "title": "HydroFlask",
-        "price": 45,
-        "rating": 4.5,
-        "reviews": 8000
-      }
-    }
-  },
-  {
-    "executionId": "8b340beb-9182-4ee2-8880-a7bb12f049a8",
-    "startedAt": "2025-12-27T16:50:47.440Z",
-    "steps": [
-      {
-        "name": "keyword_generation",
-        "input": {
-          "title": "Steel Water Bottle"
-        },
-        "output": {
-          "keywords": [
-            "vacuum flask 32oz"
-          ],
-          "reasoning": "Extracted meaningful product keywords from the title"
-        },
-        "timestamp": "2025-12-27T16:50:47.440Z"
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "keywords": [
-            "vacuum flask 32oz"
-          ]
-        },
-        "output": {
-          "candidates": [],
-          "reasoning": "Matched 0 products using keywords: vacuum flask 32oz"
-        },
-        "timestamp": "2025-12-27T16:50:47.440Z"
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates": [],
-          "rules": {
-            "minRating": 4,
-            "maxPrice": 50
+        "reviews": 8932,
+        "filter_results": {
+          "price_range": {
+            "passed": true,
+            "detail": "$44.99 vs $12.5-50"
+          },
+          "min_rating": {
+            "passed": true,
+            "detail": "4.5 vs 3.8"
+          },
+          "min_reviews": {
+            "passed": true,
+            "detail": "8932 vs 100"
           }
         },
-        "output": {
-          "filteredCandidates": [],
-          "reasoning": "Removed products with rating below 4 or price above 50"
-        },
-        "timestamp": "2025-12-27T16:50:47.440Z"
+        "qualified": true,
+        "llm_confidence": 0.93
       }
-    ],
-    "metadata": {
-      "pipeline": "product-matching-v1"
-    },
-    "endedAt": "2025-12-27T16:50:47.440Z",
-    "finalOutcome": {
-      "decision": "NO_MATCHES",
-      "reasoning": "No products passed the applied filters"
-    }
-  },
-  {
-    "executionId": "661fb073-e6dc-4f9a-8e02-52a474794048",
-    "startedAt": "2025-12-27T16:52:01.746Z",
-    "steps": [
-      {
-        "name": "keyword_generation",
-        "input": {
-          "title": "Steel Water Bottle"
-        },
-        "output": {
-          "keywords": [
-            "stainless steel bottle",
-            "insulated bottle"
-          ],
-          "reasoning": "Extracted meaningful product keywords from the title"
-        },
-        "timestamp": "2025-12-27T16:52:01.746Z"
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "keywords": [
-            "stainless steel bottle",
-            "insulated bottle"
-          ]
-        },
-        "output": {
-          "candidates": [],
-          "reasoning": "Matched 0 products using keywords: stainless steel bottle, insulated bottle"
-        },
-        "timestamp": "2025-12-27T16:52:01.746Z"
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates": [],
-          "rules": {
-            "minRating": 4,
-            "maxPrice": 50
-          }
-        },
-        "output": {
-          "filteredCandidates": [],
-          "reasoning": "Removed products with rating below 4 or price above 50"
-        },
-        "timestamp": "2025-12-27T16:52:01.746Z"
-      }
-    ],
-    "metadata": {
-      "pipeline": "product-matching-v1"
-    },
-    "endedAt": "2025-12-27T16:52:01.746Z",
-    "finalOutcome": {
-      "decision": "NO_MATCHES",
-      "reasoning": "No products passed the applied filters"
-    }
-  },
-  {
-    "executionId": "8d390771-108b-4b3b-b0c1-a55906d233ca",
-    "startedAt": "2025-12-27T16:52:02.567Z",
-    "steps": [
-      {
-        "name": "keyword_generation",
-        "input": {
-          "title": "Steel Water Bottle"
-        },
-        "output": {
-          "keywords": [
-            "stainless steel bottle",
-            "insulated bottle"
-          ],
-          "reasoning": "Extracted meaningful product keywords from the title"
-        },
-        "timestamp": "2025-12-27T16:52:02.567Z"
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "keywords": [
-            "stainless steel bottle",
-            "insulated bottle"
-          ]
-        },
-        "output": {
-          "candidates": [],
-          "reasoning": "Matched 0 products using keywords: stainless steel bottle, insulated bottle"
-        },
-        "timestamp": "2025-12-27T16:52:02.567Z"
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates": [],
-          "rules": {
-            "minRating": 4,
-            "maxPrice": 50
-          }
-        },
-        "output": {
-          "filteredCandidates": [],
-          "reasoning": "Removed products with rating below 4 or price above 50"
-        },
-        "timestamp": "2025-12-27T16:52:02.567Z"
-      }
-    ],
-    "metadata": {
-      "pipeline": "product-matching-v1"
-    },
-    "endedAt": "2025-12-27T16:52:02.567Z",
-    "finalOutcome": {
-      "decision": "NO_MATCHES",
-      "reasoning": "No products passed the applied filters"
-    }
-  },
-  {
-    "executionId": "372a5ce2-61e3-490e-b7d3-7114c79eef92",
-    "startedAt": "2025-12-27T16:52:03.267Z",
-    "steps": [
-      {
-        "name": "keyword_generation",
-        "input": {
-          "title": "Steel Water Bottle"
-        },
-        "output": {
-          "keywords": [
-            "vacuum flask 32oz"
-          ],
-          "reasoning": "Extracted meaningful product keywords from the title"
-        },
-        "timestamp": "2025-12-27T16:52:03.267Z"
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "keywords": [
-            "vacuum flask 32oz"
-          ]
-        },
-        "output": {
-          "candidates": [],
-          "reasoning": "Matched 0 products using keywords: vacuum flask 32oz"
-        },
-        "timestamp": "2025-12-27T16:52:03.267Z"
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates": [],
-          "rules": {
-            "minRating": 4,
-            "maxPrice": 50
-          }
-        },
-        "output": {
-          "filteredCandidates": [],
-          "reasoning": "Removed products with rating below 4 or price above 50"
-        },
-        "timestamp": "2025-12-27T16:52:03.267Z"
-      }
-    ],
-    "metadata": {
-      "pipeline": "product-matching-v1"
-    },
-    "endedAt": "2025-12-27T16:52:03.267Z",
-    "finalOutcome": {
-      "decision": "NO_MATCHES",
-      "reasoning": "No products passed the applied filters"
     }
   }
 ]

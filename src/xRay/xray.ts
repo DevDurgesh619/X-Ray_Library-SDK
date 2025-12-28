@@ -1,5 +1,7 @@
+
 import { Execution } from "./execution"
 import { Step } from "./step"
+import { generateStepReasoning } from "./llmReasoning" // new helper
 
 export class XRay {
   private execution: Execution
@@ -43,8 +45,8 @@ export class XRay {
     this.activeSteps.set(name, step)
   }
 
-  /** Finish a step (v2) */
-  endStep(name: string, output: any) {
+  /** 🚀 Finish a step (v3) - AUTO-GENERATES REASONING */
+  async endStep(name: string, output: any) {
     const step = this.activeSteps.get(name)
     if (!step) return
 
@@ -54,12 +56,15 @@ export class XRay {
       new Date(step.endedAt).getTime() -
       new Date(step.startedAt!).getTime()
 
+    // 🔥 MAGIC: Auto-generate reasoning from input/output
+    step.reasoning = await generateStepReasoning(step)
+
     this.execution.steps.push(step)
     this.activeSteps.delete(name)
   }
 
   /** Capture error inside a step (v2) */
-  errorStep(name: string, error: Error) {
+  async errorStep(name: string, error: Error) {
     const step = this.activeSteps.get(name)
     if (!step) return
 
@@ -68,6 +73,9 @@ export class XRay {
     step.durationMs =
       new Date(step.endedAt).getTime() -
       new Date(step.startedAt!).getTime()
+
+    // 🔥 Even errors get reasoning
+    step.reasoning = await generateStepReasoning(step)
 
     this.execution.steps.push(step)
     this.activeSteps.delete(name)
@@ -80,3 +88,4 @@ export class XRay {
     return this.execution
   }
 }
+

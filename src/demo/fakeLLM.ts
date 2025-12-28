@@ -1,9 +1,6 @@
-export function generateKeywords(title: string): string[] {
-  const options = [
-    ["stainless steel bottle", "insulated bottle"],
-    ["vacuum flask 32oz"],
-    ["metal water bottle insulated"]
+export function generateKeywords(title: string) {
+  return [
+    "stainless steel water bottle insulated",
+    "vacuum insulated bottle 32oz"
   ]
-
-  return options[Math.floor(Math.random() * options.length)]
 }
