@@ -40,7 +40,7 @@ export function searchMoviesByThemes(themes: string[], limit = 50) {
       id: "M5",
       title: "Sci-Fi Movie Poster",
       genres: ["Merchandise"],
-      rating: 7.5,
+      rating: 7.1,
       year: 2021
     }
   ]

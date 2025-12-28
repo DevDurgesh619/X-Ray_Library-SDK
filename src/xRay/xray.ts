@@ -1,7 +1,6 @@
-
 import { Execution } from "./execution"
+import { generateStepReasoning } from "./llmReasoning"
 import { Step } from "./step"
-import { generateStepReasoning } from "./llmReasoning" // new helper
 
 export class XRay {
   private execution: Execution
@@ -16,7 +15,7 @@ export class XRay {
     }
   }
 
-  /** ✅ BACKWARD-COMPATIBLE (v1) */
+  /** ✅ BACKWARD-COMPATIBLE (v1) – no auto reasoning */
   logStep(step: {
     name: string
     input: any
@@ -29,6 +28,7 @@ export class XRay {
       output: step.output,
       timestamp: new Date().toISOString(),
       metadata: step.metadata
+      // reasoning can be added manually via metadata.reasoning if needed
     })
   }
 
@@ -41,11 +41,10 @@ export class XRay {
       startedAt: new Date().toISOString(),
       metadata
     }
-
     this.activeSteps.set(name, step)
   }
 
-  /** 🚀 Finish a step (v3) - AUTO-GENERATES REASONING */
+  /** Finish a step (v3) – auto‑generates reasoning from input/output */
   async endStep(name: string, output: any) {
     const step = this.activeSteps.get(name)
     if (!step) return
@@ -56,7 +55,7 @@ export class XRay {
       new Date(step.endedAt).getTime() -
       new Date(step.startedAt!).getTime()
 
-    // 🔥 MAGIC: Auto-generate reasoning from input/output
+    // Auto-generate generic reasoning
     step.reasoning = await generateStepReasoning(step)
 
     this.execution.steps.push(step)
@@ -74,7 +73,7 @@ export class XRay {
       new Date(step.endedAt).getTime() -
       new Date(step.startedAt!).getTime()
 
-    // 🔥 Even errors get reasoning
+    // Auto-reasoning for failed step
     step.reasoning = await generateStepReasoning(step)
 
     this.execution.steps.push(step)
@@ -88,4 +87,3 @@ export class XRay {
     return this.execution
   }
 }
-

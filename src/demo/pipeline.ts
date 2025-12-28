@@ -3,7 +3,7 @@ import { generateKeywords } from "./fakeLLM"
 import { searchProducts } from "./fakeSearch"
 import { evaluateCompetitorRelevance } from "./fakeLLMRelevance"
 
-export function runPipeline(executionId: string) {
+export async function runPipeline(executionId: string) {
   const xray = new XRay(executionId, {
     pipeline: "competitor-selection-v2"
   })
@@ -20,44 +20,35 @@ export function runPipeline(executionId: string) {
     category: "Sports & Outdoors > Water Bottles"
   }
 
+  xray.startStep("keyword_generation", {
+    product_title: referenceProduct.title,
+    category: referenceProduct.category
+  })
+
   const keywords = generateKeywords(referenceProduct.title)
 
-  xray.logStep({
-    name: "keyword_generation",
-    input: {
-      product_title: referenceProduct.title,
-      category: referenceProduct.category
-    },
-    output: {
-      keywords,
-      model: "fake-gpt-4"
-    },
-    metadata: {
-      reasoning:
-        "Extracted material, size, and insulation attributes from title"
-    }
+  await xray.endStep("keyword_generation", {
+    keywords,
+    model: "fake-gpt-4"
+    // generic reasoning may just be a simple fallback here
   })
 
   /* -----------------------------
      STEP 2: Candidate Search
   -----------------------------*/
+  xray.startStep("candidate_search", {
+    keyword: keywords[0],
+    limit: 50
+  })
+
   const search = searchProducts(keywords[0], 50)
 
-  xray.logStep({
-    name: "candidate_search",
-    input: {
-      keyword: keywords[0],
-      limit: 50
-    },
-    output: {
-      total_results: search.total_results,
-      candidates_fetched: search.candidates_fetched,
-      candidates: search.candidates
-    },
-    metadata: {
-      reasoning:
-        "Fetched top candidates by keyword relevance"
-    }
+  await xray.endStep("candidate_search", {
+    total_results: search.total_results,
+    candidates_fetched: search.candidates_fetched,
+    candidates: search.candidates
+    // llmReasoning.ts generic rule:
+    // "Found 2847 results for 'stainless steel water bottle insulated', returned 8"
   })
 
   /* -----------------------------
@@ -104,23 +95,20 @@ export function runPipeline(executionId: string) {
 
   const passedFilters = evaluations.filter(e => e.qualified)
 
-  xray.logStep({
-    name: "apply_filters",
-    input: {
-      candidates_count: search.candidates.length,
-      reference_product: referenceProduct
-    },
-    output: {
-      total_evaluated: evaluations.length,
-      passed: passedFilters.length,
-      failed: evaluations.length - passedFilters.length,
-      evaluations
-    },
-    metadata: {
-      filters_applied: filters,
-      reasoning:
-        "Applied price, rating, and review count thresholds"
-    }
+  xray.startStep("apply_filters", {
+    candidates_count: search.candidates.length,
+    reference_product: referenceProduct,
+    filters_applied: filters
+  })
+
+  await xray.endStep("apply_filters", {
+    total_evaluated: evaluations.length,
+    passed: passedFilters.length,
+    failed: evaluations.length - passedFilters.length,
+    evaluations
+    // llmReasoning.ts generic rules can say, e.g.:
+    // "Evaluated 8 items: 6 passed, 2 failed"
+    // or richer: "Applied price, rating/score, review count filters to narrow candidates from 8 to 6"
   })
 
   /* -----------------------------
@@ -141,46 +129,36 @@ export function runPipeline(executionId: string) {
     llmApprovalMap.has(candidate.asin)
   )
 
-  xray.logStep({
-    name: "llm_relevance_evaluation",
-    input: {
-      candidates_count: passedFilters.length,
-      reference_product: {
-        title: referenceProduct.title,
-        category: referenceProduct.category
-      },
-      model: "fake-gpt-4"
+  xray.startStep("llm_relevance_evaluation", {
+    candidates_count: passedFilters.length,
+    reference_product: {
+      title: referenceProduct.title,
+      category: referenceProduct.category
     },
-    output: {
-      total_evaluated: relevanceEvaluations.length,
-      confirmed_competitors: confirmedCandidates.length,
-      false_positives_removed:
-        relevanceEvaluations.length - confirmedCandidates.length,
-      evaluations: relevanceEvaluations
-    },
-    metadata: {
-      reasoning:
-        "Removed accessories and non-competitor products using LLM judgment"
-    }
+    model: "fake-gpt-4"
+  })
+
+  await xray.endStep("llm_relevance_evaluation", {
+    total_evaluated: relevanceEvaluations.length,
+    confirmed_competitors: confirmedCandidates.length,
+    false_positives_removed:
+      relevanceEvaluations.length - confirmedCandidates.length,
+    evaluations: relevanceEvaluations
+    // generic rule: "Evaluated 6 candidates: 4 accepted, 2 rejected"
   })
 
   /* -----------------------------
      STEP 5: Rank & Select
   -----------------------------*/
+  xray.startStep("rank_and_select", {
+    candidates_count: confirmedCandidates.length,
+    ranking_criteria: ["review_count", "rating"]
+  })
+
   if (confirmedCandidates.length === 0) {
-    xray.logStep({
-      name: "rank_and_select",
-      input: {
-        candidates_count: 0
-      },
-      output: {
-        ranked_candidates: [],
-        selection: null
-      },
-      metadata: {
-        reasoning:
-          "No candidates remained after numeric filters and LLM relevance evaluation"
-      }
+    await xray.endStep("rank_and_select", {
+      ranked_candidates: [],
+      selection: null
     })
 
     return xray.end({
@@ -200,25 +178,15 @@ export function runPipeline(executionId: string) {
 
   const selected = ranked[0]
 
-  xray.logStep({
-    name: "rank_and_select",
-    input: {
-      candidates_count: ranked.length,
-      ranking_criteria: ["review_count", "rating"]
-    },
-    output: {
-      ranked_candidates: ranked,
-      selection: {
-        asin: selected.asin,
-        title: selected.title,
-        reason:
-          "Highest review count among confirmed competitors"
-      }
-    },
-    metadata: {
-      reasoning:
-        "Prioritized social proof after LLM relevance filtering"
+  await xray.endStep("rank_and_select", {
+    ranked_candidates: ranked,
+    selection: {
+      asin: selected.asin,
+      title: selected.title
+      // no natural-language "reason" here
     }
+    // llmReasoning.ts selection rule (using a generic helper) will produce:
+    // 'Selected "HydroFlask 32oz Wide Mouth Insulated Bottle" as top choice from 4 candidate(s)'
   })
 
   return xray.end({

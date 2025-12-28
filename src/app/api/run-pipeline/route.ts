@@ -5,9 +5,9 @@ import { randomUUID } from "crypto"
 
 export async function POST() {
   const executionId = randomUUID()
-  const execution = runPipeline(executionId)
-
-  saveExecution(execution)
+  const execution = await runPipeline(executionId)  // ✅ AWAIT!
+  
+  await saveExecution(execution)                    // ✅ AWAIT!
 
   return NextResponse.json({
     executionId
