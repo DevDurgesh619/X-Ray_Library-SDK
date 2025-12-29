@@ -9,39 +9,39 @@ export type Movie = {
 export function searchMoviesByThemes(themes: string[], limit = 50) {
   const movies: Movie[] = [
     {
-      id: "M1",
-      title: "Interstellar",
+      id: "M101",
+      title: "The Matrix",
+      genres: ["Sci-Fi", "Action"],
+      rating: 8.7,
+      year: 1999
+    },
+    {
+      id: "M102",
+      title: "Arrival",
       genres: ["Sci-Fi", "Drama"],
-      rating: 8.6,
-      year: 2014
+      rating: 7.9,
+      year: 2016
     },
     {
-      id: "M2",
-      title: "Tenet",
+      id: "M103",
+      title: "Blade Runner 2049",
       genres: ["Sci-Fi", "Thriller"],
-      rating: 7.8,
-      year: 2020
+      rating: 8.0,
+      year: 2017
     },
     {
-      id: "M3",
-      title: "The Butterfly Effect",
-      genres: ["Sci-Fi", "Thriller"],
-      rating: 7.3,
+      id: "M104",
+      title: "Eternal Sunshine of the Spotless Mind",
+      genres: ["Romance", "Drama", "Sci-Fi"],
+      rating: 8.3,
       year: 2004
     },
     {
-      id: "M4",
-      title: "Inception",
-      genres: ["Sci-Fi", "Thriller"],
-      rating: 8.8,
-      year: 2010
-    },
-    {
-      id: "M5",
-      title: "Sci-Fi Movie Poster",
-      genres: ["Merchandise"],
-      rating: 7.1,
-      year: 2021
+      id: "M105",
+      title: "Ex Machina",
+      genres: ["Sci-Fi", "Psychological Thriller"],
+      rating: 7.7,
+      year: 2014
     }
   ]
 

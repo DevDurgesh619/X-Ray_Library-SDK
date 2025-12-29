@@ -1,0 +1,3538 @@
+{
+  "dataset_metadata": {
+    "total_products": 22,
+    "generated_date": "2025-01-15",
+    "description": "Comprehensive product dataset for X-Ray pipeline testing",
+    "edge_cases_covered": [
+      "All candidates fail filters",
+      "No competitors remaining after LLM evaluation",
+      "Tie in ranking",
+      "Generic keywords with broad results",
+      "Niche product with few candidates",
+      "Price extremes",
+      "New product with low reviews",
+      "Search dominated by accessories",
+      "False negative LLM rejection",
+      "False positive LLM approval",
+      "Borderline competitor cases",
+      "Reference product appears in results"
+    ]
+  },
+  "products": [
+    {
+      "reference_product": {
+        "asin": "B0REF001",
+        "title": "HydroFlask Premium Stainless Steel Water Bottle 32oz",
+        "price": 44.99,
+        "rating": 4.6,
+        "reviews": 3200,
+        "category": "Sports & Outdoors > Hydration > Water Bottles"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "HydroFlask Premium Stainless Steel Water Bottle 32oz",
+            "category": "Sports & Outdoors > Hydration > Water Bottles"
+          },
+          "output": {
+            "keywords": [
+              "stainless steel water bottle",
+              "insulated water bottle 32oz",
+              "premium water bottle"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "stainless steel water bottle",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 4832,
+            "candidates_fetched": 10,
+            "candidates": [
+              {
+                "asin": "B0CAND001",
+                "title": "YETI Rambler 32oz Vacuum Insulated Stainless Steel Bottle",
+                "price": 42.99,
+                "rating": 4.7,
+                "reviews": 8932
+              },
+              {
+                "asin": "B0CAND002",
+                "title": "Takeya Actives 32oz Insulated Stainless Steel Bottle",
+                "price": 29.99,
+                "rating": 4.5,
+                "reviews": 5421
+              },
+              {
+                "asin": "B0CAND003",
+                "title": "Simple Modern 32oz Summit Water Bottle",
+                "price": 24.99,
+                "rating": 4.4,
+                "reviews": 12453
+              },
+              {
+                "asin": "B0CAND004",
+                "title": "Replacement Straw Lid for Water Bottles",
+                "price": 8.99,
+                "rating": 4.1,
+                "reviews": 2341
+              },
+              {
+                "asin": "B0CAND005",
+                "title": "Water Bottle Cleaning Brush Set",
+                "price": 12.99,
+                "rating": 4.3,
+                "reviews": 1876
+              },
+              {
+                "asin": "B0REF001",
+                "title": "HydroFlask Premium Stainless Steel Water Bottle 32oz",
+                "price": 44.99,
+                "rating": 4.6,
+                "reviews": 3200
+              },
+              {
+                "asin": "B0CAND006",
+                "title": "Budget Plastic Water Bottle 32oz",
+                "price": 9.99,
+                "rating": 3.8,
+                "reviews": 432
+              },
+              {
+                "asin": "B0CAND007",
+                "title": "S'well Luxury Stainless Steel Bottle 25oz",
+                "price": 95,
+                "rating": 4.8,
+                "reviews": 2134
+              },
+              {
+                "asin": "B0CAND008",
+                "title": "Neoprene Water Bottle Carrier Sleeve",
+                "price": 14.99,
+                "rating": 4.2,
+                "reviews": 892
+              },
+              {
+                "asin": "B0CAND009",
+                "title": "Contigo AUTOSEAL 32oz Stainless Steel Bottle",
+                "price": 38.99,
+                "rating": 3.7,
+                "reviews": 6234
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 10,
+            "reference_product": {
+              "asin": "B0REF001",
+              "title": "HydroFlask Premium Stainless Steel Water Bottle 32oz",
+              "price": 44.99,
+              "rating": 4.6,
+              "reviews": 3200
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 22.5,
+                "max": 89.98
+              },
+              "minRating": 4.2,
+              "minReviews": 1000
+            }
+          },
+          "output": {
+            "total_evaluated": 10,
+            "passed": 3,
+            "failed": 7,
+            "evaluations": [
+              {
+                "asin": "B0CAND001",
+                "title": "YETI Rambler 32oz Vacuum Insulated Stainless Steel Bottle",
+                "price": 42.99,
+                "rating": 4.7,
+                "reviews": 8932,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$42.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.7 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "8932 vs 1000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND002",
+                "title": "Takeya Actives 32oz Insulated Stainless Steel Bottle",
+                "price": 29.99,
+                "rating": 4.5,
+                "reviews": 5421,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$29.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "5421 vs 1000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND003",
+                "title": "Simple Modern 32oz Summit Water Bottle",
+                "price": 24.99,
+                "rating": 4.4,
+                "reviews": 12453,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$24.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "12453 vs 1000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND004",
+                "title": "Replacement Straw Lid for Water Bottles",
+                "price": 8.99,
+                "rating": 4.1,
+                "reviews": 2341,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$8.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "4.1 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "2341 vs 1000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND005",
+                "title": "Water Bottle Cleaning Brush Set",
+                "price": 12.99,
+                "rating": 4.3,
+                "reviews": 1876,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$12.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "1876 vs 1000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0REF001",
+                "title": "HydroFlask Premium Stainless Steel Water Bottle 32oz",
+                "price": 44.99,
+                "rating": 4.6,
+                "reviews": 3200,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$44.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "3200 vs 1000"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND006",
+                "title": "Budget Plastic Water Bottle 32oz",
+                "price": 9.99,
+                "rating": 3.8,
+                "reviews": 432,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$9.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "3.8 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "432 vs 1000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND007",
+                "title": "S'well Luxury Stainless Steel Bottle 25oz",
+                "price": 95,
+                "rating": 4.8,
+                "reviews": 2134,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$95.00 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.8 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "2134 vs 1000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND008",
+                "title": "Neoprene Water Bottle Carrier Sleeve",
+                "price": 14.99,
+                "rating": 4.2,
+                "reviews": 892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$14.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.2 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "892 vs 1000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND009",
+                "title": "Contigo AUTOSEAL 32oz Stainless Steel Bottle",
+                "price": 38.99,
+                "rating": 3.7,
+                "reviews": 6234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$38.99 vs $22.50-$89.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "3.7 vs 4.2"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "6234 vs 1000"
+                  }
+                },
+                "qualified": false
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 3,
+            "reference_product": {
+              "title": "HydroFlask Premium Stainless Steel Water Bottle 32oz",
+              "category": "Sports & Outdoors > Hydration > Water Bottles"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 3,
+            "confirmed_competitors": 3,
+            "false_positives_removed": 0,
+            "evaluations": [
+              {
+                "asin": "B0CAND001",
+                "title": "YETI Rambler 32oz Vacuum Insulated Stainless Steel Bottle",
+                "is_competitor": true,
+                "confidence": 0.95
+              },
+              {
+                "asin": "B0CAND002",
+                "title": "Takeya Actives 32oz Insulated Stainless Steel Bottle",
+                "is_competitor": true,
+                "confidence": 0.93
+              },
+              {
+                "asin": "B0CAND003",
+                "title": "Simple Modern 32oz Summit Water Bottle",
+                "is_competitor": true,
+                "confidence": 0.91
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 3,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [
+              {
+                "rank": 1,
+                "asin": "B0CAND003",
+                "title": "Simple Modern 32oz Summit Water Bottle",
+                "price": 24.99,
+                "rating": 4.4,
+                "reviews": 12453,
+                "llm_confidence": 0.91
+              },
+              {
+                "rank": 2,
+                "asin": "B0CAND001",
+                "title": "YETI Rambler 32oz Vacuum Insulated Stainless Steel Bottle",
+                "price": 42.99,
+                "rating": 4.7,
+                "reviews": 8932,
+                "llm_confidence": 0.95
+              },
+              {
+                "rank": 3,
+                "asin": "B0CAND002",
+                "title": "Takeya Actives 32oz Insulated Stainless Steel Bottle",
+                "price": 29.99,
+                "rating": 4.5,
+                "reviews": 5421,
+                "llm_confidence": 0.93
+              }
+            ],
+            "selection": {
+              "asin": "B0CAND003",
+              "title": "Simple Modern 32oz Summit Water Bottle"
+            }
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "COMPETITOR_SELECTED",
+        "selected_competitor": {
+          "asin": "B0CAND003",
+          "title": "Simple Modern 32oz Summit Water Bottle",
+          "price": 24.99,
+          "rating": 4.4,
+          "reviews": 12453,
+          "qualified": true,
+          "llm_confidence": 0.91
+        }
+      }
+    },
+    {
+      "reference_product": {
+        "asin": "B0REF002",
+        "title": "AquaFit Budget Plastic Water Bottle 32oz",
+        "price": 9.99,
+        "rating": 3.9,
+        "reviews": 847,
+        "category": "Sports & Outdoors > Hydration > Water Bottles"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "AquaFit Budget Plastic Water Bottle 32oz",
+            "category": "Sports & Outdoors > Hydration > Water Bottles"
+          },
+          "output": {
+            "keywords": [
+              "plastic water bottle",
+              "32oz water bottle",
+              "budget water bottle"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "plastic water bottle",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 8423,
+            "candidates_fetched": 9,
+            "candidates": [
+              {
+                "asin": "B0CAND010",
+                "title": "Rubbermaid Chug 32oz Plastic Bottle",
+                "price": 12.99,
+                "rating": 4.3,
+                "reviews": 1234
+              },
+              {
+                "asin": "B0CAND011",
+                "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+                "price": 14.99,
+                "rating": 4.6,
+                "reviews": 7832
+              },
+              {
+                "asin": "B0CAND012",
+                "title": "Generic BPA-Free Plastic Bottle 32oz",
+                "price": 6.99,
+                "rating": 3.2,
+                "reviews": 234
+              },
+              {
+                "asin": "B0CAND013",
+                "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+                "price": 18.99,
+                "rating": 4.5,
+                "reviews": 5621
+              },
+              {
+                "asin": "B0CAND014",
+                "title": "Contigo Jackson 24oz Plastic Bottle",
+                "price": 11.99,
+                "rating": 4.1,
+                "reviews": 892
+              },
+              {
+                "asin": "B0CAND015",
+                "title": "Plastic Bottle Replacement Caps - 6 Pack",
+                "price": 9.99,
+                "rating": 3.8,
+                "reviews": 567
+              },
+              {
+                "asin": "B0REF002",
+                "title": "AquaFit Budget Plastic Water Bottle 32oz",
+                "price": 9.99,
+                "rating": 3.9,
+                "reviews": 847
+              },
+              {
+                "asin": "B0CAND016",
+                "title": "BlenderBottle Classic 28oz Shaker",
+                "price": 9.99,
+                "rating": 4.7,
+                "reviews": 15234
+              },
+              {
+                "asin": "B0CAND017",
+                "title": "Kids Plastic Water Bottle with Straw 16oz",
+                "price": 8.99,
+                "rating": 4.2,
+                "reviews": 2341
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 9,
+            "reference_product": {
+              "asin": "B0REF002",
+              "title": "AquaFit Budget Plastic Water Bottle 32oz",
+              "price": 9.99,
+              "rating": 3.9,
+              "reviews": 847
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 5,
+                "max": 19.98
+              },
+              "minRating": 3.5,
+              "minReviews": 500
+            }
+          },
+          "output": {
+            "total_evaluated": 9,
+            "passed": 0,
+            "failed": 9,
+            "evaluations": [
+              {
+                "asin": "B0CAND010",
+                "title": "Rubbermaid Chug 32oz Plastic Bottle",
+                "price": 12.99,
+                "rating": 4.3,
+                "reviews": 1234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$12.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "1234 vs 500"
+                  },
+                  "is_reference": false
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND011",
+                "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+                "price": 14.99,
+                "rating": 4.6,
+                "reviews": 7832,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$14.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "7832 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND012",
+                "title": "Generic BPA-Free Plastic Bottle 32oz",
+                "price": 6.99,
+                "rating": 3.2,
+                "reviews": 234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$6.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "3.2 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "234 vs 500"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND013",
+                "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+                "price": 18.99,
+                "rating": 4.5,
+                "reviews": 5621,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$18.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "5621 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND014",
+                "title": "Contigo Jackson 24oz Plastic Bottle",
+                "price": 11.99,
+                "rating": 4.1,
+                "reviews": 892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$11.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.1 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "892 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND015",
+                "title": "Plastic Bottle Replacement Caps - 6 Pack",
+                "price": 9.99,
+                "rating": 3.8,
+                "reviews": 567,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$9.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "3.8 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "567 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0REF002",
+                "title": "AquaFit Budget Plastic Water Bottle 32oz",
+                "price": 9.99,
+                "rating": 3.9,
+                "reviews": 847,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$9.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "3.9 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "847 vs 500"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND016",
+                "title": "BlenderBottle Classic 28oz Shaker",
+                "price": 9.99,
+                "rating": 4.7,
+                "reviews": 15234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$9.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.7 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "15234 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND017",
+                "title": "Kids Plastic Water Bottle with Straw 16oz",
+                "price": 8.99,
+                "rating": 4.2,
+                "reviews": 2341,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$8.99 vs $5.00-$19.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.2 vs 3.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "2341 vs 500"
+                  }
+                },
+                "qualified": true
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 6,
+            "reference_product": {
+              "title": "AquaFit Budget Plastic Water Bottle 32oz",
+              "category": "Sports & Outdoors > Hydration > Water Bottles"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 6,
+            "confirmed_competitors": 0,
+            "false_positives_removed": 6,
+            "evaluations": [
+              {
+                "asin": "B0CAND010",
+                "title": "Rubbermaid Chug 32oz Plastic Bottle",
+                "is_competitor": true,
+                "confidence": 0.89
+              },
+              {
+                "asin": "B0CAND011",
+                "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+                "is_competitor": true,
+                "confidence": 0.92
+              },
+              {
+                "asin": "B0CAND013",
+                "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+                "is_competitor": true,
+                "confidence": 0.88
+              },
+              {
+                "asin": "B0CAND014",
+                "title": "Contigo Jackson 24oz Plastic Bottle",
+                "is_competitor": false,
+                "rejection_reason": {
+                  "code": "SIZE_MISMATCH",
+                  "explanation": "Reference product is 32oz, candidate is 24oz - different size category"
+                },
+                "confidence": 0.91
+              },
+              {
+                "asin": "B0CAND015",
+                "title": "Plastic Bottle Replacement Caps - 6 Pack",
+                "is_competitor": false,
+                "rejection_reason": {
+                  "code": "ACCESSORY",
+                  "explanation": "Product is replacement parts/accessories, not a complete water bottle"
+                },
+                "confidence": 0.99
+              },
+              {
+                "asin": "B0CAND016",
+                "title": "BlenderBottle Classic 28oz Shaker",
+                "is_competitor": false,
+                "rejection_reason": {
+                  "code": "DIFFERENT_USE_CASE",
+                  "explanation": "Shaker bottle designed for protein/smoothies, not general hydration"
+                },
+                "confidence": 0.94
+              },
+              {
+                "asin": "B0CAND017",
+                "title": "Kids Plastic Water Bottle with Straw 16oz",
+                "is_competitor": false,
+                "rejection_reason": {
+                  "code": "SIZE_MISMATCH",
+                  "explanation": "Reference product is 32oz adult bottle, this is 16oz kids bottle"
+                },
+                "confidence": 0.96
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 3,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [
+              {
+                "rank": 1,
+                "asin": "B0CAND011",
+                "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+                "price": 14.99,
+                "rating": 4.6,
+                "reviews": 7832,
+                "llm_confidence": 0.92
+              },
+              {
+                "rank": 2,
+                "asin": "B0CAND013",
+                "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+                "price": 18.99,
+                "rating": 4.5,
+                "reviews": 5621,
+                "llm_confidence": 0.88
+              },
+              {
+                "rank": 3,
+                "asin": "B0CAND010",
+                "title": "Rubbermaid Chug 32oz Plastic Bottle",
+                "price": 12.99,
+                "rating": 4.3,
+                "reviews": 1234,
+                "llm_confidence": 0.89
+              }
+            ],
+            "selection": {
+              "asin": "B0CAND011",
+              "title": "Nalgene Tritan 32oz Wide Mouth Bottle"
+            }
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "COMPETITOR_SELECTED",
+        "selected_competitor": {
+          "asin": "B0CAND011",
+          "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+          "price": 14.99,
+          "rating": 4.6,
+          "reviews": 7832,
+          "qualified": true,
+          "llm_confidence": 0.92
+        }
+      }
+    },
+    {
+      "reference_product": {
+        "asin": "B0REF003",
+        "title": "ThermaCore Insulated Water Bottle 24oz Double Wall",
+        "price": 27.99,
+        "rating": 4.4,
+        "reviews": 8932,
+        "category": "Sports & Outdoors > Hydration > Insulated Bottles"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "ThermaCore Insulated Water Bottle 24oz Double Wall",
+            "category": "Sports & Outdoors > Hydration > Insulated Bottles"
+          },
+          "output": {
+            "keywords": [
+              "insulated water bottle",
+              "double wall water bottle",
+              "24oz insulated bottle"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "insulated water bottle",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 6234,
+            "candidates_fetched": 11,
+            "candidates": [
+              {
+                "asin": "B0CAND018",
+                "title": "Iron Flask 24oz Double Wall Insulated Bottle",
+                "price": 29.99,
+                "rating": 4.5,
+                "reviews": 6234
+              },
+              {
+                "asin": "B0CAND019",
+                "title": "Thermos Stainless King 24oz Vacuum Insulated",
+                "price": 32.99,
+                "rating": 4.6,
+                "reviews": 4521
+              },
+              {
+                "asin": "B0CAND020",
+                "title": "Polar Bottle 24oz Insulated Sport Bottle",
+                "price": 24.99,
+                "rating": 4.3,
+                "reviews": 3892
+              },
+              {
+                "asin": "B0CAND021",
+                "title": "Klean Kanteen 20oz Insulated Bottle",
+                "price": 34.99,
+                "rating": 4.7,
+                "reviews": 2134
+              },
+              {
+                "asin": "B0CAND022",
+                "title": "Stanley Classic 24oz Vacuum Bottle",
+                "price": 35.99,
+                "rating": 4.8,
+                "reviews": 15234
+              },
+              {
+                "asin": "B0CAND023",
+                "title": "Insulated Bottle Shoulder Strap Carrier",
+                "price": 11.99,
+                "rating": 4.1,
+                "reviews": 1234
+              },
+              {
+                "asin": "B0REF003",
+                "title": "ThermaCore Insulated Water Bottle 24oz Double Wall",
+                "price": 27.99,
+                "rating": 4.4,
+                "reviews": 8932
+              },
+              {
+                "asin": "B0CAND024",
+                "title": "LifeStraw Go 24oz Bottle with Filter",
+                "price": 44.99,
+                "rating": 4.2,
+                "reviews": 5678
+              },
+              {
+                "asin": "B0CAND025",
+                "title": "Zojirushi 16oz Stainless Mug",
+                "price": 28.99,
+                "rating": 4.7,
+                "reviews": 8234
+              },
+              {
+                "asin": "B0CAND026",
+                "title": "Fifty/Fifty 25oz Insulated Bottle",
+                "price": 26.99,
+                "rating": 4.4,
+                "reviews": 2893
+              },
+              {
+                "asin": "B0CAND027",
+                "title": "Corkcicle 24oz Canteen",
+                "price": 37.95,
+                "rating": 4.6,
+                "reviews": 7821
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 11,
+            "reference_product": {
+              "asin": "B0REF003",
+              "title": "ThermaCore Insulated Water Bottle 24oz Double Wall",
+              "price": 27.99,
+              "rating": 4.4,
+              "reviews": 8932
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 14,
+                "max": 55.98
+              },
+              "minRating": 4,
+              "minReviews": 2000
+            }
+          },
+          "output": {
+            "total_evaluated": 11,
+            "passed": 8,
+            "failed": 3,
+            "evaluations": [
+              {
+                "asin": "B0CAND018",
+                "title": "Iron Flask 24oz Double Wall Insulated Bottle",
+                "price": 29.99,
+                "rating": 4.5,
+                "reviews": 6234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$29.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "6234 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND019",
+                "title": "Thermos Stainless King 24oz Vacuum Insulated",
+                "price": 32.99,
+                "rating": 4.6,
+                "reviews": 4521,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$32.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "4521 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND020",
+                "title": "Polar Bottle 24oz Insulated Sport Bottle",
+                "price": 24.99,
+                "rating": 4.3,
+                "reviews": 3892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$24.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "3892 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND021",
+                "title": "Klean Kanteen 20oz Insulated Bottle",
+                "price": 34.99,
+                "rating": 4.7,
+                "reviews": 2134,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$34.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.7 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "2134 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND022",
+                "title": "Stanley Classic 24oz Vacuum Bottle",
+                "price": 35.99,
+                "rating": 4.8,
+                "reviews": 15234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$35.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.8 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "15234 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND023",
+                "title": "Insulated Bottle Shoulder Strap Carrier",
+                "price": 11.99,
+                "rating": 4.1,
+                "reviews": 1234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$11.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.1 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "1234 vs 2000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0REF003",
+                "title": "ThermaCore Insulated Water Bottle 24oz Double Wall",
+                "price": 27.99,
+                "rating": 4.4,
+                "reviews": 8932,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$27.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "8932 vs 2000"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND024",
+                "title": "LifeStraw Go 24oz Bottle with Filter",
+                "price": 44.99,
+                "rating": 4.2,
+                "reviews": 5678,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$44.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.2 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "5678 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND025",
+                "title": "Zojirushi 16oz Stainless Mug",
+                "price": 28.99,
+                "rating": 4.7,
+                "reviews": 8234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$28.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.7 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "8234 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND026",
+                "title": "Fifty/Fifty 25oz Insulated Bottle",
+                "price": 26.99,
+                "rating": 4.4,
+                "reviews": 2893,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$26.99 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "2893 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND027",
+                "title": "Corkcicle 24oz Canteen",
+                "price": 37.95,
+                "rating": 4.6,
+                "reviews": 7821,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$37.95 vs $14.00-$55.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 4.0"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "7821 vs 2000"
+                  }
+                },
+                "qualified": true
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 8,
+            "reference_product": {
+              "title": "ThermaCore Insulated Water Bottle 24oz Double Wall",
+              "category": "Sports & Outdoors > Hydration > Insulated Bottles"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 8,
+            "confirmed_competitors": 6,
+            "false_positives_removed": 2,
+            "evaluations": [
+              {
+                "asin": "B0CAND018",
+                "title": "Iron Flask 24oz Double Wall Insulated Bottle",
+                "is_competitor": true,
+                "confidence": 0.96
+              },
+              {
+                "asin": "B0CAND019",
+                "title": "Thermos Stainless King 24oz Vacuum Insulated",
+                "is_competitor": true,
+                "confidence": 0.95
+              },
+              {
+                "asin": "B0CAND020",
+                "title": "Polar Bottle 24oz Insulated Sport Bottle",
+                "is_competitor": true,
+                "confidence": 0.92
+              },
+              {
+                "asin": "B0CAND021",
+                "title": "Klean Kanteen 20oz Insulated Bottle",
+                "is_competitor": true,
+                "confidence": 0.87
+              },
+              {
+                "asin": "B0CAND022",
+                "title": "Stanley Classic 24oz Vacuum Bottle",
+                "is_competitor": true,
+                "confidence": 0.94
+              },
+              {
+                "asin": "B0CAND024",
+                "title": "LifeStraw Go 24oz Bottle with Filter",
+                "is_competitor": false,
+                "rejection_reason": {
+                  "code": "DIFFERENT_USE_CASE",
+                  "explanation": "This is a water filtration bottle, not a general insulated bottle"
+                },
+                "confidence": 0.89
+              },
+              {
+                "asin": "B0CAND025",
+                "title": "Zojirushi 16oz Stainless Mug",
+                "is_competitor": false,
+                "rejection_reason": {
+                  "code": "SIZE_MISMATCH",
+                  "explanation": "Reference is 24oz bottle, this is 16oz travel mug - different product type"
+                },
+                "confidence": 0.93
+              },
+              {
+                "asin": "B0CAND026",
+                "title": "Fifty/Fifty 25oz Insulated Bottle",
+                "is_competitor": true,
+                "confidence": 0.91
+              },
+              {
+                "asin": "B0CAND027",
+                "title": "Corkcicle 24oz Canteen",
+                "is_competitor": true,
+                "confidence": 0.88
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 6,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [
+              {
+                "rank": 1,
+                "asin": "B0CAND022",
+                "title": "Stanley Classic 24oz Vacuum Bottle",
+                "price": 35.99,
+                "rating": 4.8,
+                "reviews": 15234,
+                "llm_confidence": 0.94
+              },
+              {
+                "rank": 2,
+                "asin": "B0CAND027",
+                "title": "Corkcicle 24oz Canteen",
+                "price": 37.95,
+                "rating": 4.6,
+                "reviews": 7821,
+                "llm_confidence": 0.88
+              },
+              {
+                "rank": 3,
+                "asin": "B0CAND018",
+                "title": "Iron Flask 24oz Double Wall Insulated Bottle",
+                "price": 29.99,
+                "rating": 4.5,
+                "reviews": 6234,
+                "llm_confidence": 0.96
+              },
+              {
+                "rank": 4,
+                "asin": "B0CAND019",
+                "title": "Thermos Stainless King 24oz Vacuum Insulated",
+                "price": 32.99,
+                "rating": 4.6,
+                "reviews": 4521,
+                "llm_confidence": 0.95
+              },
+              {
+                "rank": 5,
+                "asin": "B0CAND020",
+                "title": "Polar Bottle 24oz Insulated Sport Bottle",
+                "price": 24.99,
+                "rating": 4.3,
+                "reviews": 3892,
+                "llm_confidence": 0.92
+              },
+              {
+                "rank": 6,
+                "asin": "B0CAND026",
+                "title": "Fifty/Fifty 25oz Insulated Bottle",
+                "price": 26.99,
+                "rating": 4.4,
+                "reviews": 2893,
+                "llm_confidence": 0.91
+              }
+            ],
+            "selection": {
+              "asin": "B0CAND022",
+              "title": "Stanley Classic 24oz Vacuum Bottle"
+            }
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "COMPETITOR_SELECTED",
+        "selected_competitor": {
+          "asin": "B0CAND022",
+          "title": "Stanley Classic 24oz Vacuum Bottle",
+          "price": 35.99,
+          "rating": 4.8,
+          "reviews": 15234,
+          "qualified": true,
+          "llm_confidence": 0.94
+        }
+      }
+    },
+    {
+      "reference_product": {
+        "asin": "B0REF004",
+        "title": "AirPods Pro 2 Premium Wireless Earbuds with ANC",
+        "price": 249,
+        "rating": 4.7,
+        "reviews": 45231,
+        "category": "Electronics > Headphones > Wireless Earbuds"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "AirPods Pro 2 Premium Wireless Earbuds with ANC",
+            "category": "Electronics > Headphones > Wireless Earbuds"
+          },
+          "output": {
+            "keywords": [
+              "wireless earbuds anc",
+              "premium wireless earbuds",
+              "noise cancelling earbuds"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "wireless earbuds anc",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 12847,
+            "candidates_fetched": 12,
+            "candidates": [
+              {
+                "asin": "B0CAND028",
+                "title": "Sony WF-1000XM5 Wireless Earbuds with ANC",
+                "price": 299.99,
+                "rating": 4.6,
+                "reviews": 12432
+              },
+              {
+                "asin": "B0CAND029",
+                "title": "Bose QuietComfort Earbuds II",
+                "price": 279,
+                "rating": 4.5,
+                "reviews": 8321
+              },
+              {
+                "asin": "B0CAND030",
+                "title": "Samsung Galaxy Buds2 Pro",
+                "price": 229.99,
+                "rating": 4.4,
+                "reviews": 15632
+              },
+              {
+                "asin": "B0CAND031",
+                "title": "Anker Soundcore Liberty 4 NC",
+                "price": 99.99,
+                "rating": 4.3,
+                "reviews": 6234
+              },
+              {
+                "asin": "B0CAND032",
+                "title": "Silicone Ear Tips for AirPods Pro - 6 Pairs",
+                "price": 12.99,
+                "rating": 4.2,
+                "reviews": 8932
+              },
+              {
+                "asin": "B0CAND033",
+                "title": "Charging Case for Wireless Earbuds",
+                "price": 24.99,
+                "rating": 4,
+                "reviews": 2341
+              },
+              {
+                "asin": "B0REF004",
+                "title": "AirPods Pro 2 Premium Wireless Earbuds with ANC",
+                "price": 249,
+                "rating": 4.7,
+                "reviews": 45231
+              },
+              {
+                "asin": "B0CAND034",
+                "title": "Jabra Elite 85t Wireless Earbuds",
+                "price": 199.99,
+                "rating": 4.3,
+                "reviews": 7821
+              },
+              {
+                "asin": "B0CAND035",
+                "title": "Beats Fit Pro True Wireless Earbuds",
+                "price": 199.95,
+                "rating": 4.6,
+                "reviews": 18234
+              },
+              {
+                "asin": "B0CAND036",
+                "title": "1MORE ComfoBuds Pro",
+                "price": 79.99,
+                "rating": 4.1,
+                "reviews": 1892
+              },
+              {
+                "asin": "B0CAND037",
+                "title": "Wireless Earbuds Cleaning Kit with Brush",
+                "price": 9.99,
+                "rating": 4.4,
+                "reviews": 5621
+              },
+              {
+                "asin": "B0CAND038",
+                "title": "Sennheiser Momentum True Wireless 3",
+                "price": 279.95,
+                "rating": 4.5,
+                "reviews": 3421
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 12,
+            "reference_product": {
+              "asin": "B0REF004",
+              "title": "AirPods Pro 2 Premium Wireless Earbuds with ANC",
+              "price": 249,
+              "rating": 4.7,
+              "reviews": 45231
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 124.5,
+                "max": 498
+              },
+              "minRating": 4.3,
+              "minReviews": 3000
+            }
+          },
+          "output": {
+            "total_evaluated": 12,
+            "passed": 5,
+            "failed": 7,
+            "evaluations": [
+              {
+                "asin": "B0CAND028",
+                "title": "Sony WF-1000XM5 Wireless Earbuds with ANC",
+                "price": 299.99,
+                "rating": 4.6,
+                "reviews": 12432,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$299.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "12432 vs 3000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND029",
+                "title": "Bose QuietComfort Earbuds II",
+                "price": 279,
+                "rating": 4.5,
+                "reviews": 8321,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$279.00 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "8321 vs 3000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND030",
+                "title": "Samsung Galaxy Buds2 Pro",
+                "price": 229.99,
+                "rating": 4.4,
+                "reviews": 15632,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$229.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "15632 vs 3000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND031",
+                "title": "Anker Soundcore Liberty 4 NC",
+                "price": 99.99,
+                "rating": 4.3,
+                "reviews": 6234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$99.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "6234 vs 3000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND032",
+                "title": "Silicone Ear Tips for AirPods Pro - 6 Pairs",
+                "price": 12.99,
+                "rating": 4.2,
+                "reviews": 8932,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$12.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "4.2 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "8932 vs 3000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND033",
+                "title": "Charging Case for Wireless Earbuds",
+                "price": 24.99,
+                "rating": 4,
+                "reviews": 2341,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$24.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "4.0 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "2341 vs 3000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0REF004",
+                "title": "AirPods Pro 2 Premium Wireless Earbuds with ANC",
+                "price": 249,
+                "rating": 4.7,
+                "reviews": 45231,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$249.00 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.7 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "45231 vs 3000"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND034",
+                "title": "Jabra Elite 85t Wireless Earbuds",
+                "price": 199.99,
+                "rating": 4.3,
+                "reviews": 7821,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$199.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "7821 vs 3000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND035",
+                "title": "Beats Fit Pro True Wireless Earbuds",
+                "price": 199.95,
+                "rating": 4.6,
+                "reviews": 18234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$199.95 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "18234 vs 3000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND036",
+                "title": "1MORE ComfoBuds Pro",
+                "price": 79.99,
+                "rating": 4.1,
+                "reviews": 1892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$79.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "4.1 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "1892 vs 3000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND037",
+                "title": "Wireless Earbuds Cleaning Kit with Brush",
+                "price": 9.99,
+                "rating": 4.4,
+                "reviews": 5621,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$9.99 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "5621 vs 3000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND038",
+                "title": "Sennheiser Momentum True Wireless 3",
+                "price": 279.95,
+                "rating": 4.5,
+                "reviews": 3421,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$279.95 vs $124.50-$498.00"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.3"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "3421 vs 3000"
+                  }
+                },
+                "qualified": true
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 6,
+            "reference_product": {
+              "title": "AirPods Pro 2 Premium Wireless Earbuds with ANC",
+              "category": "Electronics > Headphones > Wireless Earbuds"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 6,
+            "confirmed_competitors": 6,
+            "false_positives_removed": 0,
+            "evaluations": [
+              {
+                "asin": "B0CAND028",
+                "title": "Sony WF-1000XM5 Wireless Earbuds with ANC",
+                "is_competitor": true,
+                "confidence": 0.97
+              },
+              {
+                "asin": "B0CAND029",
+                "title": "Bose QuietComfort Earbuds II",
+                "is_competitor": true,
+                "confidence": 0.96
+              },
+              {
+                "asin": "B0CAND030",
+                "title": "Samsung Galaxy Buds2 Pro",
+                "is_competitor": true,
+                "confidence": 0.95
+              },
+              {
+                "asin": "B0CAND034",
+                "title": "Jabra Elite 85t Wireless Earbuds",
+                "is_competitor": true,
+                "confidence": 0.93
+              },
+              {
+                "asin": "B0CAND035",
+                "title": "Beats Fit Pro True Wireless Earbuds",
+                "is_competitor": true,
+                "confidence": 0.94
+              },
+              {
+                "asin": "B0CAND038",
+                "title": "Sennheiser Momentum True Wireless 3",
+                "is_competitor": true,
+                "confidence": 0.92
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 6,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [
+              {
+                "rank": 1,
+                "asin": "B0CAND035",
+                "title": "Beats Fit Pro True Wireless Earbuds",
+                "price": 199.95,
+                "rating": 4.6,
+                "reviews": 18234,
+                "llm_confidence": 0.94
+              },
+              {
+                "rank": 2,
+                "asin": "B0CAND030",
+                "title": "Samsung Galaxy Buds2 Pro",
+                "price": 229.99,
+                "rating": 4.4,
+                "reviews": 15632,
+                "llm_confidence": 0.95
+              },
+              {
+                "rank": 3,
+                "asin": "B0CAND028",
+                "title": "Sony WF-1000XM5 Wireless Earbuds with ANC",
+                "price": 299.99,
+                "rating": 4.6,
+                "reviews": 12432,
+                "llm_confidence": 0.97
+              },
+              {
+                "rank": 4,
+                "asin": "B0CAND029",
+                "title": "Bose QuietComfort Earbuds II",
+                "price": 279,
+                "rating": 4.5,
+                "reviews": 8321,
+                "llm_confidence": 0.96
+              },
+              {
+                "rank": 5,
+                "asin": "B0CAND034",
+                "title": "Jabra Elite 85t Wireless Earbuds",
+                "price": 199.99,
+                "rating": 4.3,
+                "reviews": 7821,
+                "llm_confidence": 0.93
+              },
+              {
+                "rank": 6,
+                "asin": "B0CAND038",
+                "title": "Sennheiser Momentum True Wireless 3",
+                "price": 279.95,
+                "rating": 4.5,
+                "reviews": 3421,
+                "llm_confidence": 0.92
+              }
+            ],
+            "selection": {
+              "asin": "B0CAND035",
+              "title": "Beats Fit Pro True Wireless Earbuds"
+            }
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "COMPETITOR_SELECTED",
+        "selected_competitor": {
+          "asin": "B0CAND035",
+          "title": "Beats Fit Pro True Wireless Earbuds",
+          "price": 199.95,
+          "rating": 4.6,
+          "reviews": 18234,
+          "qualified": true,
+          "llm_confidence": 0.94
+        }
+      }
+    },
+    {
+      "reference_product": {
+        "asin": "B0REF005",
+        "title": "SoundFlow Budget Chi-Fi Wireless Earbuds",
+        "price": 39.99,
+        "rating": 4.2,
+        "reviews": 892,
+        "category": "Electronics > Headphones > Wireless Earbuds"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "SoundFlow Budget Chi-Fi Wireless Earbuds",
+            "category": "Electronics > Headphones > Wireless Earbuds"
+          },
+          "output": {
+            "keywords": [
+              "budget wireless earbuds",
+              "cheap wireless earbuds",
+              "wireless earbuds under 50"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "budget wireless earbuds",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 9234,
+            "candidates_fetched": 4,
+            "candidates": [
+              {
+                "asin": "B0CAND039",
+                "title": "Tozo T6 True Wireless Earbuds",
+                "price": 29.99,
+                "rating": 4.3,
+                "reviews": 234521
+              },
+              {
+                "asin": "B0CAND040",
+                "title": "Soundcore by Anker Life P2",
+                "price": 39.99,
+                "rating": 4.4,
+                "reviews": 87321
+              },
+              {
+                "asin": "B0CAND041",
+                "title": "JBL Tune 125TWS True Wireless",
+                "price": 69.95,
+                "rating": 4.2,
+                "reviews": 12432
+              },
+              {
+                "asin": "B0REF005",
+                "title": "SoundFlow Budget Chi-Fi Wireless Earbuds",
+                "price": 39.99,
+                "rating": 4.2,
+                "reviews": 892
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 4,
+            "reference_product": {
+              "asin": "B0REF005",
+              "title": "SoundFlow Budget Chi-Fi Wireless Earbuds",
+              "price": 39.99,
+              "rating": 4.2,
+              "reviews": 892
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 20,
+                "max": 79.98
+              },
+              "minRating": 3.8,
+              "minReviews": 500
+            }
+          },
+          "output": {
+            "total_evaluated": 4,
+            "passed": 0,
+            "failed": 4,
+            "evaluations": [
+              {
+                "asin": "B0CAND039",
+                "title": "Tozo T6 True Wireless Earbuds",
+                "price": 29.99,
+                "rating": 4.3,
+                "reviews": 234521,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$29.99 vs $20.00-$79.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 3.8"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "234521 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND040",
+                "title": "Soundcore by Anker Life P2",
+                "price": 39.99,
+                "rating": 4.4,
+                "reviews": 87321,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$39.99 vs $20.00-$79.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 3.8"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "87321 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND041",
+                "title": "JBL Tune 125TWS True Wireless",
+                "price": 69.95,
+                "rating": 4.2,
+                "reviews": 12432,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$69.95 vs $20.00-$79.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.2 vs 3.8"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "12432 vs 500"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0REF005",
+                "title": "SoundFlow Budget Chi-Fi Wireless Earbuds",
+                "price": 39.99,
+                "rating": 4.2,
+                "reviews": 892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$39.99 vs $20.00-$79.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.2 vs 3.8"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "892 vs 500"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 3,
+            "reference_product": {
+              "title": "SoundFlow Budget Chi-Fi Wireless Earbuds",
+              "category": "Electronics > Headphones > Wireless Earbuds"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 3,
+            "confirmed_competitors": 3,
+            "false_positives_removed": 0,
+            "evaluations": [
+              {
+                "asin": "B0CAND039",
+                "title": "Tozo T6 True Wireless Earbuds",
+                "is_competitor": true,
+                "confidence": 0.94
+              },
+              {
+                "asin": "B0CAND040",
+                "title": "Soundcore by Anker Life P2",
+                "is_competitor": true,
+                "confidence": 0.96
+              },
+              {
+                "asin": "B0CAND041",
+                "title": "JBL Tune 125TWS True Wireless",
+                "is_competitor": true,
+                "confidence": 0.89
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 3,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [
+              {
+                "rank": 1,
+                "asin": "B0CAND039",
+                "title": "Tozo T6 True Wireless Earbuds",
+                "price": 29.99,
+                "rating": 4.3,
+                "reviews": 234521,
+                "llm_confidence": 0.94
+              },
+              {
+                "rank": 2,
+                "asin": "B0CAND040",
+                "title": "Soundcore by Anker Life P2",
+                "price": 39.99,
+                "rating": 4.4,
+                "reviews": 87321,
+                "llm_confidence": 0.96
+              },
+              {
+                "rank": 3,
+                "asin": "B0CAND041",
+                "title": "JBL Tune 125TWS True Wireless",
+                "price": 69.95,
+                "rating": 4.2,
+                "reviews": 12432,
+                "llm_confidence": 0.89
+              }
+            ],
+            "selection": {
+              "asin": "B0CAND039",
+              "title": "Tozo T6 True Wireless Earbuds"
+            }
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "COMPETITOR_SELECTED",
+        "selected_competitor": {
+          "asin": "B0CAND039",
+          "title": "Tozo T6 True Wireless Earbuds",
+          "price": 29.99,
+          "rating": 4.3,
+          "reviews": 234521,
+          "qualified": true,
+          "llm_confidence": 0.94
+        }
+      }
+    },
+    {
+      "reference_product": {
+        "asin": "B0REF006",
+        "title": "GamePro Low Latency Gaming Wireless Earbuds with RGB",
+        "price": 79.99,
+        "rating": 4.1,
+        "reviews": 2341,
+        "category": "Electronics > Headphones > Gaming Earbuds"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "GamePro Low Latency Gaming Wireless Earbuds with RGB",
+            "category": "Electronics > Headphones > Gaming Earbuds"
+          },
+          "output": {
+            "keywords": [
+              "gaming wireless earbuds",
+              "low latency earbuds",
+              "gaming earbuds rgb"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "gaming wireless earbuds",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 1247,
+            "candidates_fetched": 8,
+            "candidates": [
+              {
+                "asin": "B0CAND042",
+                "title": "Razer Hammerhead True Wireless Gaming Earbuds",
+                "price": 129.99,
+                "rating": 4.3,
+                "reviews": 5632
+              },
+              {
+                "asin": "B0CAND043",
+                "title": "ASUS ROG Cetra True Wireless Gaming",
+                "price": 149.99,
+                "rating": 4.2,
+                "reviews": 1892
+              },
+              {
+                "asin": "B0CAND044",
+                "title": "HyperX Cloud Mix Buds Gaming Earbuds",
+                "price": 149.99,
+                "rating": 4,
+                "reviews": 3421
+              },
+              {
+                "asin": "B0CAND045",
+                "title": "Generic RGB Gaming Earbuds",
+                "price": 34.99,
+                "rating": 3.6,
+                "reviews": 234
+              },
+              {
+                "asin": "B0CAND046",
+                "title": "USB-C Gaming Dongle for Wireless Earbuds",
+                "price": 19.99,
+                "rating": 3.9,
+                "reviews": 892
+              },
+              {
+                "asin": "B0REF006",
+                "title": "GamePro Low Latency Gaming Wireless Earbuds with RGB",
+                "price": 79.99,
+                "rating": 4.1,
+                "reviews": 2341
+              },
+              {
+                "asin": "B0CAND047",
+                "title": "JBL Quantum TWS Gaming Earbuds",
+                "price": 99.95,
+                "rating": 4.4,
+                "reviews": 4521
+              },
+              {
+                "asin": "B0CAND048",
+                "title": "Logitech G FITS True Wireless Gaming Earbuds",
+                "price": 229.99,
+                "rating": 3.8,
+                "reviews": 892
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 8,
+            "reference_product": {
+              "asin": "B0REF006",
+              "title": "GamePro Low Latency Gaming Wireless Earbuds with RGB",
+              "price": 79.99,
+              "rating": 4.1,
+              "reviews": 2341
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 40,
+                "max": 159.98
+              },
+              "minRating": 3.7,
+              "minReviews": 1000
+            }
+          },
+          "output": {
+            "total_evaluated": 8,
+            "passed": 3,
+            "failed": 5,
+            "evaluations": [
+              {
+                "asin": "B0CAND042",
+                "title": "Razer Hammerhead True Wireless Gaming Earbuds",
+                "price": 129.99,
+                "rating": 4.3,
+                "reviews": 5632,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$129.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "5632 vs 1000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND043",
+                "title": "ASUS ROG Cetra True Wireless Gaming",
+                "price": 149.99,
+                "rating": 4.2,
+                "reviews": 1892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$149.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.2 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "1892 vs 1000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND044",
+                "title": "HyperX Cloud Mix Buds Gaming Earbuds",
+                "price": 149.99,
+                "rating": 4,
+                "reviews": 3421,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$149.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.0 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "3421 vs 1000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND045",
+                "title": "Generic RGB Gaming Earbuds",
+                "price": 34.99,
+                "rating": 3.6,
+                "reviews": 234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$34.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "3.6 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "234 vs 1000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND046",
+                "title": "USB-C Gaming Dongle for Wireless Earbuds",
+                "price": 19.99,
+                "rating": 3.9,
+                "reviews": 892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$19.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "3.9 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "892 vs 1000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0REF006",
+                "title": "GamePro Low Latency Gaming Wireless Earbuds with RGB",
+                "price": 79.99,
+                "rating": 4.1,
+                "reviews": 2341,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$79.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.1 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "2341 vs 1000"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND047",
+                "title": "JBL Quantum TWS Gaming Earbuds",
+                "price": 99.95,
+                "rating": 4.4,
+                "reviews": 4521,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$99.95 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "4521 vs 1000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND048",
+                "title": "Logitech G FITS True Wireless Gaming Earbuds",
+                "price": 229.99,
+                "rating": 3.8,
+                "reviews": 892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$229.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "3.8 vs 3.7"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "892 vs 1000"
+                  }
+                },
+                "qualified": false
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 4,
+            "reference_product": {
+              "title": "GamePro Low Latency Gaming Wireless Earbuds with RGB",
+              "category": "Electronics > Headphones > Gaming Earbuds"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 4,
+            "confirmed_competitors": 4,
+            "false_positives_removed": 0,
+            "evaluations": [
+              {
+                "asin": "B0CAND042",
+                "title": "Razer Hammerhead True Wireless Gaming Earbuds",
+                "is_competitor": true,
+                "confidence": 0.95
+              },
+              {
+                "asin": "B0CAND043",
+                "title": "ASUS ROG Cetra True Wireless Gaming",
+                "is_competitor": true,
+                "confidence": 0.93
+              },
+              {
+                "asin": "B0CAND044",
+                "title": "HyperX Cloud Mix Buds Gaming Earbuds",
+                "is_competitor": true,
+                "confidence": 0.91
+              },
+              {
+                "asin": "B0CAND047",
+                "title": "JBL Quantum TWS Gaming Earbuds",
+                "is_competitor": true,
+                "confidence": 0.94
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 4,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [
+              {
+                "rank": 1,
+                "asin": "B0CAND042",
+                "title": "Razer Hammerhead True Wireless Gaming Earbuds",
+                "price": 129.99,
+                "rating": 4.3,
+                "reviews": 5632,
+                "llm_confidence": 0.95
+              },
+              {
+                "rank": 2,
+                "asin": "B0CAND047",
+                "title": "JBL Quantum TWS Gaming Earbuds",
+                "price": 99.95,
+                "rating": 4.4,
+                "reviews": 4521,
+                "llm_confidence": 0.94
+              },
+              {
+                "rank": 3,
+                "asin": "B0CAND044",
+                "title": "HyperX Cloud Mix Buds Gaming Earbuds",
+                "price": 149.99,
+                "rating": 4,
+                "reviews": 3421,
+                "llm_confidence": 0.91
+              },
+              {
+                "rank": 4,
+                "asin": "B0CAND043",
+                "title": "ASUS ROG Cetra True Wireless Gaming",
+                "price": 149.99,
+                "rating": 4.2,
+                "reviews": 1892,
+                "llm_confidence": 0.93
+              }
+            ],
+            "selection": {
+              "asin": "B0CAND042",
+              "title": "Razer Hammerhead True Wireless Gaming Earbuds"
+            }
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "COMPETITOR_SELECTED",
+        "selected_competitor": {
+          "asin": "B0CAND042",
+          "title": "Razer Hammerhead True Wireless Gaming Earbuds",
+          "price": 129.99,
+          "rating": 4.3,
+          "reviews": 5632,
+          "qualified": true,
+          "llm_confidence": 0.95
+        }
+      }
+    },
+    {
+      "reference_product": {
+        "asin": "B0REF007",
+        "title": "ArmorShield Rugged Drop Protection Phone Case iPhone 14 Pro",
+        "price": 34.99,
+        "rating": 4.5,
+        "reviews": 12432,
+        "category": "Cell Phones & Accessories > Cases > Protective Cases"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "ArmorShield Rugged Drop Protection Phone Case iPhone 14 Pro",
+            "category": "Cell Phones & Accessories > Cases > Protective Cases"
+          },
+          "output": {
+            "keywords": [
+              "rugged phone case iphone 14 pro",
+              "drop protection case",
+              "protective phone case"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "rugged phone case iphone 14 pro",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 15234,
+            "candidates_fetched": 10,
+            "candidates": [
+              {
+                "asin": "B0CAND049",
+                "title": "OtterBox Defender Series iPhone 14 Pro Case",
+                "price": 49.95,
+                "rating": 4.7,
+                "reviews": 28432
+              },
+              {
+                "asin": "B0CAND050",
+                "title": "Spigen Tough Armor iPhone 14 Pro Case",
+                "price": 29.99,
+                "rating": 4.6,
+                "reviews": 15234
+              },
+              {
+                "asin": "B0CAND051",
+                "title": "UAG Monarch iPhone 14 Pro Case",
+                "price": 59.95,
+                "rating": 4.5,
+                "reviews": 8321
+              },
+              {
+                "asin": "B0CAND052",
+                "title": "Tempered Glass Screen Protector 3-Pack",
+                "price": 9.99,
+                "rating": 4.3,
+                "reviews": 34521
+              },
+              {
+                "asin": "B0CAND053",
+                "title": "Phone Case Camera Lens Protector",
+                "price": 8.99,
+                "rating": 4.1,
+                "reviews": 8932
+              },
+              {
+                "asin": "B0REF007",
+                "title": "ArmorShield Rugged Drop Protection Phone Case iPhone 14 Pro",
+                "price": 34.99,
+                "rating": 4.5,
+                "reviews": 12432
+              },
+              {
+                "asin": "B0CAND054",
+                "title": "Caseology Vault iPhone 14 Pro Case",
+                "price": 19.99,
+                "rating": 4.4,
+                "reviews": 9876
+              },
+              {
+                "asin": "B0CAND055",
+                "title": "Supcase Unicorn Beetle Pro iPhone 14 Pro",
+                "price": 24.99,
+                "rating": 4.5,
+                "reviews": 11234
+              },
+              {
+                "asin": "B0CAND056",
+                "title": "Poetic Revolution iPhone 14 Pro Case",
+                "price": 22.99,
+                "rating": 4.3,
+                "reviews": 5632
+              },
+              {
+                "asin": "B0CAND057",
+                "title": "Budget Generic Rubber Case",
+                "price": 7.99,
+                "rating": 3.2,
+                "reviews": 432
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 10,
+            "reference_product": {
+              "asin": "B0REF007",
+              "title": "ArmorShield Rugged Drop Protection Phone Case iPhone 14 Pro",
+              "price": 34.99,
+              "rating": 4.5,
+              "reviews": 12432
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 17.5,
+                "max": 69.98
+              },
+              "minRating": 4.1,
+              "minReviews": 5000
+            }
+          },
+          "output": {
+            "total_evaluated": 10,
+            "passed": 5,
+            "failed": 5,
+            "evaluations": [
+              {
+                "asin": "B0CAND049",
+                "title": "OtterBox Defender Series iPhone 14 Pro Case",
+                "price": 49.95,
+                "rating": 4.7,
+                "reviews": 28432,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$49.95 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.7 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "28432 vs 5000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND050",
+                "title": "Spigen Tough Armor iPhone 14 Pro Case",
+                "price": 29.99,
+                "rating": 4.6,
+                "reviews": 15234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$29.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "15234 vs 5000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND051",
+                "title": "UAG Monarch iPhone 14 Pro Case",
+                "price": 59.95,
+                "rating": 4.5,
+                "reviews": 8321,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$59.95 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "8321 vs 5000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND052",
+                "title": "Tempered Glass Screen Protector 3-Pack",
+                "price": 9.99,
+                "rating": 4.3,
+                "reviews": 34521,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$9.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "34521 vs 5000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND053",
+                "title": "Phone Case Camera Lens Protector",
+                "price": 8.99,
+                "rating": 4.1,
+                "reviews": 8932,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$8.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.1 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "8932 vs 5000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0REF007",
+                "title": "ArmorShield Rugged Drop Protection Phone Case iPhone 14 Pro",
+                "price": 34.99,
+                "rating": 4.5,
+                "reviews": 12432,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$34.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "12432 vs 5000"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND054",
+                "title": "Caseology Vault iPhone 14 Pro Case",
+                "price": 19.99,
+                "rating": 4.4,
+                "reviews": 9876,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$19.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.4 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "9876 vs 5000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND055",
+                "title": "Supcase Unicorn Beetle Pro iPhone 14 Pro",
+                "price": 24.99,
+                "rating": 4.5,
+                "reviews": 11234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$24.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "11234 vs 5000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND056",
+                "title": "Poetic Revolution iPhone 14 Pro Case",
+                "price": 22.99,
+                "rating": 4.3,
+                "reviews": 5632,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$22.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.3 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "5632 vs 5000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND057",
+                "title": "Budget Generic Rubber Case",
+                "price": 7.99,
+                "rating": 3.2,
+                "reviews": 432,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$7.99 vs $17.50-$69.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "3.2 vs 4.1"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "432 vs 5000"
+                  }
+                },
+                "qualified": false
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 6,
+            "reference_product": {
+              "title": "ArmorShield Rugged Drop Protection Phone Case iPhone 14 Pro",
+              "category": "Cell Phones & Accessories > Cases > Protective Cases"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 6,
+            "confirmed_competitors": 6,
+            "false_positives_removed": 0,
+            "evaluations": [
+              {
+                "asin": "B0CAND049",
+                "title": "OtterBox Defender Series iPhone 14 Pro Case",
+                "is_competitor": true,
+                "confidence": 0.97
+              },
+              {
+                "asin": "B0CAND050",
+                "title": "Spigen Tough Armor iPhone 14 Pro Case",
+                "is_competitor": true,
+                "confidence": 0.96
+              },
+              {
+                "asin": "B0CAND051",
+                "title": "UAG Monarch iPhone 14 Pro Case",
+                "is_competitor": true,
+                "confidence": 0.94
+              },
+              {
+                "asin": "B0CAND054",
+                "title": "Caseology Vault iPhone 14 Pro Case",
+                "is_competitor": true,
+                "confidence": 0.93
+              },
+              {
+                "asin": "B0CAND055",
+                "title": "Supcase Unicorn Beetle Pro iPhone 14 Pro",
+                "is_competitor": true,
+                "confidence": 0.95
+              },
+              {
+                "asin": "B0CAND056",
+                "title": "Poetic Revolution iPhone 14 Pro Case",
+                "is_competitor": true,
+                "confidence": 0.91
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 6,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [
+              {
+                "rank": 1,
+                "asin": "B0CAND049",
+                "title": "OtterBox Defender Series iPhone 14 Pro Case",
+                "price": 49.95,
+                "rating": 4.7,
+                "reviews": 28432,
+                "llm_confidence": 0.97
+              },
+              {
+                "rank": 2,
+                "asin": "B0CAND050",
+                "title": "Spigen Tough Armor iPhone 14 Pro Case",
+                "price": 29.99,
+                "rating": 4.6,
+                "reviews": 15234,
+                "llm_confidence": 0.96
+              },
+              {
+                "rank": 3,
+                "asin": "B0CAND055",
+                "title": "Supcase Unicorn Beetle Pro iPhone 14 Pro",
+                "price": 24.99,
+                "rating": 4.5,
+                "reviews": 11234,
+                "llm_confidence": 0.95
+              },
+              {
+                "rank": 4,
+                "asin": "B0CAND054",
+                "title": "Caseology Vault iPhone 14 Pro Case",
+                "price": 19.99,
+                "rating": 4.4,
+                "reviews": 9876,
+                "llm_confidence": 0.93
+              },
+              {
+                "rank": 5,
+                "asin": "B0CAND051",
+                "title": "UAG Monarch iPhone 14 Pro Case",
+                "price": 59.95,
+                "rating": 4.5,
+                "reviews": 8321,
+                "llm_confidence": 0.94
+              },
+              {
+                "rank": 6,
+                "asin": "B0CAND056",
+                "title": "Poetic Revolution iPhone 14 Pro Case",
+                "price": 22.99,
+                "rating": 4.3,
+                "reviews": 5632,
+                "llm_confidence": 0.91
+              }
+            ],
+            "selection": {
+              "asin": "B0CAND049",
+              "title": "OtterBox Defender Series iPhone 14 Pro Case"
+            }
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "COMPETITOR_SELECTED",
+        "selected_competitor": {
+          "asin": "B0CAND049",
+          "title": "OtterBox Defender Series iPhone 14 Pro Case",
+          "price": 49.95,
+          "rating": 4.7,
+          "reviews": 28432,
+          "qualified": true,
+          "llm_confidence": 0.97
+        }
+      }
+    },
+    {
+      "reference_product": {
+        "asin": "B0REF008",
+        "title": "Luxury Slim Italian Leather iPhone 14 Pro Case",
+        "price": 79.99,
+        "rating": 4.8,
+        "reviews": 234,
+        "category": "Cell Phones & Accessories > Cases > Leather Cases"
+      },
+      "pipeline_steps": {
+        "step1_keyword_generation": {
+          "input": {
+            "product_title": "Luxury Slim Italian Leather iPhone 14 Pro Case",
+            "category": "Cell Phones & Accessories > Cases > Leather Cases"
+          },
+          "output": {
+            "keywords": [
+              "leather iphone case",
+              "slim leather case iphone 14 pro",
+              "luxury phone case"
+            ],
+            "model": "fake-gpt-4"
+          }
+        },
+        "step2_candidate_search": {
+          "input": {
+            "keyword": "leather iphone case",
+            "limit": 50
+          },
+          "output": {
+            "total_results": 3421,
+            "candidates_fetched": 8,
+            "candidates": [
+              {
+                "asin": "B0CAND058",
+                "title": "Mujjo Full Leather iPhone 14 Pro Case",
+                "price": 44.95,
+                "rating": 4.6,
+                "reviews": 892
+              },
+              {
+                "asin": "B0CAND059",
+                "title": "Bellroy Leather iPhone 14 Pro Case",
+                "price": 49.95,
+                "rating": 4.5,
+                "reviews": 1234
+              },
+              {
+                "asin": "B0CAND060",
+                "title": "Nomad Rugged Leather Case",
+                "price": 59.95,
+                "rating": 4.7,
+                "reviews": 2341
+              },
+              {
+                "asin": "B0CAND061",
+                "title": "Generic PU Leather Case",
+                "price": 12.99,
+                "rating": 3.9,
+                "reviews": 567
+              },
+              {
+                "asin": "B0CAND062",
+                "title": "Leather iPhone Wallet Case",
+                "price": 34.99,
+                "rating": 4.2,
+                "reviews": 3421
+              },
+              {
+                "asin": "B0REF008",
+                "title": "Luxury Slim Italian Leather iPhone 14 Pro Case",
+                "price": 79.99,
+                "rating": 4.8,
+                "reviews": 234
+              },
+              {
+                "asin": "B0CAND063",
+                "title": "Leather Phone Stand Case",
+                "price": 29.99,
+                "rating": 4.1,
+                "reviews": 892
+              },
+              {
+                "asin": "B0CAND064",
+                "title": "Premium Leather Card Holder Case",
+                "price": 39.99,
+                "rating": 4.4,
+                "reviews": 1567
+              }
+            ]
+          }
+        },
+        "step3_apply_filters": {
+          "input": {
+            "candidates_count": 8,
+            "reference_product": {
+              "asin": "B0REF008",
+              "title": "Luxury Slim Italian Leather iPhone 14 Pro Case",
+              "price": 79.99,
+              "rating": 4.8,
+              "reviews": 234
+            },
+            "filters_applied": {
+              "priceRange": {
+                "min": 40,
+                "max": 159.98
+              },
+              "minRating": 4.5,
+              "minReviews": 2000
+            }
+          },
+          "output": {
+            "total_evaluated": 8,
+            "passed": 1,
+            "failed": 7,
+            "evaluations": [
+              {
+                "asin": "B0CAND058",
+                "title": "Mujjo Full Leather iPhone 14 Pro Case",
+                "price": 44.95,
+                "rating": 4.6,
+                "reviews": 892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$44.95 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.6 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "892 vs 2000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND059",
+                "title": "Bellroy Leather iPhone 14 Pro Case",
+                "price": 49.95,
+                "rating": 4.5,
+                "reviews": 1234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$49.95 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.5 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "1234 vs 2000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND060",
+                "title": "Nomad Rugged Leather Case",
+                "price": 59.95,
+                "rating": 4.7,
+                "reviews": 2341,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$59.95 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.7 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "2341 vs 2000"
+                  }
+                },
+                "qualified": true
+              },
+              {
+                "asin": "B0CAND061",
+                "title": "Generic PU Leather Case",
+                "price": 12.99,
+                "rating": 3.9,
+                "reviews": 567,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$12.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "3.9 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "567 vs 2000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND062",
+                "title": "Leather iPhone Wallet Case",
+                "price": 34.99,
+                "rating": 4.2,
+                "reviews": 3421,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$34.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "4.2 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": true,
+                    "detail": "3421 vs 2000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0REF008",
+                "title": "Luxury Slim Italian Leather iPhone 14 Pro Case",
+                "price": 79.99,
+                "rating": 4.8,
+                "reviews": 234,
+                "filter_results": {
+                  "price_range": {
+                    "passed": true,
+                    "detail": "$79.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": true,
+                    "detail": "4.8 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "234 vs 2000"
+                  },
+                  "is_reference": true
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND063",
+                "title": "Leather Phone Stand Case",
+                "price": 29.99,
+                "rating": 4.1,
+                "reviews": 892,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$29.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "4.1 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "892 vs 2000"
+                  }
+                },
+                "qualified": false
+              },
+              {
+                "asin": "B0CAND064",
+                "title": "Premium Leather Card Holder Case",
+                "price": 39.99,
+                "rating": 4.4,
+                "reviews": 1567,
+                "filter_results": {
+                  "price_range": {
+                    "passed": false,
+                    "detail": "$39.99 vs $40.00-$159.98"
+                  },
+                  "min_rating": {
+                    "passed": false,
+                    "detail": "4.4 vs 4.5"
+                  },
+                  "min_reviews": {
+                    "passed": false,
+                    "detail": "1567 vs 2000"
+                  }
+                },
+                "qualified": false
+              }
+            ]
+          }
+        },
+        "step4_llm_relevance_evaluation": {
+          "input": {
+            "candidates_count": 1,
+            "reference_product": {
+              "title": "Luxury Slim Italian Leather iPhone 14 Pro Case",
+              "category": "Cell Phones & Accessories > Cases > Leather Cases"
+            },
+            "model": "fake-gpt-4"
+          },
+          "output": {
+            "total_evaluated": 1,
+            "confirmed_competitors": 0,
+            "false_positives_removed": 1,
+            "evaluations": [
+              {
+                "asin": "B0CAND060",
+                "title": "Nomad Rugged Leather Case",
+                "is_competitor": false,
+                "rejection_reason": {
+                  "code": "FALSE_NEGATIVE",
+                  "explanation": "LLM incorrectly classified rugged case as non-competitor for slim case reference"
+                },
+                "confidence": 0.78
+              }
+            ]
+          }
+        },
+        "step5_rank_and_select": {
+          "input": {
+            "candidates_count": 0,
+            "ranking_criteria": [
+              "review_count",
+              "rating"
+            ]
+          },
+          "output": {
+            "ranked_candidates": [],
+            "selection": null
+          }
+        }
+      },
+      "final_outcome": {
+        "decision": "NO_COMPETITOR_FOUND",
+        "selected_competitor": null,
+        "failure_reason": "All candidates rejected by LLM evaluation - false negative edge case"
+      }
+    }
+  ]
+}

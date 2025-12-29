@@ -1,89 +1,7 @@
 [
   {
-    "executionId": "d036ff76-2c05-4d89-a50f-deefeea84d78",
-    "startedAt": "2025-12-27T15:21:04.584Z",
-    "steps": [
-      {
-        "name": "keyword_generation",
-        "input": {
-          "title": "Steel Water Bottle"
-        },
-        "output": {
-          "keywords": [
-            "metal water bottle insulated"
-          ]
-        },
-        "reasoning": "Extracted material and product type"
-      },
-      {
-        "name": "candidate_search",
-        "candidates": [
-          {
-            "id": "A",
-            "title": "HydroFlask",
-            "price": 45,
-            "rating": 4.5,
-            "reviews": 8000
-          },
-          {
-            "id": "B",
-            "title": "Generic Bottle",
-            "price": 9,
-            "rating": 3.1,
-            "reviews": 20
-          },
-          {
-            "id": "C",
-            "title": "Yeti",
-            "price": 35,
-            "rating": 4.4,
-            "reviews": 5000
-          }
-        ],
-        "reasoning": "Fetched mock search results"
-      },
-      {
-        "name": "apply_filters",
-        "evaluations": [
-          {
-            "id": "A",
-            "passed": true,
-            "reason": "Price within range"
-          },
-          {
-            "id": "B",
-            "passed": false,
-            "reason": "Too cheap"
-          },
-          {
-            "id": "C",
-            "passed": true,
-            "reason": "Price within range"
-          }
-        ],
-        "output": {
-          "qualifiedIds": [
-            "A",
-            "C"
-          ]
-        },
-        "reasoning": "Removed low-priced products"
-      }
-    ],
-    "endedAt": "2025-12-27T15:21:04.585Z",
-    "finalOutcome": {
-      "selected": {
-        "id": "A",
-        "title": "HydroFlask",
-        "price": 45,
-        "rating": 4.5,
-        "reviews": 8000
-      }
-    }
-  },
-  {
-    "executionId": "movie-exec-23704102-f56f-444f-bf49-584f373eac29",
-    "startedAt": "2025-12-28T14:21:46.374Z",
+    "executionId": "movie-exec-a154ec21-0d3f-4419-8ccc-fa20642319b2",
+    "startedAt": "2025-12-29T10:01:41.819Z",
     "steps": [
       {
         "name": "preference_understanding",
@@ -94,17 +12,17 @@
             "Thriller"
           ]
         },
-        "timestamp": "2025-12-28T14:21:46.374Z",
-        "startedAt": "2025-12-28T14:21:46.374Z",
+        "timestamp": "2025-12-29T10:01:41.819Z",
+        "startedAt": "2025-12-29T10:01:41.819Z",
         "output": {
           "extracted_themes": [
             "time manipulation",
             "mind-bending"
           ]
         },
-        "endedAt": "2025-12-28T14:21:46.374Z",
+        "endedAt": "2025-12-29T10:01:41.819Z",
         "durationMs": 0,
-        "reasoning": "Completed \"preference_understanding\" step in 0ms"
+        "reasoning": "The system analyzes the input seed movie and user preferences to identify relevant themes, applying a threshold of two or more occurrences of thematic elements associated with the specified genres. In this case, \"Inception\" is linked to themes of \"time manipulation\" and \"mind-bending,\" which are extracted based on their prominence in the film's narrative structure."
       },
       {
         "name": "candidate_search",
@@ -115,66 +33,68 @@
           ],
           "limit": 50
         },
-        "timestamp": "2025-12-28T14:21:47.503Z",
-        "startedAt": "2025-12-28T14:21:47.503Z",
+        "timestamp": "2025-12-29T10:01:41.819Z",
+        "startedAt": "2025-12-29T10:01:41.819Z",
         "output": {
           "total_found": 5,
           "candidates_fetched": 5,
           "candidates": [
             {
-              "id": "M1",
-              "title": "Interstellar",
+              "id": "M101",
+              "title": "The Matrix",
+              "genres": [
+                "Sci-Fi",
+                "Action"
+              ],
+              "rating": 8.7,
+              "year": 1999
+            },
+            {
+              "id": "M102",
+              "title": "Arrival",
               "genres": [
                 "Sci-Fi",
                 "Drama"
               ],
-              "rating": 8.6,
-              "year": 2014
+              "rating": 7.9,
+              "year": 2016
             },
             {
-              "id": "M2",
-              "title": "Tenet",
+              "id": "M103",
+              "title": "Blade Runner 2049",
               "genres": [
                 "Sci-Fi",
                 "Thriller"
               ],
-              "rating": 7.8,
-              "year": 2020
+              "rating": 8,
+              "year": 2017
             },
             {
-              "id": "M3",
-              "title": "The Butterfly Effect",
+              "id": "M104",
+              "title": "Eternal Sunshine of the Spotless Mind",
               "genres": [
-                "Sci-Fi",
-                "Thriller"
+                "Romance",
+                "Drama",
+                "Sci-Fi"
               ],
-              "rating": 7.3,
+              "rating": 8.3,
               "year": 2004
             },
             {
-              "id": "M4",
-              "title": "Inception",
+              "id": "M105",
+              "title": "Ex Machina",
               "genres": [
                 "Sci-Fi",
-                "Thriller"
+                "Psychological Thriller"
               ],
-              "rating": 8.8,
-              "year": 2010
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
+              "rating": 7.7,
+              "year": 2014
             }
           ]
         },
-        "endedAt": "2025-12-28T14:21:47.504Z",
-        "durationMs": 1,
-        "reasoning": "Found 5 results for \"time manipulation, mind-bending\", returned 5"
+        "endedAt": "2025-12-29T10:01:41.819Z",
+        "durationMs": 0,
+        "reasoning": "The system processed a request for films related to the themes of time manipulation and mind-bending concepts, retrieving a total of 5 candidates that matched the criteria, all of which were within the specified limit of 50. Each candidate was evaluated based on its thematic relevance and additional attributes such as genre, rating, and release year."
       },
       {
         "name": "exclude_reference_item",
@@ -182,101 +102,123 @@
           "reference_movie": "Inception",
           "initial_candidates": 5
         },
-        "timestamp": "2025-12-28T14:21:47.504Z",
-        "startedAt": "2025-12-28T14:21:47.504Z",
+        "timestamp": "2025-12-29T10:01:41.819Z",
+        "startedAt": "2025-12-29T10:01:41.819Z",
         "output": {
-          "removed": [
-            "Inception"
-          ],
-          "remaining_candidates": 4,
+          "removed": [],
+          "remaining_candidates": 5,
           "remaining": [
             {
-              "id": "M1",
-              "title": "Interstellar",
+              "id": "M101",
+              "title": "The Matrix",
+              "genres": [
+                "Sci-Fi",
+                "Action"
+              ],
+              "rating": 8.7,
+              "year": 1999
+            },
+            {
+              "id": "M102",
+              "title": "Arrival",
               "genres": [
                 "Sci-Fi",
                 "Drama"
               ],
-              "rating": 8.6,
-              "year": 2014
+              "rating": 7.9,
+              "year": 2016
             },
             {
-              "id": "M2",
-              "title": "Tenet",
+              "id": "M103",
+              "title": "Blade Runner 2049",
               "genres": [
                 "Sci-Fi",
                 "Thriller"
               ],
-              "rating": 7.8,
-              "year": 2020
+              "rating": 8,
+              "year": 2017
             },
             {
-              "id": "M3",
-              "title": "The Butterfly Effect",
+              "id": "M104",
+              "title": "Eternal Sunshine of the Spotless Mind",
               "genres": [
-                "Sci-Fi",
-                "Thriller"
+                "Romance",
+                "Drama",
+                "Sci-Fi"
               ],
-              "rating": 7.3,
+              "rating": 8.3,
               "year": 2004
             },
             {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
+              "id": "M105",
+              "title": "Ex Machina",
               "genres": [
-                "Merchandise"
+                "Sci-Fi",
+                "Psychological Thriller"
               ],
-              "rating": 7.1,
-              "year": 2021
+              "rating": 7.7,
+              "year": 2014
             }
           ]
         },
-        "endedAt": "2025-12-28T14:21:47.504Z",
+        "endedAt": "2025-12-29T10:01:41.819Z",
         "durationMs": 0,
-        "reasoning": "Completed \"exclude_reference_item\" step in 0ms"
+        "reasoning": "In this step, no candidates were removed from the initial set of five, indicating that all candidates met the criteria for relevance based on the reference movie \"Inception.\" The remaining candidates include a diverse selection of sci-fi films, maintaining the total count at five."
       },
       {
         "name": "apply_filters",
         "input": {
+          "candidates_count": 5,
           "min_rating": 7.5,
           "max_age_years": 15
         },
-        "timestamp": "2025-12-28T14:21:47.901Z",
-        "startedAt": "2025-12-28T14:21:47.901Z",
+        "timestamp": "2025-12-29T10:01:41.819Z",
+        "startedAt": "2025-12-29T10:01:41.819Z",
         "output": {
-          "passed": 2,
+          "total_evaluated": 5,
+          "passed": 3,
           "failed": 2,
           "remaining": [
             {
-              "id": "M1",
-              "title": "Interstellar",
+              "id": "M102",
+              "title": "Arrival",
               "genres": [
                 "Sci-Fi",
                 "Drama"
               ],
-              "rating": 8.6,
-              "year": 2014
+              "rating": 7.9,
+              "year": 2016
             },
             {
-              "id": "M2",
-              "title": "Tenet",
+              "id": "M103",
+              "title": "Blade Runner 2049",
               "genres": [
                 "Sci-Fi",
                 "Thriller"
               ],
-              "rating": 7.8,
-              "year": 2020
+              "rating": 8,
+              "year": 2017
+            },
+            {
+              "id": "M105",
+              "title": "Ex Machina",
+              "genres": [
+                "Sci-Fi",
+                "Psychological Thriller"
+              ],
+              "rating": 7.7,
+              "year": 2014
             }
           ]
         },
-        "endedAt": "2025-12-28T14:21:47.901Z",
+        "endedAt": "2025-12-29T10:01:41.819Z",
         "durationMs": 0,
-        "reasoning": "Completed \"apply_filters\" step in 0ms"
+        "reasoning": "In this step, a total of five candidates were evaluated against the criteria of a minimum rating of 7.5 and a maximum age of 15 years, resulting in three candidates passing the evaluation and two failing. The remaining candidates that met the specified thresholds include \"Arrival,\" \"Blade Runner 2049,\" and \"Ex Machina.\""
       },
       {
         "name": "llm_relevance_evaluation",
         "input": {
-          "candidates_count": 2,
+          "candidates_count": 3,
           "reference_movie": {
             "title": "Inception",
             "themes": [
@@ -286,30 +228,36 @@
           },
           "model": "fake-gpt-4"
         },
-        "timestamp": "2025-12-28T14:21:48.161Z",
-        "startedAt": "2025-12-28T14:21:48.161Z",
+        "timestamp": "2025-12-29T10:01:41.819Z",
+        "startedAt": "2025-12-29T10:01:41.819Z",
         "output": {
-          "total_evaluated": 2,
-          "confirmed_relevant": 2,
+          "total_evaluated": 3,
+          "confirmed_relevant": 3,
           "rejected_as_irrelevant": 0,
           "evaluations": [
             {
-              "id": "M1",
-              "title": "Interstellar",
+              "id": "M102",
+              "title": "Arrival",
               "is_relevant": true,
               "confidence": 0.85
             },
             {
-              "id": "M2",
-              "title": "Tenet",
+              "id": "M103",
+              "title": "Blade Runner 2049",
+              "is_relevant": true,
+              "confidence": 0.85
+            },
+            {
+              "id": "M105",
+              "title": "Ex Machina",
               "is_relevant": true,
               "confidence": 0.85
             }
           ]
         },
-        "endedAt": "2025-12-28T14:21:48.161Z",
+        "endedAt": "2025-12-29T10:01:41.819Z",
         "durationMs": 0,
-        "reasoning": "Evaluated 2 candidates: 2 accepted, 0 rejected"
+        "reasoning": "In this evaluation step, all three candidates were assessed for relevance based on their thematic alignment with the reference movie \"Inception.\" Each candidate received a confidence score of 0.85, leading to a total of three confirmed relevant movies and zero rejections, indicating a successful alignment with the specified themes of time manipulation and mind-bending concepts."
       },
       {
         "name": "rank_and_select",
@@ -319,35 +267,49 @@
             "recency"
           ]
         },
-        "timestamp": "2025-12-28T14:21:48.161Z",
-        "startedAt": "2025-12-28T14:21:48.161Z",
+        "timestamp": "2025-12-29T10:01:41.819Z",
+        "startedAt": "2025-12-29T10:01:41.819Z",
         "output": {
           "ranked_candidates": [
             {
               "rank": 1,
               "movie": {
-                "id": "M1",
-                "title": "Interstellar",
+                "id": "M103",
+                "title": "Blade Runner 2049",
                 "genres": [
                   "Sci-Fi",
-                  "Drama"
+                  "Thriller"
                 ],
-                "rating": 8.6,
-                "year": 2014
+                "rating": 8,
+                "year": 2017
               },
               "confidence": 0.85
             },
             {
               "rank": 2,
               "movie": {
-                "id": "M2",
-                "title": "Tenet",
+                "id": "M102",
+                "title": "Arrival",
                 "genres": [
                   "Sci-Fi",
-                  "Thriller"
+                  "Drama"
                 ],
-                "rating": 7.8,
-                "year": 2020
+                "rating": 7.9,
+                "year": 2016
+              },
+              "confidence": 0.85
+            },
+            {
+              "rank": 3,
+              "movie": {
+                "id": "M105",
+                "title": "Ex Machina",
+                "genres": [
+                  "Sci-Fi",
+                  "Psychological Thriller"
+                ],
+                "rating": 7.7,
+                "year": 2014
               },
               "confidence": 0.85
             }
@@ -355,44 +317,44 @@
           "selection": {
             "rank": 1,
             "movie": {
-              "id": "M1",
-              "title": "Interstellar",
+              "id": "M103",
+              "title": "Blade Runner 2049",
               "genres": [
                 "Sci-Fi",
-                "Drama"
+                "Thriller"
               ],
-              "rating": 8.6,
-              "year": 2014
+              "rating": 8,
+              "year": 2017
             },
             "confidence": 0.85
           }
         },
-        "endedAt": "2025-12-28T14:21:48.162Z",
-        "durationMs": 1,
-        "reasoning": "Selected \"Interstellar\" as top choice from 2 candidate(s)"
+        "endedAt": "2025-12-29T10:01:41.819Z",
+        "durationMs": 0,
+        "reasoning": "The ranking process evaluates candidates based on specified criteria, in this case, \"rating\" and \"recency,\" to generate a list of top movies. The output includes the top three ranked candidates, each assigned a rank and confidence score, with the highest-ranked movie selected as the primary recommendation."
       }
     ],
     "metadata": {
       "domain": "movie-recommendation"
     },
-    "endedAt": "2025-12-28T14:21:48.162Z",
+    "endedAt": "2025-12-29T10:01:41.819Z",
     "finalOutcome": {
       "decision": "MOVIE_RECOMMENDED",
       "movie": {
-        "id": "M1",
-        "title": "Interstellar",
+        "id": "M103",
+        "title": "Blade Runner 2049",
         "genres": [
           "Sci-Fi",
-          "Drama"
+          "Thriller"
         ],
-        "rating": 8.6,
-        "year": 2014
+        "rating": 8,
+        "year": 2017
       }
     }
   },
   {
-    "executionId": "84dd3c05-af2e-4889-aca2-1192028d9682",
-    "startedAt": "2025-12-28T15:19:03.036Z",
+    "executionId": "904f73dd-5213-4c66-9ced-9cb47c392a81",
+    "startedAt": "2025-12-29T10:03:59.431Z",
     "steps": [
       {
         "name": "keyword_generation",
@@ -400,8 +362,8 @@
           "product_title": "Stainless Steel Water Bottle 32oz Insulated",
           "category": "Sports & Outdoors > Water Bottles"
         },
-        "timestamp": "2025-12-28T15:19:03.036Z",
-        "startedAt": "2025-12-28T15:19:03.036Z",
+        "timestamp": "2025-12-29T10:03:59.431Z",
+        "startedAt": "2025-12-29T10:03:59.431Z",
         "output": {
           "keywords": [
             "stainless steel water bottle insulated",
@@ -409,9 +371,9 @@
           ],
           "model": "fake-gpt-4"
         },
-        "endedAt": "2025-12-28T15:19:03.036Z",
+        "endedAt": "2025-12-29T10:03:59.431Z",
         "durationMs": 0,
-        "reasoning": "Completed \"keyword_generation\" step in 0ms"
+        "reasoning": "The step involves extracting relevant keywords from the provided product title and category, ensuring that at least two high-traffic search terms are identified to enhance discoverability, while utilizing a model designed for natural language processing to generate contextually appropriate phrases. The output is validated against a threshold of relevance and specificity to ensure alignment with user search intent."
       },
       {
         "name": "candidate_search",
@@ -419,8 +381,8 @@
           "keyword": "stainless steel water bottle insulated",
           "limit": 50
         },
-        "timestamp": "2025-12-28T15:19:03.687Z",
-        "startedAt": "2025-12-28T15:19:03.687Z",
+        "timestamp": "2025-12-29T10:03:59.431Z",
+        "startedAt": "2025-12-29T10:03:59.431Z",
         "output": {
           "total_results": 2847,
           "candidates_fetched": 8,
@@ -484,9 +446,9 @@
             }
           ]
         },
-        "endedAt": "2025-12-28T15:19:03.687Z",
+        "endedAt": "2025-12-29T10:03:59.431Z",
         "durationMs": 0,
-        "reasoning": "Found 2847 results for \"stainless steel water bottle insulated\", returned 8"
+        "reasoning": "The system executed a search for insulated stainless steel water bottles, retrieving a total of 2,847 results but limiting the output to 50 candidates for efficiency. From this subset, 8 candidates were selected based on their relevance, price, and user ratings, ensuring a diverse range of options for the user."
       },
       {
         "name": "apply_filters",
@@ -509,8 +471,8 @@
             "minReviews": 100
           }
         },
-        "timestamp": "2025-12-28T15:19:03.688Z",
-        "startedAt": "2025-12-28T15:19:03.688Z",
+        "timestamp": "2025-12-29T10:03:59.431Z",
+        "startedAt": "2025-12-29T10:03:59.431Z",
         "output": {
           "total_evaluated": 8,
           "passed": 6,
@@ -695,9 +657,9 @@
             }
           ]
         },
-        "endedAt": "2025-12-28T15:19:03.688Z",
+        "endedAt": "2025-12-29T10:03:59.431Z",
         "durationMs": 0,
-        "reasoning": "Evaluated 8 items: 6 passed, 2 failed"
+        "reasoning": "Out of the eight evaluated candidates, six met all specified criteria, including a price range between $12.50 and $50, a minimum rating of 3.8, and at least 100 reviews. Two candidates failed to qualify due to not meeting the price range and minimum rating thresholds."
       },
       {
         "name": "llm_relevance_evaluation",
@@ -709,8 +671,8 @@
           },
           "model": "fake-gpt-4"
         },
-        "timestamp": "2025-12-28T15:19:03.688Z",
-        "startedAt": "2025-12-28T15:19:03.688Z",
+        "timestamp": "2025-12-29T10:03:59.431Z",
+        "startedAt": "2025-12-29T10:03:59.431Z",
         "output": {
           "total_evaluated": 6,
           "confirmed_competitors": 4,
@@ -762,9 +724,9 @@
             }
           ]
         },
-        "endedAt": "2025-12-28T15:19:03.688Z",
+        "endedAt": "2025-12-29T10:03:59.431Z",
         "durationMs": 0,
-        "reasoning": "Evaluated 6 candidates: 4 accepted, 2 rejected"
+        "reasoning": "In this evaluation, out of six candidates, four were confirmed as competitors based on a high confidence threshold of 0.93, while two were classified as false positives due to their classification as accessories rather than water bottles. This process effectively filtered out non-competitor products, ensuring a more accurate assessment of relevant market alternatives."
       },
       {
         "name": "rank_and_select",
@@ -775,8 +737,8 @@
             "rating"
           ]
         },
-        "timestamp": "2025-12-28T15:19:03.688Z",
-        "startedAt": "2025-12-28T15:19:03.688Z",
+        "timestamp": "2025-12-29T10:03:59.431Z",
+        "startedAt": "2025-12-29T10:03:59.431Z",
         "output": {
           "ranked_candidates": [
             {
@@ -882,15 +844,15 @@
             "title": "HydroFlask 32oz Wide Mouth Insulated Bottle"
           }
         },
-        "endedAt": "2025-12-28T15:19:03.688Z",
+        "endedAt": "2025-12-29T10:03:59.431Z",
         "durationMs": 0,
-        "reasoning": "Selected \"HydroFlask 32oz Wide Mouth Insulated Bottle\" as top choice from 4 candidate(s)"
+        "reasoning": "✅ rank_and_select processed"
       }
     ],
     "metadata": {
       "pipeline": "competitor-selection-v2"
     },
-    "endedAt": "2025-12-28T15:19:03.688Z",
+    "endedAt": "2025-12-29T10:03:59.431Z",
     "finalOutcome": {
       "decision": "COMPETITOR_SELECTED",
       "selected_competitor": {
@@ -920,1248 +882,8 @@
     }
   },
   {
-    "executionId": "movie-exec-134a6929-1485-4a4c-bb60-8aa9d7c264bf",
-    "startedAt": "2025-12-28T15:27:41.347Z",
-    "steps": [
-      {
-        "name": "preference_understanding",
-        "input": {
-          "seed_movie": "Inception",
-          "user_likes": [
-            "Sci-Fi",
-            "Thriller"
-          ]
-        },
-        "timestamp": "2025-12-28T15:27:41.347Z",
-        "startedAt": "2025-12-28T15:27:41.347Z",
-        "output": {
-          "extracted_themes": [
-            "time manipulation",
-            "mind-bending"
-          ]
-        },
-        "endedAt": "2025-12-28T15:27:41.347Z",
-        "durationMs": 0,
-        "reasoning": "Extracted \"time manipulation, mind-bending\" from \"Inception\""
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "themes": [
-            "time manipulation",
-            "mind-bending"
-          ],
-          "limit": 50
-        },
-        "timestamp": "2025-12-28T15:27:41.347Z",
-        "startedAt": "2025-12-28T15:27:41.347Z",
-        "output": {
-          "total_found": 5,
-          "candidates_fetched": 5,
-          "candidates": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M4",
-              "title": "Inception",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 8.8,
-              "year": 2010
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:27:41.347Z",
-        "durationMs": 0,
-        "reasoning": "Found 5 results for \"time manipulation, mind-bending\", returned 5"
-      },
-      {
-        "name": "exclude_reference_item",
-        "input": {
-          "reference_movie": "Inception",
-          "initial_candidates": 5
-        },
-        "timestamp": "2025-12-28T15:27:41.347Z",
-        "startedAt": "2025-12-28T15:27:41.347Z",
-        "output": {
-          "removed": [
-            "Inception"
-          ],
-          "remaining_candidates": 4,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:27:41.347Z",
-        "durationMs": 0,
-        "reasoning": "Completed \"exclude_reference_item\" step in 0ms"
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "min_rating": 7.5,
-          "max_age_years": 15
-        },
-        "timestamp": "2025-12-28T15:27:46.560Z",
-        "startedAt": "2025-12-28T15:27:46.560Z",
-        "output": {
-          "passed": 2,
-          "failed": 2,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:27:46.560Z",
-        "durationMs": 0,
-        "reasoning": "Completed \"apply_filters\" step in 0ms"
-      },
-      {
-        "name": "llm_relevance_evaluation",
-        "input": {
-          "candidates_count": 2,
-          "reference_movie": {
-            "title": "Inception",
-            "themes": [
-              "time manipulation",
-              "mind-bending"
-            ]
-          },
-          "model": "fake-gpt-4"
-        },
-        "timestamp": "2025-12-28T15:27:47.064Z",
-        "startedAt": "2025-12-28T15:27:47.064Z",
-        "output": {
-          "total_evaluated": 2,
-          "confirmed_relevant": 2,
-          "rejected_as_irrelevant": 0,
-          "evaluations": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "is_relevant": true,
-              "confidence": 0.85
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "is_relevant": true,
-              "confidence": 0.85
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:27:47.064Z",
-        "durationMs": 0,
-        "reasoning": "Evaluated 2 candidates: 2 accepted, 0 rejected"
-      },
-      {
-        "name": "rank_and_select",
-        "input": {
-          "ranking": [
-            "rating",
-            "recency"
-          ]
-        },
-        "timestamp": "2025-12-28T15:27:47.064Z",
-        "startedAt": "2025-12-28T15:27:47.064Z",
-        "output": {
-          "ranked_candidates": [
-            {
-              "rank": 1,
-              "movie": {
-                "id": "M1",
-                "title": "Interstellar",
-                "genres": [
-                  "Sci-Fi",
-                  "Drama"
-                ],
-                "rating": 8.6,
-                "year": 2014
-              },
-              "confidence": 0.85
-            },
-            {
-              "rank": 2,
-              "movie": {
-                "id": "M2",
-                "title": "Tenet",
-                "genres": [
-                  "Sci-Fi",
-                  "Thriller"
-                ],
-                "rating": 7.8,
-                "year": 2020
-              },
-              "confidence": 0.85
-            }
-          ],
-          "selection": {
-            "rank": 1,
-            "movie": {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            "confidence": 0.85
-          }
-        },
-        "endedAt": "2025-12-28T15:27:47.064Z",
-        "durationMs": 0,
-        "reasoning": "Selected \"Interstellar\" as top choice from 2 candidate(s)"
-      }
-    ],
-    "metadata": {
-      "domain": "movie-recommendation"
-    },
-    "endedAt": "2025-12-28T15:27:47.065Z",
-    "finalOutcome": {
-      "decision": "MOVIE_RECOMMENDED",
-      "movie": {
-        "id": "M1",
-        "title": "Interstellar",
-        "genres": [
-          "Sci-Fi",
-          "Drama"
-        ],
-        "rating": 8.6,
-        "year": 2014
-      }
-    }
-  },
-  {
-    "executionId": "movie-exec-e9bd3d4d-541c-43eb-9ecc-5554e4e1195f",
-    "startedAt": "2025-12-28T15:34:47.943Z",
-    "steps": [
-      {
-        "name": "preference_understanding",
-        "input": {
-          "seed_movie": "Inception",
-          "user_likes": [
-            "Sci-Fi",
-            "Thriller"
-          ]
-        },
-        "timestamp": "2025-12-28T15:34:47.943Z",
-        "startedAt": "2025-12-28T15:34:47.943Z",
-        "output": {
-          "extracted_themes": [
-            "time manipulation",
-            "mind-bending"
-          ]
-        },
-        "endedAt": "2025-12-28T15:34:47.943Z",
-        "durationMs": 0,
-        "reasoning": "Extracted \"time manipulation, mind-bending\" from \"Inception\""
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "themes": [
-            "time manipulation",
-            "mind-bending"
-          ],
-          "limit": 50
-        },
-        "timestamp": "2025-12-28T15:34:47.943Z",
-        "startedAt": "2025-12-28T15:34:47.943Z",
-        "output": {
-          "total_found": 5,
-          "candidates_fetched": 5,
-          "candidates": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M4",
-              "title": "Inception",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 8.8,
-              "year": 2010
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:34:47.944Z",
-        "durationMs": 1,
-        "reasoning": "Found 5 results for \"time manipulation, mind-bending\", returned 5"
-      },
-      {
-        "name": "exclude_reference_item",
-        "input": {
-          "reference_movie": "Inception",
-          "initial_candidates": 5
-        },
-        "timestamp": "2025-12-28T15:34:47.944Z",
-        "startedAt": "2025-12-28T15:34:47.944Z",
-        "output": {
-          "removed": [
-            "Inception"
-          ],
-          "remaining_candidates": 4,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:34:47.944Z",
-        "durationMs": 0,
-        "reasoning": "Completed \"exclude_reference_item\" step in 0ms"
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "min_rating": 7.5,
-          "max_age_years": 15
-        },
-        "timestamp": "2025-12-28T15:34:48.673Z",
-        "startedAt": "2025-12-28T15:34:48.673Z",
-        "output": {
-          "passed": 2,
-          "failed": 2,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:34:48.673Z",
-        "durationMs": 0,
-        "reasoning": "Completed \"apply_filters\" step in 0ms"
-      },
-      {
-        "name": "llm_relevance_evaluation",
-        "input": {
-          "candidates_count": 2,
-          "reference_movie": {
-            "title": "Inception",
-            "themes": [
-              "time manipulation",
-              "mind-bending"
-            ]
-          },
-          "model": "fake-gpt-4"
-        },
-        "timestamp": "2025-12-28T15:34:49.054Z",
-        "startedAt": "2025-12-28T15:34:49.054Z",
-        "output": {
-          "total_evaluated": 2,
-          "confirmed_relevant": 2,
-          "rejected_as_irrelevant": 0,
-          "evaluations": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "is_relevant": true,
-              "confidence": 0.85
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "is_relevant": true,
-              "confidence": 0.85
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:34:49.054Z",
-        "durationMs": 0,
-        "reasoning": "Evaluated 2 candidates: 2 accepted, 0 rejected"
-      },
-      {
-        "name": "rank_and_select",
-        "input": {
-          "ranking": [
-            "rating",
-            "recency"
-          ]
-        },
-        "timestamp": "2025-12-28T15:34:49.054Z",
-        "startedAt": "2025-12-28T15:34:49.054Z",
-        "output": {
-          "ranked_candidates": [
-            {
-              "rank": 1,
-              "movie": {
-                "id": "M1",
-                "title": "Interstellar",
-                "genres": [
-                  "Sci-Fi",
-                  "Drama"
-                ],
-                "rating": 8.6,
-                "year": 2014
-              },
-              "confidence": 0.85
-            },
-            {
-              "rank": 2,
-              "movie": {
-                "id": "M2",
-                "title": "Tenet",
-                "genres": [
-                  "Sci-Fi",
-                  "Thriller"
-                ],
-                "rating": 7.8,
-                "year": 2020
-              },
-              "confidence": 0.85
-            }
-          ],
-          "selection": {
-            "rank": 1,
-            "movie": {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            "confidence": 0.85
-          }
-        },
-        "endedAt": "2025-12-28T15:34:49.054Z",
-        "durationMs": 0,
-        "reasoning": "Selected \"Interstellar\" as top choice from 2 candidate(s)"
-      }
-    ],
-    "metadata": {
-      "domain": "movie-recommendation"
-    },
-    "endedAt": "2025-12-28T15:34:49.054Z",
-    "finalOutcome": {
-      "decision": "MOVIE_RECOMMENDED",
-      "movie": {
-        "id": "M1",
-        "title": "Interstellar",
-        "genres": [
-          "Sci-Fi",
-          "Drama"
-        ],
-        "rating": 8.6,
-        "year": 2014
-      }
-    }
-  },
-  {
-    "executionId": "movie-exec-9420e22e-80c9-4d84-a936-ad0abb8dc144",
-    "startedAt": "2025-12-28T15:43:43.329Z",
-    "steps": [
-      {
-        "name": "preference_understanding",
-        "input": {
-          "seed_movie": "Inception",
-          "user_likes": [
-            "Sci-Fi",
-            "Thriller"
-          ]
-        },
-        "timestamp": "2025-12-28T15:43:43.329Z",
-        "startedAt": "2025-12-28T15:43:43.329Z",
-        "output": {
-          "extracted_themes": [
-            "time manipulation",
-            "mind-bending"
-          ]
-        },
-        "endedAt": "2025-12-28T15:43:43.329Z",
-        "durationMs": 0,
-        "reasoning": "Extracted \"time manipulation, mind-bending\" from \"Inception\""
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "themes": [
-            "time manipulation",
-            "mind-bending"
-          ],
-          "limit": 50
-        },
-        "timestamp": "2025-12-28T15:43:43.329Z",
-        "startedAt": "2025-12-28T15:43:43.329Z",
-        "output": {
-          "total_found": 5,
-          "candidates_fetched": 5,
-          "candidates": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M4",
-              "title": "Inception",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 8.8,
-              "year": 2010
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:43:43.329Z",
-        "durationMs": 0,
-        "reasoning": "Found 5 results for \"time manipulation, mind-bending\", returned 5"
-      },
-      {
-        "name": "exclude_reference_item",
-        "input": {
-          "reference_movie": "Inception",
-          "initial_candidates": 5
-        },
-        "timestamp": "2025-12-28T15:43:43.329Z",
-        "startedAt": "2025-12-28T15:43:43.329Z",
-        "output": {
-          "removed": [
-            "Inception"
-          ],
-          "remaining_candidates": 4,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:43:43.330Z",
-        "durationMs": 1,
-        "reasoning": "Completed \"exclude_reference_item\" step in 1ms"
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates_count": 4,
-          "min_rating": 7.5,
-          "max_age_years": 15
-        },
-        "timestamp": "2025-12-28T15:43:43.906Z",
-        "startedAt": "2025-12-28T15:43:43.907Z",
-        "output": {
-          "total_evaluated": 4,
-          "passed": 2,
-          "failed": 2,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:43:43.907Z",
-        "durationMs": 0,
-        "reasoning": "Applied min rating, max age years → 2/4 passed (2 failed)"
-      },
-      {
-        "name": "llm_relevance_evaluation",
-        "input": {
-          "candidates_count": 2,
-          "reference_movie": {
-            "title": "Inception",
-            "themes": [
-              "time manipulation",
-              "mind-bending"
-            ]
-          },
-          "model": "fake-gpt-4"
-        },
-        "timestamp": "2025-12-28T15:43:43.907Z",
-        "startedAt": "2025-12-28T15:43:43.907Z",
-        "output": {
-          "total_evaluated": 2,
-          "confirmed_relevant": 2,
-          "rejected_as_irrelevant": 0,
-          "evaluations": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "is_relevant": true,
-              "confidence": 0.85
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "is_relevant": true,
-              "confidence": 0.85
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T15:43:43.907Z",
-        "durationMs": 0,
-        "reasoning": "Evaluated 2 candidates: 2 accepted, 0 rejected"
-      },
-      {
-        "name": "rank_and_select",
-        "input": {
-          "ranking": [
-            "rating",
-            "recency"
-          ]
-        },
-        "timestamp": "2025-12-28T15:43:43.907Z",
-        "startedAt": "2025-12-28T15:43:43.907Z",
-        "output": {
-          "ranked_candidates": [
-            {
-              "rank": 1,
-              "movie": {
-                "id": "M1",
-                "title": "Interstellar",
-                "genres": [
-                  "Sci-Fi",
-                  "Drama"
-                ],
-                "rating": 8.6,
-                "year": 2014
-              },
-              "confidence": 0.85
-            },
-            {
-              "rank": 2,
-              "movie": {
-                "id": "M2",
-                "title": "Tenet",
-                "genres": [
-                  "Sci-Fi",
-                  "Thriller"
-                ],
-                "rating": 7.8,
-                "year": 2020
-              },
-              "confidence": 0.85
-            }
-          ],
-          "selection": {
-            "rank": 1,
-            "movie": {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            "confidence": 0.85
-          }
-        },
-        "endedAt": "2025-12-28T15:43:43.907Z",
-        "durationMs": 0,
-        "reasoning": "Selected \"Interstellar\" as top choice from 2 candidate(s)"
-      }
-    ],
-    "metadata": {
-      "domain": "movie-recommendation"
-    },
-    "endedAt": "2025-12-28T15:43:43.907Z",
-    "finalOutcome": {
-      "decision": "MOVIE_RECOMMENDED",
-      "movie": {
-        "id": "M1",
-        "title": "Interstellar",
-        "genres": [
-          "Sci-Fi",
-          "Drama"
-        ],
-        "rating": 8.6,
-        "year": 2014
-      }
-    }
-  },
-  {
-    "executionId": "movie-exec-2da8479f-3812-40ef-8174-889baffeea14",
-    "startedAt": "2025-12-28T16:56:16.972Z",
-    "steps": [
-      {
-        "name": "preference_understanding",
-        "input": {
-          "seed_movie": "Inception",
-          "user_likes": [
-            "Sci-Fi",
-            "Thriller"
-          ]
-        },
-        "timestamp": "2025-12-28T16:56:16.972Z",
-        "startedAt": "2025-12-28T16:56:16.972Z",
-        "output": {
-          "extracted_themes": [
-            "time manipulation",
-            "mind-bending"
-          ]
-        },
-        "endedAt": "2025-12-28T16:56:16.972Z",
-        "durationMs": 0,
-        "reasoning": "\"Extracted 2 themes: time manipulation and mind-bending from Inception based on user preferences.\""
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "themes": [
-            "time manipulation",
-            "mind-bending"
-          ],
-          "limit": 50
-        },
-        "timestamp": "2025-12-28T16:56:18.580Z",
-        "startedAt": "2025-12-28T16:56:18.580Z",
-        "output": {
-          "total_found": 5,
-          "candidates_fetched": 5,
-          "candidates": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M4",
-              "title": "Inception",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 8.8,
-              "year": 2010
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T16:56:18.580Z",
-        "durationMs": 0,
-        "reasoning": "🔍 5→5 results"
-      },
-      {
-        "name": "exclude_reference_item",
-        "input": {
-          "reference_movie": "Inception",
-          "initial_candidates": 5
-        },
-        "timestamp": "2025-12-28T16:56:18.580Z",
-        "startedAt": "2025-12-28T16:56:18.580Z",
-        "output": {
-          "removed": [
-            "Inception"
-          ],
-          "remaining_candidates": 4,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T16:56:18.580Z",
-        "durationMs": 0,
-        "reasoning": "Excluded \"Inception\" from the initial 5 candidates, leaving 4 remaining options."
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates_count": 4,
-          "min_rating": 7.5,
-          "max_age_years": 15
-        },
-        "timestamp": "2025-12-28T16:56:19.900Z",
-        "startedAt": "2025-12-28T16:56:19.900Z",
-        "output": {
-          "total_evaluated": 4,
-          "passed": 2,
-          "failed": 2,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T16:56:19.900Z",
-        "durationMs": 0,
-        "reasoning": "📊 2/4 passed"
-      },
-      {
-        "name": "llm_relevance_evaluation",
-        "input": {
-          "candidates_count": 2,
-          "reference_movie": {
-            "title": "Inception",
-            "themes": [
-              "time manipulation",
-              "mind-bending"
-            ]
-          },
-          "model": "fake-gpt-4"
-        },
-        "timestamp": "2025-12-28T16:56:19.900Z",
-        "startedAt": "2025-12-28T16:56:19.900Z",
-        "output": {
-          "total_evaluated": 2,
-          "confirmed_relevant": 2,
-          "rejected_as_irrelevant": 0,
-          "evaluations": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "is_relevant": true,
-              "confidence": 0.85
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "is_relevant": true,
-              "confidence": 0.85
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T16:56:19.900Z",
-        "durationMs": 0,
-        "reasoning": "Evaluated 2 candidates, confirming both as relevant with 0 rejections."
-      },
-      {
-        "name": "rank_and_select",
-        "input": {
-          "ranking": [
-            "rating",
-            "recency"
-          ]
-        },
-        "timestamp": "2025-12-28T16:56:20.670Z",
-        "startedAt": "2025-12-28T16:56:20.670Z",
-        "output": {
-          "ranked_candidates": [
-            {
-              "rank": 1,
-              "movie": {
-                "id": "M1",
-                "title": "Interstellar",
-                "genres": [
-                  "Sci-Fi",
-                  "Drama"
-                ],
-                "rating": 8.6,
-                "year": 2014
-              },
-              "confidence": 0.85
-            },
-            {
-              "rank": 2,
-              "movie": {
-                "id": "M2",
-                "title": "Tenet",
-                "genres": [
-                  "Sci-Fi",
-                  "Thriller"
-                ],
-                "rating": 7.8,
-                "year": 2020
-              },
-              "confidence": 0.85
-            }
-          ],
-          "selection": {
-            "rank": 1,
-            "movie": {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            "confidence": 0.85
-          }
-        },
-        "endedAt": "2025-12-28T16:56:20.670Z",
-        "durationMs": 0,
-        "reasoning": "\"Ranked 2 movies by rating and recency, selecting 'Interstellar' as the top candidate.\""
-      }
-    ],
-    "metadata": {
-      "domain": "movie-recommendation"
-    },
-    "endedAt": "2025-12-28T16:56:42.502Z",
-    "finalOutcome": {
-      "decision": "MOVIE_RECOMMENDED",
-      "movie": {
-        "id": "M1",
-        "title": "Interstellar",
-        "genres": [
-          "Sci-Fi",
-          "Drama"
-        ],
-        "rating": 8.6,
-        "year": 2014
-      }
-    }
-  },
-  {
-    "executionId": "bc15d824-d320-4797-adfc-454b5562ae7d",
-    "startedAt": "2025-12-28T16:58:44.764Z",
+    "executionId": "188fc620-8e03-4f54-a82e-b5478e759bb9",
+    "startedAt": "2025-12-29T10:22:53.245Z",
     "steps": [
       {
         "name": "keyword_generation",
@@ -2169,8 +891,8 @@
           "product_title": "Stainless Steel Water Bottle 32oz Insulated",
           "category": "Sports & Outdoors > Water Bottles"
         },
-        "timestamp": "2025-12-28T16:58:44.764Z",
-        "startedAt": "2025-12-28T16:58:44.764Z",
+        "timestamp": "2025-12-29T10:22:53.245Z",
+        "startedAt": "2025-12-29T10:22:53.245Z",
         "output": {
           "keywords": [
             "stainless steel water bottle insulated",
@@ -2178,9 +900,9 @@
           ],
           "model": "fake-gpt-4"
         },
-        "endedAt": "2025-12-28T16:58:44.764Z",
+        "endedAt": "2025-12-29T10:22:53.245Z",
         "durationMs": 0,
-        "reasoning": "\"Generated 2 relevant keywords from the product title and category.\""
+        "reasoning": "The input data is analyzed to extract relevant keywords that accurately represent the product's features and category, ensuring that at least two high-traffic search terms are generated to enhance discoverability. The model employed for this task is configured to prioritize terms that reflect both material and functionality, adhering to a threshold of relevance based on common search patterns in the sports and outdoor equipment domain."
       },
       {
         "name": "candidate_search",
@@ -2188,8 +910,8 @@
           "keyword": "stainless steel water bottle insulated",
           "limit": 50
         },
-        "timestamp": "2025-12-28T16:58:46.223Z",
-        "startedAt": "2025-12-28T16:58:46.223Z",
+        "timestamp": "2025-12-29T10:22:53.245Z",
+        "startedAt": "2025-12-29T10:22:53.245Z",
         "output": {
           "total_results": 2847,
           "candidates_fetched": 8,
@@ -2253,8 +975,8 @@
             }
           ]
         },
-        "endedAt": "2025-12-28T16:58:46.224Z",
-        "durationMs": 1,
+        "endedAt": "2025-12-29T10:22:53.245Z",
+        "durationMs": 0,
         "reasoning": "🔍 2847→8 results"
       },
       {
@@ -2278,8 +1000,8 @@
             "minReviews": 100
           }
         },
-        "timestamp": "2025-12-28T16:58:46.224Z",
-        "startedAt": "2025-12-28T16:58:46.224Z",
+        "timestamp": "2025-12-29T10:22:53.245Z",
+        "startedAt": "2025-12-29T10:22:53.245Z",
         "output": {
           "total_evaluated": 8,
           "passed": 6,
@@ -2464,7 +1186,7 @@
             }
           ]
         },
-        "endedAt": "2025-12-28T16:58:46.224Z",
+        "endedAt": "2025-12-29T10:22:53.245Z",
         "durationMs": 0,
         "reasoning": "📊 6/8 passed"
       },
@@ -2478,8 +1200,8 @@
           },
           "model": "fake-gpt-4"
         },
-        "timestamp": "2025-12-28T16:58:46.224Z",
-        "startedAt": "2025-12-28T16:58:46.224Z",
+        "timestamp": "2025-12-29T10:22:53.245Z",
+        "startedAt": "2025-12-29T10:22:53.245Z",
         "output": {
           "total_evaluated": 6,
           "confirmed_competitors": 4,
@@ -2531,9 +1253,9 @@
             }
           ]
         },
-        "endedAt": "2025-12-28T16:58:46.224Z",
+        "endedAt": "2025-12-29T10:22:53.245Z",
         "durationMs": 0,
-        "reasoning": "\"Evaluated 6 candidates, confirmed 4 as competitors, and removed 2 false positives.\""
+        "reasoning": "In this evaluation, out of six candidates, four were confirmed as competitors based on a high confidence threshold of 0.93, while two were classified as false positives due to being accessories rather than water bottles. This process effectively filtered the candidates to ensure only relevant products were considered for comparison."
       },
       {
         "name": "rank_and_select",
@@ -2544,8 +1266,8 @@
             "rating"
           ]
         },
-        "timestamp": "2025-12-28T16:58:47.702Z",
-        "startedAt": "2025-12-28T16:58:47.702Z",
+        "timestamp": "2025-12-29T10:22:53.245Z",
+        "startedAt": "2025-12-29T10:22:53.245Z",
         "output": {
           "ranked_candidates": [
             {
@@ -2651,855 +1373,15 @@
             "title": "HydroFlask 32oz Wide Mouth Insulated Bottle"
           }
         },
-        "endedAt": "2025-12-28T16:58:47.702Z",
+        "endedAt": "2025-12-29T10:22:53.245Z",
         "durationMs": 0,
-        "reasoning": "\"Ranked 4 candidates by review count and rating, selecting HydroFlask as the top choice.\""
+        "reasoning": "Ranked 4 candidate(s) and selected \"HydroFlask 32oz Wide Mouth Insulated Bottle\" as top choice"
       }
     ],
     "metadata": {
       "pipeline": "competitor-selection-v2"
     },
-    "endedAt": "2025-12-28T16:58:48.583Z",
-    "finalOutcome": {
-      "decision": "COMPETITOR_SELECTED",
-      "selected_competitor": {
-        "rank": 1,
-        "asin": "B0COMP01",
-        "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
-        "price": 44.99,
-        "rating": 4.5,
-        "reviews": 8932,
-        "filter_results": {
-          "price_range": {
-            "passed": true,
-            "detail": "$44.99 vs $12.5-50"
-          },
-          "min_rating": {
-            "passed": true,
-            "detail": "4.5 vs 3.8"
-          },
-          "min_reviews": {
-            "passed": true,
-            "detail": "8932 vs 100"
-          }
-        },
-        "qualified": true,
-        "llm_confidence": 0.93
-      }
-    }
-  },
-  {
-    "executionId": "movie-exec-da461537-1d42-4d9c-bc92-fee51793abc6",
-    "startedAt": "2025-12-28T17:18:27.764Z",
-    "steps": [
-      {
-        "name": "preference_understanding",
-        "input": {
-          "seed_movie": "Inception",
-          "user_likes": [
-            "Sci-Fi",
-            "Thriller"
-          ]
-        },
-        "timestamp": "2025-12-28T17:18:27.764Z",
-        "startedAt": "2025-12-28T17:18:27.764Z",
-        "output": {
-          "extracted_themes": [
-            "time manipulation",
-            "mind-bending"
-          ]
-        },
-        "endedAt": "2025-12-28T17:18:27.764Z",
-        "durationMs": 0,
-        "reasoning": "\"Extracted 2 themes: time manipulation and mind-bending from Inception input.\""
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "themes": [
-            "time manipulation",
-            "mind-bending"
-          ],
-          "limit": 50
-        },
-        "timestamp": "2025-12-28T17:18:28.994Z",
-        "startedAt": "2025-12-28T17:18:28.994Z",
-        "output": {
-          "total_found": 5,
-          "candidates_fetched": 5,
-          "candidates": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M4",
-              "title": "Inception",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 8.8,
-              "year": 2010
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T17:18:28.994Z",
-        "durationMs": 0,
-        "reasoning": "\"Filtered 5 candidates by themes, returning all 5 as they met the criteria.\""
-      },
-      {
-        "name": "exclude_reference_item",
-        "input": {
-          "reference_movie": "Inception",
-          "initial_candidates": 5
-        },
-        "timestamp": "2025-12-28T17:18:29.990Z",
-        "startedAt": "2025-12-28T17:18:29.990Z",
-        "output": {
-          "removed": [
-            "Inception"
-          ],
-          "remaining_candidates": 4,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            },
-            {
-              "id": "M3",
-              "title": "The Butterfly Effect",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.3,
-              "year": 2004
-            },
-            {
-              "id": "M5",
-              "title": "Sci-Fi Movie Poster",
-              "genres": [
-                "Merchandise"
-              ],
-              "rating": 7.1,
-              "year": 2021
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T17:18:29.990Z",
-        "durationMs": 0,
-        "reasoning": "Excluded \"Inception\" from the initial 5 candidates, leaving 4 remaining options."
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates_count": 4,
-          "min_rating": 7.5,
-          "max_age_years": 15
-        },
-        "timestamp": "2025-12-28T17:18:30.948Z",
-        "startedAt": "2025-12-28T17:18:30.948Z",
-        "output": {
-          "total_evaluated": 4,
-          "passed": 2,
-          "failed": 2,
-          "remaining": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "genres": [
-                "Sci-Fi",
-                "Thriller"
-              ],
-              "rating": 7.8,
-              "year": 2020
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T17:18:30.948Z",
-        "durationMs": 0,
-        "reasoning": "\"Filtered 4 candidates to 2 movies by rating≥7.5 and age≤15y.\""
-      },
-      {
-        "name": "llm_relevance_evaluation",
-        "input": {
-          "candidates_count": 2,
-          "reference_movie": {
-            "title": "Inception",
-            "themes": [
-              "time manipulation",
-              "mind-bending"
-            ]
-          },
-          "model": "fake-gpt-4"
-        },
-        "timestamp": "2025-12-28T17:18:53.073Z",
-        "startedAt": "2025-12-28T17:18:53.073Z",
-        "output": {
-          "total_evaluated": 2,
-          "confirmed_relevant": 2,
-          "rejected_as_irrelevant": 0,
-          "evaluations": [
-            {
-              "id": "M1",
-              "title": "Interstellar",
-              "is_relevant": true,
-              "confidence": 0.85
-            },
-            {
-              "id": "M2",
-              "title": "Tenet",
-              "is_relevant": true,
-              "confidence": 0.85
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T17:18:53.073Z",
-        "durationMs": 0,
-        "reasoning": "Evaluated 2 candidates, confirmed both as relevant with 0 rejections."
-      },
-      {
-        "name": "rank_and_select",
-        "input": {
-          "ranking": [
-            "rating",
-            "recency"
-          ]
-        },
-        "timestamp": "2025-12-28T17:19:15.037Z",
-        "startedAt": "2025-12-28T17:19:15.038Z",
-        "output": {
-          "ranked_candidates": [
-            {
-              "rank": 1,
-              "movie": {
-                "id": "M1",
-                "title": "Interstellar",
-                "genres": [
-                  "Sci-Fi",
-                  "Drama"
-                ],
-                "rating": 8.6,
-                "year": 2014
-              },
-              "confidence": 0.85
-            },
-            {
-              "rank": 2,
-              "movie": {
-                "id": "M2",
-                "title": "Tenet",
-                "genres": [
-                  "Sci-Fi",
-                  "Thriller"
-                ],
-                "rating": 7.8,
-                "year": 2020
-              },
-              "confidence": 0.85
-            }
-          ],
-          "selection": {
-            "rank": 1,
-            "movie": {
-              "id": "M1",
-              "title": "Interstellar",
-              "genres": [
-                "Sci-Fi",
-                "Drama"
-              ],
-              "rating": 8.6,
-              "year": 2014
-            },
-            "confidence": 0.85
-          }
-        },
-        "endedAt": "2025-12-28T17:19:15.038Z",
-        "durationMs": 0,
-        "reasoning": "\"Ranked 2 movies by rating and recency, selecting 'Interstellar' as the top candidate.\""
-      }
-    ],
-    "metadata": {
-      "domain": "movie-recommendation"
-    },
-    "endedAt": "2025-12-28T17:19:36.675Z",
-    "finalOutcome": {
-      "decision": "MOVIE_RECOMMENDED",
-      "movie": {
-        "id": "M1",
-        "title": "Interstellar",
-        "genres": [
-          "Sci-Fi",
-          "Drama"
-        ],
-        "rating": 8.6,
-        "year": 2014
-      }
-    }
-  },
-  {
-    "executionId": "bf0623ce-bbc2-4a74-be3c-9f00e3bea761",
-    "startedAt": "2025-12-28T17:21:02.946Z",
-    "steps": [
-      {
-        "name": "keyword_generation",
-        "input": {
-          "product_title": "Stainless Steel Water Bottle 32oz Insulated",
-          "category": "Sports & Outdoors > Water Bottles"
-        },
-        "timestamp": "2025-12-28T17:21:02.946Z",
-        "startedAt": "2025-12-28T17:21:02.946Z",
-        "output": {
-          "keywords": [
-            "stainless steel water bottle insulated",
-            "vacuum insulated bottle 32oz"
-          ],
-          "model": "fake-gpt-4"
-        },
-        "endedAt": "2025-12-28T17:21:02.946Z",
-        "durationMs": 0,
-        "reasoning": "\"Generated 2 relevant keywords from the product title and category.\""
-      },
-      {
-        "name": "candidate_search",
-        "input": {
-          "keyword": "stainless steel water bottle insulated",
-          "limit": 50
-        },
-        "timestamp": "2025-12-28T17:21:04.723Z",
-        "startedAt": "2025-12-28T17:21:04.723Z",
-        "output": {
-          "total_results": 2847,
-          "candidates_fetched": 8,
-          "candidates": [
-            {
-              "asin": "B0COMP01",
-              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
-              "price": 44.99,
-              "rating": 4.5,
-              "reviews": 8932
-            },
-            {
-              "asin": "B0COMP02",
-              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
-              "price": 34.99,
-              "rating": 4.4,
-              "reviews": 5621
-            },
-            {
-              "asin": "B0COMP07",
-              "title": "Stanley Adventure Quencher 30oz Insulated",
-              "price": 35,
-              "rating": 4.3,
-              "reviews": 4102
-            },
-            {
-              "asin": "B0COMP03",
-              "title": "Generic Stainless Steel Bottle",
-              "price": 8.99,
-              "rating": 3.2,
-              "reviews": 45
-            },
-            {
-              "asin": "B0COMP04",
-              "title": "Premium Titanium Water Bottle",
-              "price": 89,
-              "rating": 4.8,
-              "reviews": 234
-            },
-            {
-              "asin": "B0COMP05",
-              "title": "Replacement Lid for HydroFlask",
-              "price": 12.99,
-              "rating": 4.7,
-              "reviews": 3421
-            },
-            {
-              "asin": "B0COMP06",
-              "title": "Water Bottle Carrier Bag with Strap",
-              "price": 18.99,
-              "rating": 4.6,
-              "reviews": 2109
-            },
-            {
-              "asin": "B0XYZ123",
-              "title": "Stainless Steel Water Bottle 32oz Insulated",
-              "price": 25,
-              "rating": 4.2,
-              "reviews": 1247,
-              "category": "Sports & Outdoors > Water Bottles"
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T17:21:04.724Z",
-        "durationMs": 1,
-        "reasoning": "\"Found 2847 products matching keyword, returned top 8 candidates based on relevance.\""
-      },
-      {
-        "name": "apply_filters",
-        "input": {
-          "candidates_count": 8,
-          "reference_product": {
-            "asin": "B0XYZ123",
-            "title": "Stainless Steel Water Bottle 32oz Insulated",
-            "price": 25,
-            "rating": 4.2,
-            "reviews": 1247,
-            "category": "Sports & Outdoors > Water Bottles"
-          },
-          "filters_applied": {
-            "priceRange": {
-              "min": 12.5,
-              "max": 50
-            },
-            "minRating": 3.8,
-            "minReviews": 100
-          }
-        },
-        "timestamp": "2025-12-28T17:21:05.630Z",
-        "startedAt": "2025-12-28T17:21:05.630Z",
-        "output": {
-          "total_evaluated": 8,
-          "passed": 6,
-          "failed": 2,
-          "evaluations": [
-            {
-              "asin": "B0COMP01",
-              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
-              "price": 44.99,
-              "rating": 4.5,
-              "reviews": 8932,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$44.99 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.5 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "8932 vs 100"
-                }
-              },
-              "qualified": true
-            },
-            {
-              "asin": "B0COMP02",
-              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
-              "price": 34.99,
-              "rating": 4.4,
-              "reviews": 5621,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$34.99 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.4 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "5621 vs 100"
-                }
-              },
-              "qualified": true
-            },
-            {
-              "asin": "B0COMP07",
-              "title": "Stanley Adventure Quencher 30oz Insulated",
-              "price": 35,
-              "rating": 4.3,
-              "reviews": 4102,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$35 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.3 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "4102 vs 100"
-                }
-              },
-              "qualified": true
-            },
-            {
-              "asin": "B0COMP03",
-              "title": "Generic Stainless Steel Bottle",
-              "price": 8.99,
-              "rating": 3.2,
-              "reviews": 45,
-              "filter_results": {
-                "price_range": {
-                  "passed": false,
-                  "detail": "$8.99 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": false,
-                  "detail": "3.2 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": false,
-                  "detail": "45 vs 100"
-                }
-              },
-              "qualified": false
-            },
-            {
-              "asin": "B0COMP04",
-              "title": "Premium Titanium Water Bottle",
-              "price": 89,
-              "rating": 4.8,
-              "reviews": 234,
-              "filter_results": {
-                "price_range": {
-                  "passed": false,
-                  "detail": "$89 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.8 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "234 vs 100"
-                }
-              },
-              "qualified": false
-            },
-            {
-              "asin": "B0COMP05",
-              "title": "Replacement Lid for HydroFlask",
-              "price": 12.99,
-              "rating": 4.7,
-              "reviews": 3421,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$12.99 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.7 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "3421 vs 100"
-                }
-              },
-              "qualified": true
-            },
-            {
-              "asin": "B0COMP06",
-              "title": "Water Bottle Carrier Bag with Strap",
-              "price": 18.99,
-              "rating": 4.6,
-              "reviews": 2109,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$18.99 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.6 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "2109 vs 100"
-                }
-              },
-              "qualified": true
-            },
-            {
-              "asin": "B0XYZ123",
-              "title": "Stainless Steel Water Bottle 32oz Insulated",
-              "price": 25,
-              "rating": 4.2,
-              "reviews": 1247,
-              "category": "Sports & Outdoors > Water Bottles",
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$25 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.2 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "1247 vs 100"
-                }
-              },
-              "qualified": true
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T17:21:05.630Z",
-        "durationMs": 0,
-        "reasoning": "\"Filtered 8 candidates down to 6 qualified products based on price, rating, and reviews.\""
-      },
-      {
-        "name": "llm_relevance_evaluation",
-        "input": {
-          "candidates_count": 6,
-          "reference_product": {
-            "title": "Stainless Steel Water Bottle 32oz Insulated",
-            "category": "Sports & Outdoors > Water Bottles"
-          },
-          "model": "fake-gpt-4"
-        },
-        "timestamp": "2025-12-28T17:21:06.699Z",
-        "startedAt": "2025-12-28T17:21:06.699Z",
-        "output": {
-          "total_evaluated": 6,
-          "confirmed_competitors": 4,
-          "false_positives_removed": 2,
-          "evaluations": [
-            {
-              "asin": "B0COMP01",
-              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
-              "is_competitor": true,
-              "confidence": 0.93
-            },
-            {
-              "asin": "B0COMP02",
-              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
-              "is_competitor": true,
-              "confidence": 0.93
-            },
-            {
-              "asin": "B0COMP07",
-              "title": "Stanley Adventure Quencher 30oz Insulated",
-              "is_competitor": true,
-              "confidence": 0.93
-            },
-            {
-              "asin": "B0COMP05",
-              "title": "Replacement Lid for HydroFlask",
-              "is_competitor": false,
-              "rejection_reason": {
-                "code": "ACCESSORY",
-                "explanation": "Product is a replacement lid, not a bottle"
-              },
-              "confidence": 0.98
-            },
-            {
-              "asin": "B0COMP06",
-              "title": "Water Bottle Carrier Bag with Strap",
-              "is_competitor": false,
-              "rejection_reason": {
-                "code": "ACCESSORY",
-                "explanation": "Product is a carrying accessory"
-              },
-              "confidence": 0.96
-            },
-            {
-              "asin": "B0XYZ123",
-              "title": "Stainless Steel Water Bottle 32oz Insulated",
-              "is_competitor": true,
-              "confidence": 0.93
-            }
-          ]
-        },
-        "endedAt": "2025-12-28T17:21:06.699Z",
-        "durationMs": 0,
-        "reasoning": "\"Evaluated 6 candidates, confirmed 4 as competitors, and removed 2 false positives.\""
-      },
-      {
-        "name": "rank_and_select",
-        "input": {
-          "candidates_count": 4,
-          "ranking_criteria": [
-            "review_count",
-            "rating"
-          ]
-        },
-        "timestamp": "2025-12-28T17:21:07.712Z",
-        "startedAt": "2025-12-28T17:21:07.712Z",
-        "output": {
-          "ranked_candidates": [
-            {
-              "rank": 1,
-              "asin": "B0COMP01",
-              "title": "HydroFlask 32oz Wide Mouth Insulated Bottle",
-              "price": 44.99,
-              "rating": 4.5,
-              "reviews": 8932,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$44.99 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.5 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "8932 vs 100"
-                }
-              },
-              "qualified": true,
-              "llm_confidence": 0.93
-            },
-            {
-              "rank": 2,
-              "asin": "B0COMP02",
-              "title": "Yeti Rambler 26oz Stainless Steel Bottle",
-              "price": 34.99,
-              "rating": 4.4,
-              "reviews": 5621,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$34.99 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.4 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "5621 vs 100"
-                }
-              },
-              "qualified": true,
-              "llm_confidence": 0.93
-            },
-            {
-              "rank": 3,
-              "asin": "B0COMP07",
-              "title": "Stanley Adventure Quencher 30oz Insulated",
-              "price": 35,
-              "rating": 4.3,
-              "reviews": 4102,
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$35 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.3 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "4102 vs 100"
-                }
-              },
-              "qualified": true,
-              "llm_confidence": 0.93
-            },
-            {
-              "rank": 4,
-              "asin": "B0XYZ123",
-              "title": "Stainless Steel Water Bottle 32oz Insulated",
-              "price": 25,
-              "rating": 4.2,
-              "reviews": 1247,
-              "category": "Sports & Outdoors > Water Bottles",
-              "filter_results": {
-                "price_range": {
-                  "passed": true,
-                  "detail": "$25 vs $12.5-50"
-                },
-                "min_rating": {
-                  "passed": true,
-                  "detail": "4.2 vs 3.8"
-                },
-                "min_reviews": {
-                  "passed": true,
-                  "detail": "1247 vs 100"
-                }
-              },
-              "qualified": true,
-              "llm_confidence": 0.93
-            }
-          ],
-          "selection": {
-            "asin": "B0COMP01",
-            "title": "HydroFlask 32oz Wide Mouth Insulated Bottle"
-          }
-        },
-        "endedAt": "2025-12-28T17:21:07.712Z",
-        "durationMs": 0,
-        "reasoning": "\"Ranked 4 candidates by review count and rating, selecting HydroFlask as the top choice.\""
-      }
-    ],
-    "metadata": {
-      "pipeline": "competitor-selection-v2"
-    },
-    "endedAt": "2025-12-28T17:21:50.064Z",
+    "endedAt": "2025-12-29T10:22:53.245Z",
     "finalOutcome": {
       "decision": "COMPETITOR_SELECTED",
       "selected_competitor": {

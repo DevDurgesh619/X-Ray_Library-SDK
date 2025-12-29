@@ -2,54 +2,103 @@
 import OpenAI from "openai"
 import { Step } from "@/xRay/step"
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-})
+let openai: OpenAI | null = null
+
+function getOpenAIClient(): OpenAI {
+  if (!openai) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY!,
+    })
+  }
+  return openai
+}
 
 export async function openaiExplainStep(step: Step): Promise<string> {
+  console.log(`[LLM] 🚀 Starting reasoning generation for step: ${step.name}`)
+
   // Fast numeric summaries FIRST (no API cost)
-//  const numericReasoning = generateNumericReasoning(step)
-//  if (numericReasoning) return numericReasoning
+  const numericReasoning = generateNumericReasoning(step)
+  if (numericReasoning) {
+    console.log(`[LLM] ✓ Using numeric reasoning: "${numericReasoning}"`)
+    return numericReasoning
+  }
 
   // Skip if no API key
   if (!process.env.OPENAI_API_KEY) {
+    console.log(`[LLM] ⚠️  No OPENAI_API_KEY found, returning fallback`)
     return `✅ ${step.name} processed (${step.durationMs ?? 0}ms)`
   }
+  console.log(`[LLM] ✓ OPENAI_API_KEY found`)
 
   try {
-    const prompt = `You are a pipeline observability expert. Explain this step in **ONE short sentence** focusing on what changed:
+    const prompt = `You are an AI pipeline observability expert. Generate a concise 1-2 sentence explanation for this step.
 
-Step: ${step.name}
-Input: ${JSON.stringify(step.input ?? {}, null, 2)}
-Output: ${JSON.stringify(step.output ?? {}, null, 2)}
-Duration: ${step.durationMs ?? 0}ms
+Input: ${JSON.stringify(step.input ?? {})}
 
-Examples:
-"Extracted time manipulation, mind-bending themes from Inception input"
-"Filtered 5→2 movies by rating≥7.5 and age≤15y"
-"Found 2847 products matching keyword, returned top 8"
-"LLM approved 4/6 products as direct competitors"
-"Selected HydroFlask (highest reviews) from 4 ranked options"
+Output: ${JSON.stringify(step.output ?? {})}
 
-Be concise, focus on counts/decisions.`
+Rules:
+- Be specific and mention counts, thresholds, or key decisions
+- Use neutral, technical language
+- Do NOT restate raw data verbatim
+- ONLY return the reasoning text, no JSON formatting
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",  // ✅ Cheap + fast ($0.15/1M tokens)
+Reasoning:`;
+
+    console.log(`[LLM] 🔧 Initializing OpenAI client...`)
+    const client = getOpenAIClient()
+    console.log(`[LLM] ✓ OpenAI client initialized`)
+
+    console.log(`[LLM] 📤 Sending request to OpenAI API...`)
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 60,
+      max_tokens: 150,
       temperature: 0.1,
     })
+    console.log(`[LLM] ✓ Received response from OpenAI API`)
 
-    return completion.choices[0]?.message?.content?.trim() || "Step processed"
+    const rawResponse = completion.choices[0]?.message?.content?.trim() || "Step processed"
+    console.log(`[LLM] 📝 Raw response (${rawResponse.length} chars): "${rawResponse}"`)
+
+    // Clean up the response
+    let reasoning = rawResponse
+      .replace(/^Reasoning:\s*/i, '') // Remove "Reasoning:" prefix if present
+      .replace(/```json\s*/g, '')      // Remove JSON code fences
+      .replace(/```\s*/g, '')
+      .trim()
+
+    // If response looks like truncated JSON, return fallback
+    if (reasoning.startsWith('{') && !reasoning.endsWith('}')) {
+      console.log(`[LLM] ⚠️  Detected truncated JSON response, using fallback`)
+      const fallback = generateNumericReasoning(step) || `Processed ${step.name}`
+      console.log(`[LLM] ✓ Using fallback: "${fallback}"`)
+      return fallback
+    }
+
+    console.log(`[LLM] ✅ Final reasoning (${reasoning.length} chars): "${reasoning}"`)
+    return reasoning
   } catch (error: any) {
-    console.warn("OpenAI failed:", error.message)
-    return generateNumericReasoning(step) || `✅ ${step.name} processed`
+    console.error(`[LLM] ❌ OpenAI API failed for step ${step.name}:`, error.message)
+    console.error(`[LLM] ❌ Error details:`, error)
+    console.log(`[LLM] 🔄 Falling back to numeric reasoning...`)
+
+    const fallback = generateNumericReasoning(step) || `✅ ${step.name} processed`
+    console.log(`[LLM] ✓ Using fallback: "${fallback}"`)
+    return fallback
   }
 }
 
 function generateNumericReasoning(step: Step): string | null {
   const input = step.input ?? {}
   const output = step.output ?? {}
+
+  // Ranking/Selection steps (rank_and_select)
+  if (output.ranked_candidates && output.selection) {
+    const count = output.ranked_candidates?.length ?? 0
+    const selectionTitle = output.selection?.title ?? output.selection?.asin ?? 'top choice'
+    return `Ranked ${count} candidate(s) and selected "${selectionTitle}" as top choice`
+  }
 
   // Filter pass/fail
   const total = output.total_evaluated ?? output.total_evaluated ?? output.evaluated?.length
@@ -65,7 +114,7 @@ function generateNumericReasoning(step: Step): string | null {
     return `🔍 ${found}→${returned} results`
   }
 
-  // Size change
+  // Size change (only if different)
   const inputCount = getArrayLength(input)
   const outputCount = getArrayLength(output)
   if (inputCount && outputCount && inputCount !== outputCount) {
@@ -77,5 +126,5 @@ function generateNumericReasoning(step: Step): string | null {
 
 function getArrayLength(obj: any): number | null {
   if (Array.isArray(obj)) return obj.length
-  return obj?.candidates?.length ?? obj?.items?.length ?? obj?.remaining?.length ?? null
+  return obj?.candidates?.length ?? obj?.items?.length ?? obj?.remaining?.length ?? obj?.ranked_candidates?.length ?? null
 }

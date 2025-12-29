@@ -1,0 +1,187 @@
+🔍 X-Ray Reasoning Verification Tool
+
+================================================================================
+📦 Loaded 8 products from dataset
+🎯 Testing first 2 products
+
+
+[1/2] HydroFlask Premium Stainless Steel Water Bottle 32oz
+    ASIN: B0REF001
+    ----------------------------------------------------------------------
+    Step 1: keyword_generation
+        Category: ✅ Normal case
+        Reasoning: "{
+  "step": "keyword_generation",
+  "reasoning": "The step extracted relevant keywords from the product title and category to enhance searchability, resulting in three specific keywords that reflect the product's attributes and intended use. This was achieved by identifying key phrases such as 'stainless steel water"
+    Step 2: candidate_search
+        Category: ✅ Normal search
+        Reasoning: "```json
+{
+  "step": "candidate_search",
+  "reasoning": "The candidate search retrieved a total of 4,832 potential matches for the keyword 'stainless steel water bottle', from which 10 candidates were selected based on relevance and the specified limit, ensuring a focused output"
+    Step 3: apply_filters
+        Category: ✅ Normal filter case
+        Reasoning: "```json
+{
+  "step": "apply_filters",
+  "reasoning": "Three out of ten candidates passed the filtering criteria based on the specified price range ($22.50-$89.98), minimum rating (4.2), and minimum reviews (1000), resulting in seven candidates"
+        Notes: 5 price failures, 3 rating failures, 2 review failures
+    Step 4: llm_relevance_evaluation
+        Category: ✅ All passed LLM check
+        Reasoning: "```json
+{
+  "step": "llm_relevance_evaluation",
+  "reasoning": "The step evaluated three candidate products against the reference product, confirming all as relevant competitors with high confidence scores (0.91 to 0.95), resulting in no false positives being removed.""
+    Step 5: rank_and_select
+        Category: ✅ Normal ranking
+        Reasoning: "```json
+{
+  "step": "rank_and_select",
+  "reasoning": "The step ranked 3 candidates based on review count and rating, resulting in a selection of the top-ranked candidate, 'Simple Modern 32oz Summit Water Bottle', which had the highest score derived from these"
+
+[2/2] AquaFit Budget Plastic Water Bottle 32oz
+    ASIN: B0REF002
+    ----------------------------------------------------------------------
+    Step 1: keyword_generation
+        Category: ✅ Normal case
+        Reasoning: "{
+  "step": "keyword_generation",
+  "reasoning": "The step extracted relevant search terms from the product title and category, generating three keywords: 'plastic water bottle', '32oz water bottle', and 'budget water bottle' to enhance searchability and relevance for user queries."
+}"
+    Step 2: candidate_search
+        Category: ✅ Normal search
+        Reasoning: "```json
+{
+  "step": "candidate_search",
+  "reasoning": "The candidate search retrieved 9 candidates from a total of 8423 potential matches for the keyword 'plastic water bottle', indicating a focused selection based on relevance to the query. This step involved applying search algorithms to"
+    Step 3: apply_filters
+        Category: ❌ All candidates failed filters
+        Reasoning: "```json
+{
+  "step": "apply_filters",
+  "reasoning": "The filtering step evaluated 9 candidates against specified criteria, resulting in 0 passing candidates; all 9 failed due to not meeting the minimum rating or review thresholds, specifically requiring a rating of at least 3"
+        Notes: 1 rating failures, 1 review failures
+    Step 4: llm_relevance_evaluation
+        Category: ❌ No competitors found
+        Reasoning: "```json
+{
+  "step": "llm_relevance_evaluation",
+  "reasoning": "The step evaluated 6 candidate products against the reference water bottle, confirming 0 as competitors and removing all 6 as false positives due to specific rejection reasons such as size mismatches and differing"
+        Notes: Rejected: 2x SIZE_MISMATCH, 1x ACCESSORY, 1x DIFFERENT_USE_CASE
+    Step 5: rank_and_select
+        Category: ✅ Normal ranking
+        Reasoning: "```json
+{
+  "step": "rank_and_select",
+  "reasoning": "The step ranked 3 candidates based on review count and rating, resulting in a selection of the highest-ranked candidate, 'Nalgene Tritan 32oz Wide Mouth Bottle', which had the highest score"
+
+
+================================================================================
+📊 REASONING VERIFICATION REPORT
+================================================================================
+
+
+📌 KEYWORD_GENERATION
+--------------------------------------------------------------------------------
+
+  ✅ Normal case (2 cases)
+    • B0REF001: "{
+  "step": "keyword_generation",
+  "reasoning": "The step extracted relevant keywords from the product title and category to enhance searchability, resulting in three specific keywords that reflect the product's attributes and intended use. This was achieved by identifying key phrases such as 'stainless steel water"
+    • B0REF002: "{
+  "step": "keyword_generation",
+  "reasoning": "The step extracted relevant search terms from the product title and category, generating three keywords: 'plastic water bottle', '32oz water bottle', and 'budget water bottle' to enhance searchability and relevance for user queries."
+}"
+
+📌 CANDIDATE_SEARCH
+--------------------------------------------------------------------------------
+
+  ✅ Normal search (2 cases)
+    • B0REF001: "```json
+{
+  "step": "candidate_search",
+  "reasoning": "The candidate search retrieved a total of 4,832 potential matches for the keyword 'stainless steel water bottle', from which 10 candidates were selected based on relevance and the specified limit, ensuring a focused output"
+    • B0REF002: "```json
+{
+  "step": "candidate_search",
+  "reasoning": "The candidate search retrieved 9 candidates from a total of 8423 potential matches for the keyword 'plastic water bottle', indicating a focused selection based on relevance to the query. This step involved applying search algorithms to"
+
+📌 APPLY_FILTERS
+--------------------------------------------------------------------------------
+
+  ✅ Normal filter case (1 cases)
+    • B0REF001: "```json
+{
+  "step": "apply_filters",
+  "reasoning": "Three out of ten candidates passed the filtering criteria based on the specified price range ($22.50-$89.98), minimum rating (4.2), and minimum reviews (1000), resulting in seven candidates"
+      └─ 5 price failures, 3 rating failures, 2 review failures
+
+  ❌ All candidates failed filters (1 cases)
+    • B0REF002: "```json
+{
+  "step": "apply_filters",
+  "reasoning": "The filtering step evaluated 9 candidates against specified criteria, resulting in 0 passing candidates; all 9 failed due to not meeting the minimum rating or review thresholds, specifically requiring a rating of at least 3"
+      └─ 1 rating failures, 1 review failures
+
+📌 LLM_RELEVANCE_EVALUATION
+--------------------------------------------------------------------------------
+
+  ✅ All passed LLM check (1 cases)
+    • B0REF001: "```json
+{
+  "step": "llm_relevance_evaluation",
+  "reasoning": "The step evaluated three candidate products against the reference product, confirming all as relevant competitors with high confidence scores (0.91 to 0.95), resulting in no false positives being removed.""
+
+  ❌ No competitors found (1 cases)
+    • B0REF002: "```json
+{
+  "step": "llm_relevance_evaluation",
+  "reasoning": "The step evaluated 6 candidate products against the reference water bottle, confirming 0 as competitors and removing all 6 as false positives due to specific rejection reasons such as size mismatches and differing"
+      └─ Rejected: 2x SIZE_MISMATCH, 1x ACCESSORY, 1x DIFFERENT_USE_CASE
+
+📌 RANK_AND_SELECT
+--------------------------------------------------------------------------------
+
+  ✅ Normal ranking (2 cases)
+    • B0REF001: "```json
+{
+  "step": "rank_and_select",
+  "reasoning": "The step ranked 3 candidates based on review count and rating, resulting in a selection of the top-ranked candidate, 'Simple Modern 32oz Summit Water Bottle', which had the highest score derived from these"
+    • B0REF002: "```json
+{
+  "step": "rank_and_select",
+  "reasoning": "The step ranked 3 candidates based on review count and rating, resulting in a selection of the highest-ranked candidate, 'Nalgene Tritan 32oz Wide Mouth Bottle', which had the highest score"
+
+
+================================================================================
+🎯 EDGE CASES DETECTED
+================================================================================
+
+❌ All candidates failed filters
+  Product: AquaFit Budget Plastic Water Bottle 32oz (B0REF002)
+  Step: apply_filters
+  Reasoning: "```json
+{
+  "step": "apply_filters",
+  "reasoning": "The filtering step evaluated 9 candidates against specified criteria, resulting in 0 passing candidates; all 9 failed due to not meeting the minimum rating or review thresholds, specifically requiring a rating of at least 3"
+  Details: 1 rating failures, 1 review failures
+
+❌ No competitors found
+  Product: AquaFit Budget Plastic Water Bottle 32oz (B0REF002)
+  Step: llm_relevance_evaluation
+  Reasoning: "```json
+{
+  "step": "llm_relevance_evaluation",
+  "reasoning": "The step evaluated 6 candidate products against the reference water bottle, confirming 0 as competitors and removing all 6 as false positives due to specific rejection reasons such as size mismatches and differing"
+  Details: Rejected: 2x SIZE_MISMATCH, 1x ACCESSORY, 1x DIFFERENT_USE_CASE
+
+
+💾 Detailed JSON report saved to: reasoning_verification_report.json
+
+================================================================================
+📈 STATISTICS
+================================================================================
+Total products analyzed: 2
+Total reasoning generated: 10
+Edge cases detected: 2
+Normal cases: 8

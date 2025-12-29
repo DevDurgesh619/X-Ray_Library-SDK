@@ -1,4 +1,6 @@
 import { getExecutionById } from "@/lib/storage"
+import ExecutionReasoningTrigger from "@/app/components/ExecutionReasoningTrigger"
+import StepReasoning from "@/app/components/StepReasoning"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -12,8 +14,16 @@ export default async function ExecutionPage({ params }: Props) {
     return <div className="p-6">Execution not found</div>
   }
 
+  // Check if any steps are missing reasoning
+  const hasAnyMissingReasoning = execution.steps.some(s => !s.reasoning)
+
   return (
     <main className="p-6 space-y-6">
+      {/* Auto-trigger reasoning generation if any steps are missing reasoning */}
+      <ExecutionReasoningTrigger
+        executionId={execution.executionId}
+        hasAnyMissingReasoning={hasAnyMissingReasoning}
+      />
       <h1 className="text-2xl font-bold">
         Execution: {execution.executionId}
       </h1>
@@ -70,12 +80,12 @@ export default async function ExecutionPage({ params }: Props) {
               </div>
             )}
 
-            {/* 🔥 REASONING FOR ALL STEPS (NEW - OUTSIDE LLM BLOCK) */}
-            {step.reasoning && (
-              <div className="bg-blue-50 p-3 rounded border-l-4 border-blue-400 mt-2">
-                <strong>🤖 Auto-Reasoning</strong>: {step.reasoning}
-              </div>
-            )}
+            {/* 🔥 DYNAMIC REASONING WITH AUTO-TRIGGER AND POLLING */}
+            <StepReasoning
+              executionId={execution.executionId}
+              stepName={step.name}
+              initialReasoning={step.reasoning}
+            />
 
             {/* LLM step visualization (KEEP THIS BLOCK - only for LLM steps) */}
             {step.name === "llm_relevance_evaluation" && step.output && (

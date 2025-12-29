@@ -2,13 +2,21 @@
 import OpenAI from "openai"
 import { Step } from "@/xRay/step"
 
-const grok = new OpenAI({
-  apiKey: process.env.GROK_API_KEY!,
-  baseURL: "https://api.x.ai/v1",
-})
+let grok: OpenAI | null = null
+
+function getGrokClient(): OpenAI {
+  if (!grok) {
+    grok = new OpenAI({
+      apiKey: process.env.GROK_API_KEY!,
+      baseURL: "https://api.x.ai/v1",
+    })
+  }
+  return grok
+}
 
 export async function grokExplainStep(step: Step): Promise<string> {
   try {
+    const client = getGrokClient()
     const prompt = `You are a senior pipeline observability engineer. Analyze this step and explain **exactly what happened** in ONE short sentence.
 
 Step name: ${step.name}
@@ -29,7 +37,7 @@ Examples:
 - "Found 2847 products, returned top 8"
 `
 
-    const completion = await grok.chat.completions.create({
+    const completion = await client.chat.completions.create({
       model: "grok-beta",
       messages: [{ role: "user", content: prompt }],
       max_tokens: 60,

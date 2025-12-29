@@ -1,10 +1,11 @@
 import { Execution } from "./execution"
-import { generateStepReasoning } from "./llmReasoning"
 import { Step } from "./step"
+import { ReasoningQueue } from "./reasoningQueue"
 
 export class XRay {
   private execution: Execution
   private activeSteps = new Map<string, Step>()
+  private pendingReasoningSteps: string[] = []
 
   constructor(executionId: string, metadata?: Record<string, any>) {
     this.execution = {
@@ -33,7 +34,7 @@ export class XRay {
   }
 
   /** Start a step (v2) */
-  startStep(name: string, input: any, metadata?: Record<string, any>) {
+  startStep(name: string, input: any, metadata?: Record<string, any>, ) {
     const step: Step = {
       name,
       input,
@@ -44,8 +45,8 @@ export class XRay {
     this.activeSteps.set(name, step)
   }
 
-  /** Finish a step (v3) – auto‑generates reasoning from input/output */
-  async endStep(name: string, output: any) {
+  /** Finish a step (v3) – stores without reasoning (populated asynchronously) */
+  endStep(name: string, output: any) {
     const step = this.activeSteps.get(name)
     if (!step) return
 
@@ -55,15 +56,18 @@ export class XRay {
       new Date(step.endedAt).getTime() -
       new Date(step.startedAt!).getTime()
 
-    // Auto-generate generic reasoning
-    step.reasoning = await generateStepReasoning(step)
+    // Store without reasoning (will be populated asynchronously)
+    step.reasoning = undefined
 
     this.execution.steps.push(step)
     this.activeSteps.delete(name)
+
+    // Track step for later processing
+    this.pendingReasoningSteps.push(step.name)
   }
 
-  /** Capture error inside a step (v2) */
-  async errorStep(name: string, error: Error) {
+  /** Capture error inside a step (v2) – stores without reasoning (populated asynchronously) */
+  errorStep(name: string, error: Error) {
     const step = this.activeSteps.get(name)
     if (!step) return
 
@@ -73,17 +77,30 @@ export class XRay {
       new Date(step.endedAt).getTime() -
       new Date(step.startedAt!).getTime()
 
-    // Auto-reasoning for failed step
-    step.reasoning = await generateStepReasoning(step)
+    // Store without reasoning (will be populated asynchronously)
+    step.reasoning = undefined
 
     this.execution.steps.push(step)
     this.activeSteps.delete(name)
+
+    // Track step for later processing
+    this.pendingReasoningSteps.push(step.name)
   }
 
-  /** End execution */
+  /** End execution - returns execution without enqueueing reasoning */
   end(finalOutcome: any) {
     this.execution.endedAt = new Date().toISOString()
     this.execution.finalOutcome = finalOutcome
     return this.execution
+  }
+
+  /** Enqueue reasoning jobs - call AFTER saveExecution() */
+  enqueueReasoning() {
+    if (process.env.XRAY_AUTO_REASONING === 'true') {
+      const queue = ReasoningQueue.getInstance()
+      for (const stepName of this.pendingReasoningSteps) {
+        queue.enqueue(this.execution.executionId, stepName)
+      }
+    }
   }
 }

@@ -14,7 +14,7 @@ export async function runPipeline(executionId: string) {
   const referenceProduct = {
     asin: "B0XYZ123",
     title: "Stainless Steel Water Bottle 32oz Insulated",
-    price: 25.0,
+    price: 25.0,  
     rating: 4.2,
     reviews: 1247,
     category: "Sports & Outdoors > Water Bottles"
@@ -93,13 +93,15 @@ export async function runPipeline(executionId: string) {
     }
   })
 
-  const passedFilters = evaluations.filter(e => e.qualified)
-
-  xray.startStep("apply_filters", {
+    xray.startStep("apply_filters", {
     candidates_count: search.candidates.length,
     reference_product: referenceProduct,
     filters_applied: filters
   })
+
+  const passedFilters = evaluations.filter(e => e.qualified)
+
+
 
   await xray.endStep("apply_filters", {
     total_evaluated: evaluations.length,
@@ -161,11 +163,13 @@ export async function runPipeline(executionId: string) {
       selection: null
     })
 
-    return xray.end({
+    const execution = xray.end({
       decision: "NO_COMPETITOR_FOUND",
       reasoning:
         "All candidates were rejected as non-competitors by the LLM"
     })
+
+    return { execution, xray }
   }
 
   const ranked = confirmedCandidates
@@ -189,8 +193,10 @@ export async function runPipeline(executionId: string) {
     // 'Selected "HydroFlask 32oz Wide Mouth Insulated Bottle" as top choice from 4 candidate(s)'
   })
 
-  return xray.end({
+  const execution = xray.end({
     decision: "COMPETITOR_SELECTED",
     selected_competitor: selected
   })
+
+  return { execution, xray }
 }

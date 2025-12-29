@@ -5,9 +5,11 @@ import { randomUUID } from "crypto"
 
 export async function POST() {
   const executionId = randomUUID()
-  const execution = await runPipeline(executionId)  // ✅ AWAIT!
-  
-  await saveExecution(execution)                    // ✅ AWAIT!
+  const { execution, xray } = await runPipeline(executionId)
+
+  // Save FIRST, then enqueue reasoning (so queue can load from storage)
+  await saveExecution(execution)
+  xray.enqueueReasoning()
 
   return NextResponse.json({
     executionId

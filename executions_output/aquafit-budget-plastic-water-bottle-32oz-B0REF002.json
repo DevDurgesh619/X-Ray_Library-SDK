@@ -1,0 +1,484 @@
+{
+  "executionId": "exec-B0REF002-1766993506613",
+  "startedAt": "2025-12-29T07:31:46.613Z",
+  "steps": [
+    {
+      "name": "keyword_generation",
+      "input": {
+        "product_title": "AquaFit Budget Plastic Water Bottle 32oz",
+        "category": "Sports & Outdoors > Hydration > Water Bottles"
+      },
+      "timestamp": "2025-12-29T07:31:46.613Z",
+      "startedAt": "2025-12-29T07:31:46.613Z",
+      "output": {
+        "keywords": [
+          "plastic water bottle",
+          "32oz water bottle",
+          "budget water bottle"
+        ],
+        "model": "fake-gpt-4"
+      },
+      "endedAt": "2025-12-29T07:31:46.613Z",
+      "durationMs": 0
+    },
+    {
+      "name": "candidate_search",
+      "input": {
+        "keyword": "plastic water bottle",
+        "limit": 50
+      },
+      "timestamp": "2025-12-29T07:31:46.614Z",
+      "startedAt": "2025-12-29T07:31:46.614Z",
+      "output": {
+        "total_results": 8423,
+        "candidates_fetched": 9,
+        "candidates": [
+          {
+            "asin": "B0CAND010",
+            "title": "Rubbermaid Chug 32oz Plastic Bottle",
+            "price": 12.99,
+            "rating": 4.3,
+            "reviews": 1234
+          },
+          {
+            "asin": "B0CAND011",
+            "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+            "price": 14.99,
+            "rating": 4.6,
+            "reviews": 7832
+          },
+          {
+            "asin": "B0CAND012",
+            "title": "Generic BPA-Free Plastic Bottle 32oz",
+            "price": 6.99,
+            "rating": 3.2,
+            "reviews": 234
+          },
+          {
+            "asin": "B0CAND013",
+            "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+            "price": 18.99,
+            "rating": 4.5,
+            "reviews": 5621
+          },
+          {
+            "asin": "B0CAND014",
+            "title": "Contigo Jackson 24oz Plastic Bottle",
+            "price": 11.99,
+            "rating": 4.1,
+            "reviews": 892
+          },
+          {
+            "asin": "B0CAND015",
+            "title": "Plastic Bottle Replacement Caps - 6 Pack",
+            "price": 9.99,
+            "rating": 3.8,
+            "reviews": 567
+          },
+          {
+            "asin": "B0REF002",
+            "title": "AquaFit Budget Plastic Water Bottle 32oz",
+            "price": 9.99,
+            "rating": 3.9,
+            "reviews": 847
+          },
+          {
+            "asin": "B0CAND016",
+            "title": "BlenderBottle Classic 28oz Shaker",
+            "price": 9.99,
+            "rating": 4.7,
+            "reviews": 15234
+          },
+          {
+            "asin": "B0CAND017",
+            "title": "Kids Plastic Water Bottle with Straw 16oz",
+            "price": 8.99,
+            "rating": 4.2,
+            "reviews": 2341
+          }
+        ]
+      },
+      "endedAt": "2025-12-29T07:31:46.614Z",
+      "durationMs": 0
+    },
+    {
+      "name": "apply_filters",
+      "input": {
+        "candidates_count": 9,
+        "reference_product": {
+          "asin": "B0REF002",
+          "title": "AquaFit Budget Plastic Water Bottle 32oz",
+          "price": 9.99,
+          "rating": 3.9,
+          "reviews": 847
+        },
+        "filters_applied": {
+          "priceRange": {
+            "min": 5,
+            "max": 19.98
+          },
+          "minRating": 3.5,
+          "minReviews": 500
+        }
+      },
+      "timestamp": "2025-12-29T07:31:46.614Z",
+      "startedAt": "2025-12-29T07:31:46.614Z",
+      "output": {
+        "total_evaluated": 9,
+        "passed": 0,
+        "failed": 9,
+        "evaluations": [
+          {
+            "asin": "B0CAND010",
+            "title": "Rubbermaid Chug 32oz Plastic Bottle",
+            "price": 12.99,
+            "rating": 4.3,
+            "reviews": 1234,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$12.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "4.3 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "1234 vs 500"
+              },
+              "is_reference": false
+            },
+            "qualified": true
+          },
+          {
+            "asin": "B0CAND011",
+            "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+            "price": 14.99,
+            "rating": 4.6,
+            "reviews": 7832,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$14.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "4.6 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "7832 vs 500"
+              }
+            },
+            "qualified": true
+          },
+          {
+            "asin": "B0CAND012",
+            "title": "Generic BPA-Free Plastic Bottle 32oz",
+            "price": 6.99,
+            "rating": 3.2,
+            "reviews": 234,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$6.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": false,
+                "detail": "3.2 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": false,
+                "detail": "234 vs 500"
+              }
+            },
+            "qualified": false
+          },
+          {
+            "asin": "B0CAND013",
+            "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+            "price": 18.99,
+            "rating": 4.5,
+            "reviews": 5621,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$18.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "4.5 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "5621 vs 500"
+              }
+            },
+            "qualified": true
+          },
+          {
+            "asin": "B0CAND014",
+            "title": "Contigo Jackson 24oz Plastic Bottle",
+            "price": 11.99,
+            "rating": 4.1,
+            "reviews": 892,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$11.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "4.1 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "892 vs 500"
+              }
+            },
+            "qualified": true
+          },
+          {
+            "asin": "B0CAND015",
+            "title": "Plastic Bottle Replacement Caps - 6 Pack",
+            "price": 9.99,
+            "rating": 3.8,
+            "reviews": 567,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$9.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "3.8 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "567 vs 500"
+              }
+            },
+            "qualified": true
+          },
+          {
+            "asin": "B0REF002",
+            "title": "AquaFit Budget Plastic Water Bottle 32oz",
+            "price": 9.99,
+            "rating": 3.9,
+            "reviews": 847,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$9.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "3.9 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "847 vs 500"
+              },
+              "is_reference": true
+            },
+            "qualified": false
+          },
+          {
+            "asin": "B0CAND016",
+            "title": "BlenderBottle Classic 28oz Shaker",
+            "price": 9.99,
+            "rating": 4.7,
+            "reviews": 15234,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$9.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "4.7 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "15234 vs 500"
+              }
+            },
+            "qualified": true
+          },
+          {
+            "asin": "B0CAND017",
+            "title": "Kids Plastic Water Bottle with Straw 16oz",
+            "price": 8.99,
+            "rating": 4.2,
+            "reviews": 2341,
+            "filter_results": {
+              "price_range": {
+                "passed": true,
+                "detail": "$8.99 vs $5.00-$19.98"
+              },
+              "min_rating": {
+                "passed": true,
+                "detail": "4.2 vs 3.5"
+              },
+              "min_reviews": {
+                "passed": true,
+                "detail": "2341 vs 500"
+              }
+            },
+            "qualified": true
+          }
+        ]
+      },
+      "endedAt": "2025-12-29T07:31:46.614Z",
+      "durationMs": 0
+    },
+    {
+      "name": "llm_relevance_evaluation",
+      "input": {
+        "candidates_count": 6,
+        "reference_product": {
+          "title": "AquaFit Budget Plastic Water Bottle 32oz",
+          "category": "Sports & Outdoors > Hydration > Water Bottles"
+        },
+        "model": "fake-gpt-4"
+      },
+      "timestamp": "2025-12-29T07:31:46.614Z",
+      "startedAt": "2025-12-29T07:31:46.614Z",
+      "output": {
+        "total_evaluated": 6,
+        "confirmed_competitors": 0,
+        "false_positives_removed": 6,
+        "evaluations": [
+          {
+            "asin": "B0CAND010",
+            "title": "Rubbermaid Chug 32oz Plastic Bottle",
+            "is_competitor": true,
+            "confidence": 0.89
+          },
+          {
+            "asin": "B0CAND011",
+            "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+            "is_competitor": true,
+            "confidence": 0.92
+          },
+          {
+            "asin": "B0CAND013",
+            "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+            "is_competitor": true,
+            "confidence": 0.88
+          },
+          {
+            "asin": "B0CAND014",
+            "title": "Contigo Jackson 24oz Plastic Bottle",
+            "is_competitor": false,
+            "rejection_reason": {
+              "code": "SIZE_MISMATCH",
+              "explanation": "Reference product is 32oz, candidate is 24oz - different size category"
+            },
+            "confidence": 0.91
+          },
+          {
+            "asin": "B0CAND015",
+            "title": "Plastic Bottle Replacement Caps - 6 Pack",
+            "is_competitor": false,
+            "rejection_reason": {
+              "code": "ACCESSORY",
+              "explanation": "Product is replacement parts/accessories, not a complete water bottle"
+            },
+            "confidence": 0.99
+          },
+          {
+            "asin": "B0CAND016",
+            "title": "BlenderBottle Classic 28oz Shaker",
+            "is_competitor": false,
+            "rejection_reason": {
+              "code": "DIFFERENT_USE_CASE",
+              "explanation": "Shaker bottle designed for protein/smoothies, not general hydration"
+            },
+            "confidence": 0.94
+          },
+          {
+            "asin": "B0CAND017",
+            "title": "Kids Plastic Water Bottle with Straw 16oz",
+            "is_competitor": false,
+            "rejection_reason": {
+              "code": "SIZE_MISMATCH",
+              "explanation": "Reference product is 32oz adult bottle, this is 16oz kids bottle"
+            },
+            "confidence": 0.96
+          }
+        ]
+      },
+      "endedAt": "2025-12-29T07:31:46.614Z",
+      "durationMs": 0
+    },
+    {
+      "name": "rank_and_select",
+      "input": {
+        "candidates_count": 3,
+        "ranking_criteria": [
+          "review_count",
+          "rating"
+        ]
+      },
+      "timestamp": "2025-12-29T07:31:46.614Z",
+      "startedAt": "2025-12-29T07:31:46.614Z",
+      "output": {
+        "ranked_candidates": [
+          {
+            "rank": 1,
+            "asin": "B0CAND011",
+            "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+            "price": 14.99,
+            "rating": 4.6,
+            "reviews": 7832,
+            "llm_confidence": 0.92
+          },
+          {
+            "rank": 2,
+            "asin": "B0CAND013",
+            "title": "CamelBak Eddy+ 32oz Plastic Bottle",
+            "price": 18.99,
+            "rating": 4.5,
+            "reviews": 5621,
+            "llm_confidence": 0.88
+          },
+          {
+            "rank": 3,
+            "asin": "B0CAND010",
+            "title": "Rubbermaid Chug 32oz Plastic Bottle",
+            "price": 12.99,
+            "rating": 4.3,
+            "reviews": 1234,
+            "llm_confidence": 0.89
+          }
+        ],
+        "selection": {
+          "asin": "B0CAND011",
+          "title": "Nalgene Tritan 32oz Wide Mouth Bottle"
+        }
+      },
+      "endedAt": "2025-12-29T07:31:46.614Z",
+      "durationMs": 0
+    }
+  ],
+  "metadata": {
+    "domain": "competitors",
+    "pipeline": "competitor-selection-dataset-v1",
+    "product_asin": "B0REF002"
+  },
+  "endedAt": "2025-12-29T07:31:46.621Z",
+  "finalOutcome": {
+    "decision": "COMPETITOR_SELECTED",
+    "selected_competitor": {
+      "asin": "B0CAND011",
+      "title": "Nalgene Tritan 32oz Wide Mouth Bottle",
+      "price": 14.99,
+      "rating": 4.6,
+      "reviews": 7832,
+      "qualified": true,
+      "llm_confidence": 0.92
+    }
+  }
+}
