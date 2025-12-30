@@ -1,3 +1,5 @@
 export { XRay } from "./xray"
 export type { Execution } from "./execution"
 export type { Step } from "./step"
+export { XRayHttpClient } from "./httpClient"
+export type { XRayClientConfig } from "./httpClient"
