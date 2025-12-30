@@ -6,7 +6,7 @@ import { prisma } from "./prisma"
  * Save a complete execution to the database
  * This will create a new execution with all steps in a single transaction
  */
-export async function saveExecution(execution: Execution): Promise<void> {
+export async function saveExecution(execution: Execution, userId: string): Promise<void> {
   // Validate execution
   if (!execution || !execution.executionId || execution.steps.length === 0) {
     console.warn("Skipping invalid execution:", execution?.executionId)
@@ -47,6 +47,7 @@ export async function saveExecution(execution: Execution): Promise<void> {
       await prisma.execution.create({
         data: {
           executionId: execution.executionId,
+          userId: userId,
           projectId: execution.metadata?.projectId || "default",
           metadata: execution.metadata || {},
           finalOutcome: execution.finalOutcome || {},
@@ -74,9 +75,10 @@ export async function saveExecution(execution: Execution): Promise<void> {
  * Load all executions from the database
  * Ordered by most recent first
  */
-export async function loadExecutions(): Promise<Execution[]> {
+export async function loadExecutions(userId?: string): Promise<Execution[]> {
   try {
     const executions = await prisma.execution.findMany({
+      where: userId ? { userId } : {},
       include: {
         steps: {
           orderBy: {
@@ -114,14 +116,14 @@ export async function loadExecutions(): Promise<Execution[]> {
 /**
  * Get all executions (alias for loadExecutions)
  */
-export async function getExecutions(): Promise<Execution[]> {
-  return loadExecutions()
+export async function getExecutions(userId?: string): Promise<Execution[]> {
+  return loadExecutions(userId)
 }
 
 /**
  * Get a single execution by ID
  */
-export async function getExecutionById(id: string): Promise<Execution | undefined> {
+export async function getExecutionById(id: string, userId?: string): Promise<Execution | undefined> {
   try {
     const exec = await prisma.execution.findUnique({
       where: { executionId: id },
@@ -136,6 +138,11 @@ export async function getExecutionById(id: string): Promise<Execution | undefine
 
     if (!exec) {
       return undefined
+    }
+
+    // If userId provided, verify ownership
+    if (userId && exec.userId !== userId) {
+      return undefined // Unauthorized
     }
 
     return {

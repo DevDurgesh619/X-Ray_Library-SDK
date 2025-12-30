@@ -8,10 +8,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User accounts
+model User {
+  id         String      @id @default(cuid())
+  email      String      @unique
+  name       String?
+  createdAt  DateTime    @default(now())
+  apiKeys    ApiKey[]
+  executions Execution[]
+}
+
+// API keys for authentication
+model ApiKey {
+  id         String    @id @default(cuid())
+  key        String    @unique
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String?
+  lastUsedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([key])
+  @@index([userId])
+}
+
 // Main execution record
 model Execution {
   id            String      @id @default(cuid())
   executionId   String      @unique // User-facing ID (e.g., movie-exec-...)
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   projectId     String      @default("default")
   metadata      Json?
   finalOutcome  Json?
@@ -23,6 +49,7 @@ model Execution {
   @@index([projectId])
   @@index([executionId])
   @@index([startedAt])
+  @@index([userId])
 }
 
 // Individual step within an execution

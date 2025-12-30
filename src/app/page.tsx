@@ -31,6 +31,18 @@ export default async function HomePage() {
 
             <nav className="flex items-center gap-2">
               <Link
+                href="/signup"
+                className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+              >
+                Create Account
+              </Link>
+              <Link
+                href="/api-key"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+              >
+                API Keys
+              </Link>
+              <Link
                 href="/"
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
               >
