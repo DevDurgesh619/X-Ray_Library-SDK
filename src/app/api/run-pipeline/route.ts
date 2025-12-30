@@ -5,12 +5,15 @@ import { randomUUID } from "crypto"
 
 export async function POST() {
   const executionId = randomUUID()
-  const { execution, xray } = await runPipeline(executionId)
+  const { execution } = await runPipeline(executionId)
 
-  // Save FIRST, then enqueue reasoning (so queue can load from storage)
+  // Save execution to database immediately (without reasoning)
   await saveExecution(execution)
-  xray.enqueueReasoning()
 
+  // ❌ DON'T enqueue reasoning here
+  // Reasoning will be triggered only when user views the execution detail page
+
+  // Return immediately
   return NextResponse.json({
     executionId
   })

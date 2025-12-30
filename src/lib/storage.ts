@@ -1,147 +1,198 @@
-// lib/storage.ts
+// lib/storage.ts - Database storage with Prisma
 import { Execution } from "@/xRay"
-import fs from "fs"
-import path from "path"
+import { prisma } from "./prisma"
 
-const FILE_PATH = path.join(process.cwd(), "data", "executions.json")
-
-// Simple in-memory mutex lock to prevent concurrent file writes
-let isWriting = false
-const writeQueue: Array<() => void> = []
-
-function acquireLock(): Promise<void> {
-  return new Promise((resolve) => {
-    if (!isWriting) {
-      isWriting = true
-      resolve()
-    } else {
-      writeQueue.push(() => resolve())
-    }
-  })
-}
-
-function releaseLock() {
-  if (writeQueue.length > 0) {
-    const next = writeQueue.shift()!
-    next()
-  } else {
-    isWriting = false
-  }
-}
-
-export async function saveExecution(execution: Execution) {
-  // 🔥 VALIDATE: skip invalid executions
+/**
+ * Save a complete execution to the database
+ * This will create a new execution with all steps in a single transaction
+ */
+export async function saveExecution(execution: Execution): Promise<void> {
+  // Validate execution
   if (!execution || !execution.executionId || execution.steps.length === 0) {
     console.warn("Skipping invalid execution:", execution?.executionId)
     return
   }
 
-  // Acquire lock to prevent concurrent load-modify-write operations
-  await acquireLock()
-
   try {
-    // Load INSIDE the lock to prevent race conditions
-    let existing: Execution[] = []
-    if (fs.existsSync(FILE_PATH)) {
-      try {
-        const data = JSON.parse(fs.readFileSync(FILE_PATH, "utf-8"))
-        existing = Array.isArray(data)
-          ? data.filter((e: any) => e && e.executionId && e.steps && e.steps.length > 0)
-          : []
-      } catch (error) {
-        console.error("Failed to load executions during save:", error)
-        existing = []
-      }
-    }
+    // Check if execution already exists
+    const existing = await prisma.execution.findUnique({
+      where: { executionId: execution.executionId },
+    })
 
-    // 🔥 UPSERT: replace if ID exists, append if new
-    const index = existing.findIndex(e => e.executionId === execution.executionId)
-    if (index >= 0) {
-      existing[index] = execution
+    if (existing) {
+      // Update existing execution
+      await prisma.execution.update({
+        where: { executionId: execution.executionId },
+        data: {
+          metadata: execution.metadata || {},
+          finalOutcome: execution.finalOutcome || {},
+          completedAt: new Date(),
+          // Delete old steps and create new ones
+          steps: {
+            deleteMany: {},
+            create: execution.steps.map(step => ({
+              name: step.name,
+              input: step.input || {},
+              output: step.output || {},
+              error: step.error,
+              durationMs: step.durationMs,
+              reasoning: step.reasoning,
+            })),
+          },
+        },
+      })
+      console.log(`[Storage] ✅ Updated execution ${execution.executionId}`)
     } else {
-      existing.push(execution)
+      // Create new execution with steps
+      await prisma.execution.create({
+        data: {
+          executionId: execution.executionId,
+          projectId: execution.metadata?.projectId || "default",
+          metadata: execution.metadata || {},
+          finalOutcome: execution.finalOutcome || {},
+          steps: {
+            create: execution.steps.map(step => ({
+              name: step.name,
+              input: step.input || {},
+              output: step.output || {},
+              error: step.error,
+              durationMs: step.durationMs,
+              reasoning: step.reasoning,
+            })),
+          },
+        },
+      })
+      console.log(`[Storage] ✅ Created execution ${execution.executionId}`)
     }
-
-    fs.writeFileSync(FILE_PATH, JSON.stringify(existing, null, 2))
-  } finally {
-    // Always release lock, even if write fails
-    releaseLock()
-  }
-}
-
-export function loadExecutions(): Execution[] {
-  if (!fs.existsSync(FILE_PATH)) {
-    return []
-  }
-  try {
-    const data = JSON.parse(fs.readFileSync(FILE_PATH, "utf-8"))
-    // 🔥 CLEANUP: filter out invalid entries on load
-    return Array.isArray(data) 
-      ? data.filter((e: any) => e && e.executionId && e.steps && e.steps.length > 0)
-      : []
   } catch (error) {
-    console.error("Failed to load executions:", error)
+    console.error(`[Storage] ❌ Failed to save execution ${execution.executionId}:`, error)
+    throw error
+  }
+}
+
+/**
+ * Load all executions from the database
+ * Ordered by most recent first
+ */
+export async function loadExecutions(): Promise<Execution[]> {
+  try {
+    const executions = await prisma.execution.findMany({
+      include: {
+        steps: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
+      },
+      orderBy: {
+        startedAt: 'desc',
+      },
+      take: 100, // Limit to last 100 executions
+    })
+
+    return executions.map((exec: any) => ({
+      executionId: exec.executionId,
+      startedAt: exec.startedAt.toISOString(),
+      endedAt: exec.completedAt?.toISOString(),
+      metadata: exec.metadata as any,
+      finalOutcome: exec.finalOutcome as any,
+      steps: exec.steps.map((step: any) => ({
+        name: step.name,
+        input: step.input as any,
+        output: step.output as any,
+        error: step.error || undefined,
+        durationMs: step.durationMs || undefined,
+        reasoning: step.reasoning || undefined,
+      })),
+    }))
+  } catch (error) {
+    console.error("[Storage] ❌ Failed to load executions:", error)
     return []
   }
 }
 
-export function getExecutions(): Execution[] {
+/**
+ * Get all executions (alias for loadExecutions)
+ */
+export async function getExecutions(): Promise<Execution[]> {
   return loadExecutions()
 }
 
-export function getExecutionById(id: string): Execution | undefined {
-  return loadExecutions().find(e => e.executionId === id)
+/**
+ * Get a single execution by ID
+ */
+export async function getExecutionById(id: string): Promise<Execution | undefined> {
+  try {
+    const exec = await prisma.execution.findUnique({
+      where: { executionId: id },
+      include: {
+        steps: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
+      },
+    })
+
+    if (!exec) {
+      return undefined
+    }
+
+    return {
+      executionId: exec.executionId,
+      startedAt: exec.startedAt.toISOString(),
+      endedAt: exec.completedAt?.toISOString(),
+      metadata: exec.metadata as any,
+      finalOutcome: exec.finalOutcome as any,
+      steps: exec.steps.map((step: any) => ({
+        name: step.name,
+        input: step.input as any,
+        output: step.output as any,
+        error: step.error || undefined,
+        durationMs: step.durationMs || undefined,
+        reasoning: step.reasoning || undefined,
+      })),
+    }
+  } catch (error) {
+    console.error(`[Storage] ❌ Failed to get execution ${id}:`, error)
+    return undefined
+  }
 }
 
 /**
  * Atomically update a single step's reasoning field
- * This prevents race conditions when multiple jobs update different steps concurrently
+ * No mutex needed - database handles locking automatically
  */
 export async function updateStepReasoning(
   executionId: string,
   stepName: string,
   reasoning: string
 ): Promise<void> {
-  // Acquire lock to ensure atomic load-modify-write
-  await acquireLock()
-
   try {
-    // Load current state INSIDE the lock
-    let existing: Execution[] = []
-    if (fs.existsSync(FILE_PATH)) {
-      try {
-        const data = JSON.parse(fs.readFileSync(FILE_PATH, "utf-8"))
-        existing = Array.isArray(data)
-          ? data.filter((e: any) => e && e.executionId && e.steps && e.steps.length > 0)
-          : []
-      } catch (error) {
-        console.error("Failed to load executions during reasoning update:", error)
-        throw new Error(`Failed to load executions: ${error}`)
-      }
-    }
+    // Find the execution and step
+    const execution = await prisma.execution.findUnique({
+      where: { executionId },
+      include: { steps: true },
+    })
 
-    // Find the execution
-    const executionIndex = existing.findIndex(e => e.executionId === executionId)
-    if (executionIndex === -1) {
+    if (!execution) {
       throw new Error(`Execution ${executionId} not found`)
     }
 
-    // Find the step
-    const execution = existing[executionIndex]
-    const step = execution.steps.find(s => s.name === stepName)
+    const step = execution.steps.find((s: any) => s.name === stepName)
     if (!step) {
       throw new Error(`Step ${stepName} not found in execution ${executionId}`)
     }
 
-    // Update ONLY the reasoning field
-    step.reasoning = reasoning
-
-    // Write back with the updated step
-    fs.writeFileSync(FILE_PATH, JSON.stringify(existing, null, 2))
+    // Update only the reasoning field
+    await prisma.step.update({
+      where: { id: step.id },
+      data: { reasoning },
+    })
 
     console.log(`[Storage] ✅ Updated reasoning for ${executionId}/${stepName}`)
-  } finally {
-    // Always release lock
-    releaseLock()
+  } catch (error) {
+    console.error(`[Storage] ❌ Failed to update reasoning for ${executionId}/${stepName}:`, error)
+    throw error
   }
 }

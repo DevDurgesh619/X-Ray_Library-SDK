@@ -1,10 +1,11 @@
 // xRay/reasoningQueue.ts
-// In-memory queue for asynchronous reasoning generation
+// Database-backed queue for asynchronous reasoning generation
 
 import PQueue from 'next/dist/compiled/p-queue'
 import { loadReasoningConfig, ReasoningConfig } from './config'
 import { generateStepReasoning } from './llmReasoning'
 import { getExecutionById, updateStepReasoning } from '@/lib/storage'
+import { prisma } from '@/lib/prisma'
 import { randomUUID } from 'crypto'
 
 export interface ReasoningJob {
@@ -52,15 +53,57 @@ export class ReasoningQueue {
   static getInstance(): ReasoningQueue {
     if (!this.instance) {
       this.instance = new ReasoningQueue()
+      // Load pending jobs from database on startup
+      this.instance.loadPendingJobs().catch(error => {
+        console.error('[XRay] Failed to load pending jobs from database:', error)
+      })
     }
     return this.instance
+  }
+
+  /**
+   * Load pending jobs from database (for recovery after restart)
+   */
+  private async loadPendingJobs(): Promise<void> {
+    try {
+      const pendingJobs = await prisma.reasoningJob.findMany({
+        where: {
+          status: { in: ['pending', 'processing'] }
+        }
+      })
+
+      if (pendingJobs.length > 0) {
+        console.log(`[XRay] Found ${pendingJobs.length} pending jobs in database, re-enqueuing...`)
+
+        for (const dbJob of pendingJobs) {
+          // Create in-memory job
+          const job: ReasoningJob = {
+            id: dbJob.id,
+            executionId: dbJob.executionId,
+            stepName: dbJob.stepName,
+            attempt: dbJob.attempts,
+            status: 'pending',
+            createdAt: dbJob.createdAt.toISOString()
+          }
+
+          this.jobs.set(job.id, job)
+
+          // Re-enqueue
+          this.queue.add(() => this.processJob(job.id))
+        }
+
+        console.log(`[XRay] Re-enqueued ${pendingJobs.length} jobs from database`)
+      }
+    } catch (error) {
+      console.error('[XRay] Failed to load pending jobs from database:', error)
+    }
   }
 
   /**
    * Enqueue a single step for reasoning generation
    * Returns jobId for tracking
    */
-  enqueue(executionId: string, stepName: string): string {
+  async enqueue(executionId: string, stepName: string): Promise<string> {
     const jobId = randomUUID()
 
     const job: ReasoningJob = {
@@ -74,6 +117,30 @@ export class ReasoningQueue {
 
     this.jobs.set(jobId, job)
 
+    // Persist job to database
+    try {
+      // Get the internal database ID for the execution
+      const execution = await prisma.execution.findUnique({
+        where: { executionId },
+        select: { id: true }
+      })
+
+      if (execution) {
+        await prisma.reasoningJob.create({
+          data: {
+            id: jobId,
+            executionId: execution.id, // Use internal ID, not user-facing executionId
+            stepName,
+            status: 'pending',
+            attempts: 1
+          }
+        })
+      }
+    } catch (error) {
+      console.error(`[XRay] Failed to persist job to database:`, error)
+      // Continue anyway - job is in memory
+    }
+
     // Add to queue
     this.queue.add(() => this.processJob(jobId))
 
@@ -86,8 +153,8 @@ export class ReasoningQueue {
    * Enqueue all steps from an execution
    * Returns array of jobIds
    */
-  enqueueExecution(executionId: string): string[] {
-    const execution = getExecutionById(executionId)
+  async enqueueExecution(executionId: string): Promise<string[]> {
+    const execution = await getExecutionById(executionId)
     if (!execution) {
       throw new Error(`Execution ${executionId} not found`)
     }
@@ -97,7 +164,7 @@ export class ReasoningQueue {
     for (const step of execution.steps) {
       // Only enqueue steps without reasoning
       if (!step.reasoning) {
-        const jobId = this.enqueue(executionId, step.name)
+        const jobId = await this.enqueue(executionId, step.name)
         jobIds.push(jobId)
       }
     }
@@ -119,6 +186,16 @@ export class ReasoningQueue {
     job.status = 'processing'
     job.startedAt = new Date().toISOString()
 
+    // Update job status in database
+    try {
+      await prisma.reasoningJob.update({
+        where: { id: jobId },
+        data: { status: 'processing' }
+      })
+    } catch (error) {
+      console.error(`[XRay] Failed to update job status in database:`, error)
+    }
+
     if (this.config.debug) {
       console.log(`[XRay] Processing job ${jobId} (attempt ${job.attempt}/${this.config.maxRetries})`)
     }
@@ -127,14 +204,14 @@ export class ReasoningQueue {
       console.log(`[XRay] 🔄 Loading execution ${job.executionId} from storage...`)
 
       // Load execution from storage (read-only, to get step data for LLM)
-      const execution = getExecutionById(job.executionId)
+      const execution = await getExecutionById(job.executionId)
       if (!execution) {
         throw new Error(`Execution ${job.executionId} not found`)
       }
       console.log(`[XRay] ✓ Loaded execution with ${execution.steps.length} steps`)
 
       // Find the step
-      const step = execution.steps.find(s => s.name === job.stepName)
+      const step = execution.steps.find((s: any) => s.name === job.stepName)
       if (!step) {
         throw new Error(`Step ${job.stepName} not found in execution ${job.executionId}`)
       }
@@ -162,6 +239,20 @@ export class ReasoningQueue {
       // Mark job as completed
       job.status = 'completed'
       job.completedAt = new Date().toISOString()
+
+      // Update job status in database
+      try {
+        await prisma.reasoningJob.update({
+          where: { id: jobId },
+          data: {
+            status: 'completed',
+            reasoning,
+            completedAt: new Date()
+          }
+        })
+      } catch (error) {
+        console.error(`[XRay] Failed to update completed job in database:`, error)
+      }
 
       console.log(`[XRay] ✅ Generated reasoning for ${job.executionId}/${job.stepName}`)
 
@@ -203,6 +294,21 @@ export class ReasoningQueue {
       job.status = 'failed'
       job.completedAt = new Date().toISOString()
 
+      // Update job status in database
+      try {
+        await prisma.reasoningJob.update({
+          where: { id: job.id },
+          data: {
+            status: 'failed',
+            error: errorMessage,
+            attempts: job.attempt,
+            completedAt: new Date()
+          }
+        })
+      } catch (dbError) {
+        console.error(`[XRay] Failed to update failed job in database:`, dbError)
+      }
+
       console.error(
         `[XRay] ✗ Failed to generate reasoning for ${job.executionId}/${job.stepName} after ${job.attempt} attempts: ${errorMessage}`
       )
@@ -239,7 +345,7 @@ export class ReasoningQueue {
    * Waits for completion
    */
   async processExecution(executionId: string): Promise<void> {
-    const jobIds = this.enqueueExecution(executionId)
+    const jobIds = await this.enqueueExecution(executionId)
 
     if (jobIds.length === 0) {
       console.log(`[XRay] No pending reasoning for execution ${executionId}`)
@@ -255,7 +361,8 @@ export class ReasoningQueue {
   }
 
   /**
-   * Get queue statistics
+   * Get queue statistics (from memory)
+   * For database stats, use getStatsFromDatabase()
    */
   getStats(): QueueStats {
     const jobs = Array.from(this.jobs.values())
@@ -266,6 +373,33 @@ export class ReasoningQueue {
       completed: jobs.filter(j => j.status === 'completed').length,
       failed: jobs.filter(j => j.status === 'failed').length,
       totalJobs: jobs.length
+    }
+  }
+
+  /**
+   * Get queue statistics from database (persistent across restarts)
+   */
+  async getStatsFromDatabase(): Promise<QueueStats> {
+    try {
+      const [pending, processing, completed, failed, totalJobs] = await Promise.all([
+        prisma.reasoningJob.count({ where: { status: 'pending' } }),
+        prisma.reasoningJob.count({ where: { status: 'processing' } }),
+        prisma.reasoningJob.count({ where: { status: 'completed' } }),
+        prisma.reasoningJob.count({ where: { status: 'failed' } }),
+        prisma.reasoningJob.count()
+      ])
+
+      return {
+        pending,
+        processing,
+        completed,
+        failed,
+        totalJobs
+      }
+    } catch (error) {
+      console.error('[XRay] Failed to get stats from database:', error)
+      // Fallback to in-memory stats
+      return this.getStats()
     }
   }
 

@@ -16,6 +16,7 @@ const filterResult = (passed, actual, threshold) => ({
   detail: `${actual} vs ${threshold}`
 });
 
+
 // Product templates for remaining 15 products
 const remainingProducts = [
   // Product 8: Slim Leather Case - Edge Case: NO_COMPETITOR_FOUND after LLM rejects all

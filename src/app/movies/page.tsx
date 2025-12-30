@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { getExecutions } from "@/lib/storage"
 
-export default function MovieDashboard() {
-  const executions = getExecutions().filter(
+export default async function MovieDashboard() {
+  const executions = (await getExecutions()).filter(
     e => e.metadata?.domain === "movie-recommendation"
   )
 

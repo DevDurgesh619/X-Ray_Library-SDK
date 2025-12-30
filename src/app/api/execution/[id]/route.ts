@@ -7,7 +7,7 @@ type Props = {
 
 export async function GET(request: Request, { params }: Props) {
   const { id } = await params
-  const execution = getExecutionById(id)
+  const execution = await getExecutionById(id)
 
   if (!execution) {
     return NextResponse.json({ error: "Execution not found" }, { status: 404 })

@@ -95,11 +95,11 @@ export class XRay {
   }
 
   /** Enqueue reasoning jobs - call AFTER saveExecution() */
-  enqueueReasoning() {
+  async enqueueReasoning() {
     if (process.env.XRAY_AUTO_REASONING === 'true') {
       const queue = ReasoningQueue.getInstance()
       for (const stepName of this.pendingReasoningSteps) {
-        queue.enqueue(this.execution.executionId, stepName)
+        await queue.enqueue(this.execution.executionId, stepName)
       }
     }
   }
