@@ -2,6 +2,10 @@ import Link from "next/link"
 import { getExecutions } from "@/lib/storage"
 import ExecutionCard from "@/app/components/ExecutionCard"
 
+// Force dynamic rendering - no caching
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function HomePage() {
   const executions = (await getExecutions()).filter(
     e => e.metadata?.domain !== "movie-recommendation"

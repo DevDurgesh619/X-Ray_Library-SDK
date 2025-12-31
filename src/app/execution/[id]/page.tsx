@@ -4,6 +4,10 @@ import ExecutionReasoningTrigger from "@/app/components/ExecutionReasoningTrigge
 import StepReasoning from "@/app/components/StepReasoning"
 import StepCard from "@/app/components/StepCard"
 
+// Force dynamic rendering - no caching
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 type Props = {
   params: Promise<{ id: string }>
 }
