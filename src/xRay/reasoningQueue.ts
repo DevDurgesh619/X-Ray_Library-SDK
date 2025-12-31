@@ -201,7 +201,7 @@ export class ReasoningQueue {
     }
 
     try {
-      console.log(`[XRay] 🔄 Loading execution ${job.executionId} from storage...`)
+      console.log(`[XRay] Loading execution ${job.executionId} from storage...`)
 
       // Load execution from storage (read-only, to get step data for LLM)
       const execution = await getExecutionById(job.executionId)
@@ -219,21 +219,21 @@ export class ReasoningQueue {
 
       // Skip if reasoning already exists (idempotency)
       if (step.reasoning) {
-        console.log(`[XRay] ⏭️  Reasoning already exists for ${job.stepName}: "${step.reasoning.substring(0, 50)}...", skipping`)
+        console.log(`[XRay] Reasoning already exists for ${job.stepName}: "${step.reasoning.substring(0, 50)}...", skipping`)
         job.status = 'completed'
         job.completedAt = new Date().toISOString()
         return
       }
 
       // Generate reasoning (this is the LLM call)
-      console.log(`[XRay] 🤖 Calling LLM for ${job.stepName}...`)
-      console.log(`[XRay] 🔑 Using server's OpenAI key for reasoning generation`)
+      console.log(`[XRay] Calling LLM for ${job.stepName}...`)
+      console.log(`[XRay] Using server's OpenAI key for reasoning generation`)
       const reasoning = await generateStepReasoning(step)
       console.log(`[XRay] ✓ LLM returned reasoning (${reasoning.length} chars): "${reasoning.substring(0, 100)}..."`)
 
-      // ✨ ATOMIC UPDATE: Use new function that locks load-modify-write cycle
+      // ATOMIC UPDATE: Use new function that locks load-modify-write cycle
       // This prevents race conditions when multiple jobs update different steps
-      console.log(`[XRay] 💾 Atomically updating reasoning in storage...`)
+      console.log(`[XRay] Atomically updating reasoning in storage...`)
       await updateStepReasoning(job.executionId, job.stepName, reasoning)
       console.log(`[XRay] ✓ Reasoning saved to storage`)
 
@@ -255,11 +255,11 @@ export class ReasoningQueue {
         console.error(`[XRay] Failed to update completed job in database:`, error)
       }
 
-      console.log(`[XRay] ✅ Generated reasoning for ${job.executionId}/${job.stepName}`)
+      console.log(`[XRay]  Generated reasoning for ${job.executionId}/${job.stepName}`)
 
     } catch (error: any) {
-      console.error(`[XRay] ❌ Error processing job ${jobId}:`, error.message)
-      console.error(`[XRay] ❌ Error stack:`, error.stack)
+      console.error(`[XRay] Error processing job ${jobId}:`, error.message)
+      console.error(`[XRay] Error stack:`, error.stack)
       await this.handleJobError(job, error)
     }
   }

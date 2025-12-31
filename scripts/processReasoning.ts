@@ -36,7 +36,7 @@ async function main() {
       try {
         await queue.processExecution(exec.executionId)
       } catch (error: any) {
-        console.error(`   ❌ Error: ${error.message}`)
+        console.error(`    Error: ${error.message}`)
       }
     }
 
@@ -78,9 +78,9 @@ async function main() {
   console.log()
 
   if (stats.failed > 0) {
-    console.log("⚠️  Some jobs failed. Check logs for details.")
+    console.log("  Some jobs failed. Check logs for details.")
   } else {
-    console.log("✅ All jobs completed successfully!")
+    console.log(" All jobs completed successfully!")
   }
   console.log()
 }

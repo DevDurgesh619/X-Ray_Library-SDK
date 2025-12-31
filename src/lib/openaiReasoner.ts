@@ -25,8 +25,8 @@ export async function openaiExplainStep(step: Step): Promise<string> {
 
   // Skip if no server API key
   if (!process.env.OPENAI_API_KEY) {
-    console.log(`[LLM] ⚠️  No server OPENAI_API_KEY found, returning fallback`)
-    return `✅ ${step.name} processed (${step.durationMs ?? 0}ms)`
+    console.log(`[LLM]   No server OPENAI_API_KEY found, returning fallback`)
+    return ` ${step.name} processed (${step.durationMs ?? 0}ms)`
   }
 
   console.log(`[LLM] ✓ Using server's OPENAI_API_KEY`)
@@ -129,7 +129,7 @@ Generate reasoning now:`;
 
     // If response looks like truncated JSON, return fallback
     if (reasoning.startsWith('{') && !reasoning.endsWith('}')) {
-      console.log(`[LLM] ⚠️  Detected truncated JSON response, using fallback`)
+      console.log(`[LLM]   Detected truncated JSON response, using fallback`)
       const fallback = generateNumericReasoning(step) || `Processed ${step.name}`
       console.log(`[LLM] ✓ Using fallback: "${fallback}"`)
       return fallback

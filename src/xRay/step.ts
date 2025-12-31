@@ -3,7 +3,7 @@ export interface Step {
   input: any
   output?: any
   error?: string
-  metadata?: Record<string, any>  // ✅ ADDED: for logStep v1 API
+  metadata?: Record<string, any>  // ADDED: for logStep v1 API
   evaluations?: Array<{        
     id: string
     passed?: boolean

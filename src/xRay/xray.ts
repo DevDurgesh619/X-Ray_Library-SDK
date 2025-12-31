@@ -16,7 +16,7 @@ export class XRay {
     }
   }
 
-  /** ✅ BACKWARD-COMPATIBLE (v1) – no auto reasoning */
+  /** BACKWARD-COMPATIBLE (v1) – no auto reasoning */
   logStep(step: {
     name: string
     input: any
