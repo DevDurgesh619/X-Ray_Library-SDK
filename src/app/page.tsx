@@ -42,18 +42,6 @@ export default async function HomePage() {
               >
                 API Keys
               </Link>
-              <Link
-                href="/"
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
-              >
-                Competitors
-              </Link>
-              <Link
-                href="/movies"
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition-colors"
-              >
-                Movies
-              </Link>
             </nav>
           </div>
         </div>
