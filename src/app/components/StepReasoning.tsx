@@ -40,7 +40,7 @@ export default function StepReasoning({
         setPollCount(prev => prev + 1)
 
         try {
-          const response = await fetch(`/api/execution/${executionId}`)
+          const response = await fetch(`/api/internal/execution/${executionId}`)
           if (!response.ok) {
             console.error(`[UI] Failed to fetch execution: ${response.statusText}`)
             return

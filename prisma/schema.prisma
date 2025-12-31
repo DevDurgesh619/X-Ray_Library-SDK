@@ -34,17 +34,17 @@ model ApiKey {
 
 // Main execution record
 model Execution {
-  id            String      @id @default(cuid())
-  executionId   String      @unique // User-facing ID (e.g., movie-exec-...)
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  projectId     String      @default("default")
-  metadata      Json?
-  finalOutcome  Json?
-  startedAt     DateTime    @default(now())
-  completedAt   DateTime?
-  steps         Step[]
-  reasoningJobs ReasoningJob[]
+  id                   String      @id @default(cuid())
+  executionId          String      @unique // User-facing ID (e.g., movie-exec-...)
+  userId               String
+  user                 User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId            String      @default("default")
+  metadata             Json?
+  finalOutcome         Json?
+  startedAt            DateTime    @default(now())
+  completedAt          DateTime?
+  steps                Step[]
+  reasoningJobs        ReasoningJob[]
 
   @@index([projectId])
   @@index([executionId])

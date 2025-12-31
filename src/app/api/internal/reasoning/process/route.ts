@@ -1,17 +1,15 @@
-// API endpoint for manual reasoning processing
-import { NextResponse } from 'next/server'
-import { ReasoningQueue } from '@/xRay/reasoningQueue'
-import { getUserIdFromRequest, unauthorizedResponse } from '@/lib/authMiddleware'
-import { getExecutionById } from '@/lib/storage'
+import { NextResponse } from "next/server"
+import { ReasoningQueue } from "@/xRay/reasoningQueue"
+import { getExecutionById } from "@/lib/storage"
 
+/**
+ * Internal API endpoint for dashboard to trigger reasoning without authentication
+ * This is used by ExecutionReasoningTrigger component when user views an execution
+ *
+ * SECURITY: Only uses server's OpenAI key. Developers should generate reasoning
+ * client-side first if they want to use their own API keys.
+ */
 export async function POST(request: Request) {
-  // Extract and validate userId from API key
-  const userId = await getUserIdFromRequest(request)
-
-  if (!userId) {
-    return unauthorizedResponse()
-  }
-
   try {
     const { executionId } = await request.json()
 
@@ -22,8 +20,8 @@ export async function POST(request: Request) {
       )
     }
 
-    // Verify user owns this execution
-    const execution = await getExecutionById(executionId, userId)
+    // Verify execution exists
+    const execution = await getExecutionById(executionId)
 
     if (!execution) {
       return NextResponse.json(
@@ -32,11 +30,13 @@ export async function POST(request: Request) {
       )
     }
 
+    console.log(`[XRay Internal API] Using server's OpenAI key for reasoning generation`)
+
     const queue = ReasoningQueue.getInstance()
 
     // Log execution details before processing
-    console.log(`[XRay API] Processing reasoning for execution: ${executionId}`)
-    console.log(`[XRay API] Execution details:`, {
+    console.log(`[XRay Internal API] Processing reasoning for execution: ${executionId}`)
+    console.log(`[XRay Internal API] Execution details:`, {
       executionId: execution.executionId,
       startedAt: execution.startedAt,
       endedAt: execution.endedAt,
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       }))
     })
 
-    // Process the execution
+    // Process the execution using server's OpenAI key only
     await queue.processExecution(executionId)
 
     // Return success with stats
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
     })
 
   } catch (error: any) {
-    console.error('[XRay API] Processing error:', error)
+    console.error('[XRay Internal API] Processing error:', error)
 
     return NextResponse.json(
       {

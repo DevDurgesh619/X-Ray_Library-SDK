@@ -6,7 +6,8 @@ export async function generateStepReasoning(step: Step): Promise<string> {
   if (step.error) {
     return `❌ ${step.name} failed: ${step.error}`
   }
-  
+
   // LLM-powered reasoning (works for ANY pipeline)
+  // Always uses server's OpenAI key for security
   return await openaiExplainStep(step)
 }

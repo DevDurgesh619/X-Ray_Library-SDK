@@ -18,7 +18,7 @@ export default function ExecutionReasoningTrigger({
     const wasTriggered = localStorage.getItem(storageKey)
 
     if (!wasTriggered) {
-      fetch("/api/reasoning/process", {
+      fetch("/api/internal/reasoning/process", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ executionId })

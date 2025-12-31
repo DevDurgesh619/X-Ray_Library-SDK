@@ -6,5 +6,5 @@ export interface Execution {
   endedAt?: string
   steps: Step[]
   finalOutcome?: any
-  metadata?: Record<string, any>   // ✅ NEW (safe)
+  metadata?: Record<string, any>
 }

@@ -227,6 +227,7 @@ export class ReasoningQueue {
 
       // Generate reasoning (this is the LLM call)
       console.log(`[XRay] 🤖 Calling LLM for ${job.stepName}...`)
+      console.log(`[XRay] 🔑 Using server's OpenAI key for reasoning generation`)
       const reasoning = await generateStepReasoning(step)
       console.log(`[XRay] ✓ LLM returned reasoning (${reasoning.length} chars): "${reasoning.substring(0, 100)}..."`)
 
