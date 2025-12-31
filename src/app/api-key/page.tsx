@@ -1,12 +1,15 @@
-import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import { CopyButton } from './components/CopyButton'
 
 export default async function ApiKeyPage({
   searchParams
 }: {
-  searchParams: { key?: string }
+  searchParams: Promise<{ key?: string; email?: string }> | { key?: string; email?: string }
 }) {
-  const apiKeyParam = searchParams.key
+  // Handle both Promise and non-Promise searchParams (Next.js 14+ compatibility)
+  const params = searchParams instanceof Promise ? await searchParams : searchParams
+  const apiKeyParam = params.key
+  const emailParam = params.email
 
   // If key passed via URL, show it directly (post-signup)
   if (apiKeyParam) {
@@ -16,7 +19,10 @@ export default async function ApiKeyPage({
           <h1 className="text-2xl font-bold mb-4">✅ Account Created!</h1>
 
           <div className="bg-green-50 border border-green-200 p-4 rounded mb-6">
-            <div className="text-sm font-medium mb-2">Your API Key</div>
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-sm font-medium">Your API Key</div>
+              <CopyButton text={apiKeyParam} />
+            </div>
             <code className="text-sm bg-white px-3 py-2 rounded border block break-all font-mono">
               {apiKeyParam}
             </code>
@@ -25,81 +31,88 @@ export default async function ApiKeyPage({
             </div>
           </div>
 
+          {emailParam && (
+            <div className="bg-blue-50 border border-blue-200 p-4 rounded mb-6">
+              <div className="text-sm font-medium mb-2">📧 Your Account Email</div>
+              <div className="text-sm">{emailParam}</div>
+              <div className="text-xs text-gray-600 mt-2">
+                Use this email if you need to access your keys later
+              </div>
+            </div>
+          )}
+
           <div className="bg-gray-50 p-4 rounded mb-6">
             <div className="text-sm font-medium mb-2">Usage Example</div>
             <pre className="text-xs bg-white p-3 rounded border overflow-x-auto">
-{`import XRay from '@xray/sdk'
+{`// .env file
+XRAY_API_URL="https://x-ray-library-sdk-git-main-devdurgesh619s-projects.vercel.app"
+XRAY_API_KEY="${apiKeyParam}"
 
-XRay.init({
-  apiKey: '${apiKeyParam}',
-  serverUrl: 'http://localhost:3000'
-})
+// Your pipeline code
+import { XRay } from 'xray-sdk'
+import { createXRayClient } from './lib/xrayClient'
 
-// Start logging
-const xray = new XRay('exec-123')
-xray.logStep({ step: 'test', input: {...}, output: {...} })
-xray.end({ success: true })`}
+const xray = new XRay('exec-123', { pipeline: 'my-pipeline' })
+xray.startStep('process', { input: 'data' })
+xray.endStep('process', { output: 'result' })
+
+const execution = xray.end({ status: 'success' })
+await createXRayClient().saveExecution(execution)`}
             </pre>
           </div>
 
-          <Link
-            href="/"
-            className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-          >
-            View Dashboard
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              href="/"
+              className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+            >
+              Go to Dashboard
+            </Link>
+          </div>
         </div>
       </div>
     )
   }
 
-  // Fallback: show all users (for development/debugging)
-  const users = await prisma.user.findMany({
-    include: { apiKeys: true },
-    orderBy: { createdAt: 'desc' },
-    take: 10
-  })
-
+  // No authentication - show message to create account or contact admin
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">API Keys</h1>
-        <Link href="/" className="text-blue-600 hover:underline">
-          ← Back to Dashboard
-        </Link>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow">
+        <h1 className="text-2xl font-bold mb-4">API Keys</h1>
 
-      {users.length === 0 && (
-        <div className="bg-white border rounded p-8 text-center">
-          <p className="text-gray-500 mb-4">No users yet</p>
-          <Link
-            href="/signup"
-            className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-          >
-            Create Account
+        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded mb-6">
+          <div className="text-sm font-medium mb-2">🔒 Secure Access</div>
+          <p className="text-sm text-gray-700">
+            For security reasons, API keys are only shown once during account creation.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <h2 className="font-medium mb-2">Don't have an account?</h2>
+            <Link
+              href="/signup"
+              className="inline-block w-full text-center bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+            >
+              Create Account
+            </Link>
+          </div>
+
+          <div>
+            <h2 className="font-medium mb-2">Lost your API key?</h2>
+            <p className="text-sm text-gray-600 mb-2">
+              API keys are shown only once during account creation for security.
+              If you've lost your key, please contact support or create a new account.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6 pt-6 border-t">
+          <Link href="/" className="text-blue-600 hover:underline text-sm">
+            ← Back to Dashboard
           </Link>
         </div>
-      )}
-
-      {users.map((user) => (
-        <div key={user.id} className="bg-white border rounded p-4 mb-4">
-          <div className="font-medium text-lg">{user.name || user.email}</div>
-          <div className="text-sm text-gray-600 mb-3">{user.email}</div>
-
-          {user.apiKeys.map((key) => (
-            <div key={key.id} className="bg-gray-50 p-3 rounded">
-              <div className="text-xs text-gray-500 mb-1">
-                {key.name || 'API Key'}
-              </div>
-              <code className="text-xs font-mono break-all">{key.key}</code>
-              <div className="text-xs text-gray-500 mt-2">
-                Created: {key.createdAt.toLocaleDateString()}
-                {key.lastUsedAt && ` • Last used: ${key.lastUsedAt.toLocaleDateString()}`}
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
+      </div>
     </div>
   )
 }

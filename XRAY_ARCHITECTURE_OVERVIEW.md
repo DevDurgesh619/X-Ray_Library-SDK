@@ -10,7 +10,7 @@ X-Ray is an **observability platform for LLM pipelines** that tracks, logs, and 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    YOUR APPLICATION                          │
+│                    OUR APPLICATION                          │
 │  (demo-app, your own app, any Node.js/TypeScript project)  │
 │                                                              │
 │  1. Import xray-sdk from npm                                │
